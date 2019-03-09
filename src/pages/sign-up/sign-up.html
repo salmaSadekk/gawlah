@@ -1,0 +1,35 @@
+
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>SignUp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+  <ion-list>
+      <ion-item>
+          <ion-label fixed>Full Name</ion-label>
+          <ion-input type="text" name="name" ngModel required></ion-input>
+         </ion-item>
+    <ion-item>
+     <ion-label fixed>email</ion-label>
+     <ion-input type="email" name="email" ngModel required></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label fixed>password</ion-label>
+        <ion-input type="password" name="password" ngModel required></ion-input>
+       </ion-item>
+       <ion-item>
+        <ion-label fixed>Phone Number</ion-label>
+       <ion-input type="number" name="phoneNumber" ngModel required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Country</ion-label>
+       <ion-input type="text" name="country" ngModel required></ion-input>
+      </ion-item>
+  </ion-list>
+  <button round ion-button  [disabled]="!f.valid">Register</button>
+  </form>
+  
+</ion-content>

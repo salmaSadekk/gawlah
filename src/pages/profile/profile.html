@@ -1,0 +1,123 @@
+
+<ion-content   >
+  <img src="../../assets/imgs/ProfileBack.jpg" style="width: 100%;height:30%"/>
+ <!--  <ion-card >
+      <img src="../../assets/imgs/ProfileBack.jpg"/>
+      
+    </ion-card> --> 
+    <div  class="d1"padding>
+        <ion-segment [(ngModel)]="icons" >
+          <ion-segment-button   value="Users">
+            User
+          </ion-segment-button>
+          <ion-segment-button  value="Tours">
+            Tours
+          </ion-segment-button>
+          <ion-segment-button  value="Favs">
+             Favorites
+            </ion-segment-button>
+        </ion-segment>
+      </div>
+      
+      <div [ngSwitch]="icons">
+        <ion-list *ngSwitchCase="'Users'"  no-lines>
+       
+            <ion-item-group >
+                <ion-item-divider >LANGUAGES</ion-item-divider>
+                <ion-item>
+                  <ion-icon name="flag"></ion-icon>
+                  German</ion-item>
+                <ion-item>
+                    <ion-icon name="flag"></ion-icon>
+                  English</ion-item>
+                <ion-item-divider >POINTS</ion-item-divider>
+                <ion-item icon-left>
+                  <ion-icon name="cash"></ion-icon>
+                  30points</ion-item>
+                
+              </ion-item-group>
+        </ion-list>
+        <ion-list  *ngSwitchDefault no-lines>
+       
+          <ion-item-group >
+              <ion-item-divider >LANGUAGES</ion-item-divider>
+              <ion-item>
+                <ion-icon name="flag"></ion-icon>
+                German</ion-item>
+              <ion-item>
+                  <ion-icon name="flag"></ion-icon>
+                English</ion-item>
+              <ion-item-divider >POINTS</ion-item-divider>
+              <ion-item icon-left>
+                <ion-icon name="cash"></ion-icon>
+                30points</ion-item>
+              
+            </ion-item-group>
+      </ion-list>
+      
+        <ion-list *ngSwitchCase="'Tours'" no-lines>
+         <ion-item >
+            <ion-card>
+                <img src="../../assets/imgs/egyptian Museum.png"/>
+                <ion-card-content>
+                  <ion-card-title>
+                    Egyptian Museum
+                    </ion-card-title>
+                  <p>Accessories Tour</p>
+                </ion-card-content>
+              </ion-card>
+         </ion-item>
+        </ion-list>
+        <ion-list *ngSwitchCase="'Favs'" no-lines>
+            <ion-item>
+                <ion-card>
+                    <img src="../../assets/imgs/egyMuse.jpg"/>
+                    <ion-card-content>
+                      <ion-grid>
+                        <ion-row>
+                          <ion-col col-2>
+                             <ion-avatar item-start>
+                                 <img src="../../assets/imgs/UserProfile.png">
+                               </ion-avatar>
+                          </ion-col>
+                          <ion-col>
+                             <ion-card-title>
+                                 Egyptian Museum
+                                 </ion-card-title>
+                                
+                               <p>Sports Tour</p>
+                          </ion-col>
+                        </ion-row>
+                      </ion-grid>
+                    
+                    </ion-card-content>
+                  </ion-card>
+             </ion-item>
+          </ion-list>
+      </div>
+<!--
+<ion-grid>
+ 
+    <ion-row>
+      <ion-col>
+        <button ion-button clear (click)="flag('User')" >User</button>
+      </ion-col>
+      <ion-col>
+          <button ion-button clear (click)="flag('Tour')">Tours</button>
+        </ion-col>
+        <ion-col>
+            <button ion-button clear (click)="flag('Fav')">Favorites</button>
+          </ion-col>
+    </ion-row>
+</ion-grid>
+<hr>
+<ion-item-group *ngIf="user">
+    <ion-item-divider color="light">Languages</ion-item-divider>
+    <ion-item>German</ion-item>
+    <ion-item>English</ion-item>
+    <ion-item-divider color="light">Points</ion-item-divider>
+    <ion-item>30points</ion-item>
+    
+  </ion-item-group>
+-->
+</ion-content>

@@ -1,0 +1,29 @@
+
+<ion-header>
+  <ion-navbar>
+    <ion-title></ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-card text-center (click)="onItemClick()">
+        <img [src]="tour.mainImage"/>
+        <ion-card-content>
+            <ion-card-title>
+                {{tour.name}}
+                  </ion-card-title>
+                 
+                <p>{{tour.theme}}</p>
+        
+        </ion-card-content>
+      </ion-card>
+      <ion-list no-lines >
+        <ion-item>
+          <ion-avatar item-start>
+            <img [src]="tour.review[0].image">
+          </ion-avatar>
+          <h2>Cher</h2>
+          <p>Amazing</p>
+        </ion-item>
+      </ion-list>
+</ion-content>
