@@ -28,9 +28,12 @@
    </ion-item>
   <ion-grid>
     <ion-row>
-      <ion-col>
-        <button ion-button clear >previous item</button>
+      <!--
+        <ion-col>
+        <button ion-button clear *ngIf="!first" >previous item</button>
       </ion-col>
+      -->
+      
       <ion-col text-end *ngIf="flag" (click)="onNextItem()">
         <button ion-button clear >Next Item</button>
       </ion-col>
@@ -40,6 +43,6 @@
     </ion-row>
   </ion-grid>
 </ion-card>
-<ion-item text-center no-lines ><p >{{currentItem.addedInfo}}</p></ion-item>
+<ion-item text-center no-lines ><b>{{currentItem.addedInfo}}</b></ion-item>
 
 </ion-content>

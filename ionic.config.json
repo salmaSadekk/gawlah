@@ -1,5 +1,7 @@
 {
   "name": "SignInRegTest1",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "ionic-angular"
 }

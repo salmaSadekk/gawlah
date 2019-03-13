@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, AlertController, ToastController } from 'ionic-angular';
 import { NgForm } from '@angular/forms';
 import {Http, Headers, RequestOptions}  from '@angular/http';
 import 'rxjs/add/operator/map';
@@ -17,7 +17,7 @@ export class SignInPage {
 
  
   constructor(public navCtrl: NavController, public navParams: NavParams ,private loading :LoadingController,
-    private authService :AuthService, private alertCtrl:AlertController) {
+    private authService :AuthService, private alertCtrl:AlertController ,public toastCtrl: ToastController) {
    
   }
   SignUp(){
@@ -83,7 +83,18 @@ export class SignInPage {
     
     }
     
-    });
+    } ,
+    error=>{
+     loader.dismiss() ;
+   
+     let alert = this.alertCtrl.create({
+    
+      title:error.status +error.error,
+      subTitle:error.error.message ,
+      buttons: ['OK']
+      
+      } );  alert.present();
+     });
     
   
     

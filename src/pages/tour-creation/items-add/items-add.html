@@ -1,0 +1,45 @@
+<!--
+  Generated template for the ItemsAddPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar hideBackButton>
+    <ion-title>itemsAdd</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" >
+    <ion-item>
+        <ion-label>Museum's Monuments</ion-label>
+        <ion-select  ngModel name="selected" multiple="false" required>
+            <ion-option   *ngFor="let item of Monum">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+<ion-list>
+  <ion-item>
+      <ion-textarea required  ngModel name ="txt"placeholder="enter the description realted to the theme" rows="4" cols="12" ></ion-textarea>
+
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-left>
+<button ion-button [disabled]="!f.valid" type ="submit" clear (click)="finish()">Finish</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+    <ion-col text-right>
+        <button ion-button [disabled]="!f.valid"type="submit" clear (click)="add()" >Add another</button>
+              </ion-col>
+            </ion-row>
+  </ion-grid>>
+
+     
+ 
+</ion-list>
+</form>
+
+</ion-content>

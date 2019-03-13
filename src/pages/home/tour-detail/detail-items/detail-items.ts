@@ -17,6 +17,7 @@ import { Items } from '../../../../Models/Items';
 export class DetailItemsPage implements OnInit {
 items :Items[] ;
 index:number ;
+first =true ;
 currentItem:Items ;
 flag=true ;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
@@ -28,7 +29,11 @@ flag=true ;
 ngOnInit() {
   this.items =this.navParams.get('items') ;
   this.index =this.navParams.get('index') ;
+  if(this.index>0) {
+    this.first =false ;
+    
 
+  }
   this.currentItem =this.items[this.index] ;
   console.log('salom'+this.index) ;
   if (this.index==this.items.length-1){
@@ -36,10 +41,11 @@ ngOnInit() {
   }
 }
 onFinish(){
-
+this.navCtrl.popToRoot() ;
 }
 onNextItem() {
-  this.navCtrl.push(DetailItemsPage ,{'items':this.items , 'index':++this.index}) ;
+  
+  this.navCtrl.push(DetailItemsPage ,{'items':this.items , 'index':++this.index }) ;
 }
  
 }

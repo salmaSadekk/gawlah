@@ -17,7 +17,7 @@
         
         </ion-card-content>
       </ion-card>
-      <ion-list no-lines >
+      <ion-list no-lines *ngIf="flag" >
         <ion-item>
           <ion-avatar item-start>
             <img [src]="tour.review[0].image">

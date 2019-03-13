@@ -17,6 +17,9 @@ import { ProfilePage } from '../pages/profile/profile';
 import { ToursService } from '../services/Tours';
 import { TourDetailPage } from '../pages/home/tour-detail/tour-detail';
 import { DetailItemsPage } from '../pages/home/tour-detail/detail-items/detail-items';
+import { TourCreationPage } from '../pages/tour-creation/tour-creation';
+import { ItemsAddPage } from '../pages/tour-creation/items-add/items-add';
+import { availableMonuments } from '../services/availableMonuments';
 
 
 
@@ -30,7 +33,10 @@ import { DetailItemsPage } from '../pages/home/tour-detail/detail-items/detail-i
     SearchPage ,
     ProfilePage ,
     TourDetailPage ,
-    DetailItemsPage
+    DetailItemsPage ,
+    TourCreationPage ,
+    ItemsAddPage 
+
 
 
    
@@ -51,7 +57,10 @@ import { DetailItemsPage } from '../pages/home/tour-detail/detail-items/detail-i
     SearchPage ,
     ProfilePage ,
     TourDetailPage ,
-    DetailItemsPage
+    DetailItemsPage ,
+    TourCreationPage ,
+    ItemsAddPage
+
 
  
   ],
@@ -60,7 +69,7 @@ import { DetailItemsPage } from '../pages/home/tour-detail/detail-items/detail-i
     SplashScreen,
     AuthService, 
     ToursService ,
-   
+    availableMonuments ,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

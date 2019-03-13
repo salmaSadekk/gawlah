@@ -11,6 +11,7 @@ import { DetailItemsPage } from './detail-items/detail-items';
 })
 export class TourDetailPage implements OnInit {
    tour:Tours ;
+   flag=false ;
   constructor(public navCtrl: NavController, public navParams: NavParams ) {
   }
 
@@ -19,10 +20,13 @@ export class TourDetailPage implements OnInit {
   }
   ngOnInit(){
     this.tour = this.navParams.data ;
+    if (this.tour.CreatorImg!==''){
+this.flag=true ;
+    }
    
   }
   onItemClick(){
-   this.navCtrl.push(DetailItemsPage ,{'items':this.tour.items , 'index':0}) ;
+   this.navCtrl.push(DetailItemsPage ,{'items':this.tour.items , 'index':0 }) ;
   }
 
 }
