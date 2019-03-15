@@ -6,6 +6,7 @@ import { ToursService } from '../../services/Tours';
 import { TourCreationPage } from '../tour-creation/tour-creation';
 import { AuthService } from '../../services/auth';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { AudioPage } from '../audio/audio';
 
 
 @Component({
@@ -30,7 +31,9 @@ ionViewWillEnter() {
   onTourCreate(){
     this.app.getRootNav().setRoot(TourCreationPage);
   }
- 
+  audio(){
+    this.navCtrl.push(AudioPage);
+  }
   
     
     }

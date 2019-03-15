@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { availableMonuments } from '../../../services/availableMonuments';
 import { Items } from '../../../Models/Items';
 import { NgForm } from '@angular/forms';
 import { Tours } from '../../../Models/Tours';
 import { TabsPage } from '../../tabs/tabs';
 import { ToursService } from '../../../services/Tours';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer';
 
 /**
  * Generated class for the ItemsAddPage page.
@@ -25,9 +27,10 @@ export class ItemsAddPage {
    addBut=false ;
    finishBut=false ;
    index:number ;
+   img:string ='' ;
    
-  constructor(public navCtrl: NavController, public navParams: NavParams , public avMon:availableMonuments ,public TourSer :
-    ToursService) {
+  constructor(public toastCtrl :ToastController ,public camera: Camera  ,public navCtrl: NavController, public navParams: NavParams , public avMon:availableMonuments ,public TourSer :
+    ToursService ,private transfer: FileTransfer, private file: File) {
   }
 finish() {
 this.finishBut=true ;
@@ -39,6 +42,28 @@ add() {
   ionViewWillEnter() {
     this.Monum = this.avMon.getItems() ;
    
+  }
+  Camera(){
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL ,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE ,
+      sourceType:0
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+     // imageData is either a base64 encoded string or a file URI
+     // If it's base64 (DATA_URL):
+     this.img= 'data:image/jpeg;base64,' + imageData;
+     let base64Image = 'data:image/jpeg;base64,' + imageData;
+    }, (err) => {
+      const toast = this.toastCtrl.create({
+        message: err,
+        duration: 3000
+      });
+      toast.present();
+    });
   }
  
   onSubmit(f:NgForm) {
@@ -52,6 +77,24 @@ add() {
       }
     ) ;
     this.tour.items[this.index].addedInfo =f.value.txt ;
+    this.tour.items[this.index].imgUrl =this.img ;
+    this.tour.items[this.index].sequenceNum =f.value.seqNum ;
+    this.tour.items[this.index].Time =f.value.dur ;
+    const fileTransfer: FileTransferObject = this.transfer.create();
+    
+    let options: FileUploadOptions = {
+      fileKey: 'file',
+      fileName: 'name.jpeg',
+      headers: {}
+     
+   }
+   /*
+   fileTransfer.upload(this.img,'',options).then(data=>{
+     console.log('success:' + data) ;
+   }
+    
+   ).catch((err)=>
+   {alert("error"+JSON.stringify(err));}); */
    
     if(this.addBut){ 
       this.navCtrl.push(ItemsAddPage ,{'tour':this.tour ,'index':++this.index})
@@ -60,10 +103,11 @@ add() {
    
     if(this.finishBut){
       console.log('submit finish button') ;
-      this.tour.mainImage ="../../assets/imgs/m6.jpg"
+      
       this.TourSer.addTour(this.tour) ;
       this.navCtrl.setRoot(TabsPage) ;
     }
+     
    
     
   }

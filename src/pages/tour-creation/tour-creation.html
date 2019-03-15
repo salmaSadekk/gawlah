@@ -18,29 +18,39 @@
       <ion-label floating>
         Name of the Museum
       </ion-label>
-      <ion-input type="text" ngModel name ="name"></ion-input>
+      <ion-input type="text" ngModel name ="name" required></ion-input>
     </ion-item>
     <ion-item>
       <ion-label floating>
         Theme of the Tour
       </ion-label>
-      <ion-input type="text" ngModel name="theme"></ion-input>
+      <ion-input type="text" ngModel name="theme" required></ion-input>
     </ion-item>
     <ion-item icon-left>
      
       <ion-label floating>
         duration
       </ion-label>
-      <ion-input type="text" ngModel name="dur"></ion-input>
+      <ion-input type="text" ngModel name="dur" required ></ion-input>
     </ion-item>
-    <ion-item>
-      <button ion-button type="button" (click)="Camera()"> Take a picture</button>
-      <img [src]="img" *ngIf="img">
-    </ion-item>
+    
+     <ion-item>
+      <button
+      ion-button
+      icon-left
+      block
+      outline
+      type="button"
+      (click)="Camera()">
+      <ion-icon name="camera"></ion-icon>
+      Open Camera
+    </button>
+     </ion-item>
 <ion-item text-right >
-  <button ion-button clear type="submit" >Next</button>
+  <button ion-button clear type="submit" [disabled]="!f.valid || img == ''" >Next</button>
 </ion-item>
    
   </ion-list>
 </form>
+
 </ion-content>

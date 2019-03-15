@@ -22,19 +22,58 @@
 <ion-list>
   <ion-item>
       <ion-textarea required  ngModel name ="txt"placeholder="enter the description realted to the theme" rows="4" cols="12" ></ion-textarea>
-
-  </ion-item>
+    </ion-item>
+       <ion-item>
+        <ion-label>Start Time</ion-label>
+        <ion-datetime displayFormat="m:ss" pickerFormat="m:ss " name="dur"ngModel></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>
+   Sequence Num
+        </ion-label>
+        <ion-input type="number" ngModel name="seqNum"></ion-input>
+      </ion-item>
+  
+  <ion-item>
+    <button
+    ion-button
+    icon-left
+    block
+    outline
+    type="button"
+    (click)="Camera()">
+    <ion-icon name="camera"></ion-icon>
+    Open Camera
+  </button>
+   </ion-item>
+  
   <ion-grid>
     <ion-row>
       <ion-col text-left>
-<button ion-button [disabled]="!f.valid" type ="submit" clear (click)="finish()">Finish</button>
+<button ion-button [disabled]="!f.valid" type ="submit" clear (click)="finish()" [disabled]="!f.valid || img == ''">Finish</button>
       </ion-col>
     </ion-row>
     <ion-row>
     <ion-col text-right>
-        <button ion-button [disabled]="!f.valid"type="submit" clear (click)="add()" >Add another</button>
+        <button ion-button [disabled]="!f.valid"type="submit" clear (click)="add()" [disabled]="!f.valid || img == ''" >Add another</button>
               </ion-col>
             </ion-row>
+            <!--
+              <ion-item>
+      <button
+      ion-button
+      icon-left
+      block
+      outline
+      type="button"
+      (click)="Camera()">
+      <ion-icon name="camera"></ion-icon>
+      Open Camera
+    </button>
+     </ion-item>
+<ion-item text-right >
+  <button ion-button clear type="submit" [disabled]="!f.valid || img == ''" >Next</button>
+            -->
   </ion-grid>>
 
      

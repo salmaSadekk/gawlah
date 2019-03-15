@@ -5,6 +5,7 @@ import { Tours } from '../../Models/Tours';
 import { ItemsAddPage } from './items-add/items-add';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
+
 /**
  * Generated class for the TourCreationPage page.
  *
@@ -31,6 +32,7 @@ export class TourCreationPage {
   this.tour.name= f.value.name ;
   this.tour.theme = f.value.theme ;
   this.tour.duration =f.value.dur;
+  this.tour.mainImage= this.img ;
  
    this.navCtrl.push(ItemsAddPage , {'tour':this.tour ,'index':0}) ;
   }
@@ -56,4 +58,5 @@ export class TourCreationPage {
       toast.present();
     });
   }
+  
 }

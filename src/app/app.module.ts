@@ -24,6 +24,9 @@ import { HTTP } from '@ionic-native/http';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { File } from '@ionic-native/file';
 import { Camera , CameraOptions } from '@ionic-native/camera';
+import { NativeAudio } from '@ionic-native/native-audio';
+import { Media } from '@ionic-native/media';
+import { AudioPage } from '../pages/audio/audio';
 
 
 @NgModule({
@@ -38,7 +41,8 @@ import { Camera , CameraOptions } from '@ionic-native/camera';
     TourDetailPage ,
     DetailItemsPage ,
     TourCreationPage ,
-    ItemsAddPage 
+    ItemsAddPage ,
+    AudioPage 
 
 
 
@@ -63,7 +67,8 @@ import { Camera , CameraOptions } from '@ionic-native/camera';
     TourDetailPage ,
     DetailItemsPage ,
     TourCreationPage ,
-    ItemsAddPage 
+    ItemsAddPage ,
+    AudioPage
 
 
  
@@ -77,6 +82,10 @@ import { Camera , CameraOptions } from '@ionic-native/camera';
    HTTP ,
    FileTransfer,
     Camera ,
+    NativeAudio ,
+    Media,
+    File ,
+    
 
   
     {provide: ErrorHandler, useClass: IonicErrorHandler}
