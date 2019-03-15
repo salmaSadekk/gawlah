@@ -1,22 +1,23 @@
 import { Injectable } from "@angular/core";
-import { Http, RequestOptions } from "@angular/http";
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+
+import { HTTP } from "@ionic-native/http";
 
 @Injectable ()
 export class AuthService{
    private isAuth =false ;
-    constructor(private http:HttpClient){}
+    constructor(private http: HTTP){}
     signIn(data ){
-       const _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
- return this.http.post('http://192.168.1.8/android_login_api/login.php' ,
-JSON.stringify(data) , _options
+      this.http.setRequestTimeout(120000) ;
+      // const _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+ return this.http.post('http://192.168.1.11/android_login_api/login.php' ,
+data,{}
 
  ) ;
     }
     SignUp(data){
-        const _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-  return this.http.post('http://192.168.1.8/android_login_api/register.php' ,
- data , _options
+       
+  return this.http.post('http://192.168.1.11/android_login_api/register.php' ,
+ data , {}
  
   ) ;
      }

@@ -44,14 +44,21 @@ export class SignInPage {
     
     this.authService.signIn(data
      )
-    .subscribe((res:{error:boolean ,secondParam}) => {
-    console.log(res.error) ;
+    .then(res => {
+      console.log(res.data) ;
+      let dataFromServer = JSON.parse(res.data) ;
+      console.log("From Sign In :"+dataFromServer.error) ;
+      console.log(res.status) ;
+      console.log(res.headers) ;
+      console.log(res.url) ;
+    console.log('the error' +res.error) ;
+    
    
     loader.dismiss() ; 
    
-  
+  console.log(res.error) ;
    
-    if(!res.error){
+    if(!dataFromServer.error){
     
     let alert = this.alertCtrl.create({
     
@@ -73,7 +80,7 @@ export class SignInPage {
     
     title:'Error',
     
-    subTitle:(res.secondParam),
+    subTitle:dataFromServer.secondParam,
     
     buttons: ['OK']
     
@@ -85,16 +92,14 @@ export class SignInPage {
     
     } ,
     error=>{
+     console.log(error) ;
      loader.dismiss() ;
    
-     let alert = this.alertCtrl.create({
-    
-      title:error.status +error.error,
-      subTitle:error.error.message ,
-      buttons: ['OK']
-      
-      } );  alert.present();
-     });
+     
+     }).catch(
+       err=>
+       {console.log(err) ;}
+     );
     
   
     

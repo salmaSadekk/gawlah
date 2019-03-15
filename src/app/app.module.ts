@@ -20,7 +20,10 @@ import { DetailItemsPage } from '../pages/home/tour-detail/detail-items/detail-i
 import { TourCreationPage } from '../pages/tour-creation/tour-creation';
 import { ItemsAddPage } from '../pages/tour-creation/items-add/items-add';
 import { availableMonuments } from '../services/availableMonuments';
-
+import { HTTP } from '@ionic-native/http';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { File } from '@ionic-native/file';
+import { Camera , CameraOptions } from '@ionic-native/camera';
 
 
 @NgModule({
@@ -45,6 +48,7 @@ import { availableMonuments } from '../services/availableMonuments';
   imports: [
     BrowserModule,
     HttpClientModule,
+    
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -59,7 +63,7 @@ import { availableMonuments } from '../services/availableMonuments';
     TourDetailPage ,
     DetailItemsPage ,
     TourCreationPage ,
-    ItemsAddPage
+    ItemsAddPage 
 
 
  
@@ -70,6 +74,11 @@ import { availableMonuments } from '../services/availableMonuments';
     AuthService, 
     ToursService ,
     availableMonuments ,
+   HTTP ,
+   FileTransfer,
+    Camera ,
+
+  
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

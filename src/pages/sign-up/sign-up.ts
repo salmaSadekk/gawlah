@@ -37,15 +37,15 @@ export class SignUpPage {
     
     this.authService.SignUp(data
      )
-    .subscribe((res:{error:boolean ,secondParam }) => {
-    console.log(res.secondParam) ;
+    .then(res => {
+    console.log(res.data) ;
   
     loader.dismiss() ; 
     
    console.log(res.error) ;
     if(!res.error){
-    console.log(res.secondParam.uid);
-    console.log(res.secondParam.name);
+    console.log(res.data);
+    console.log(res.data);
     let alert = this.alertCtrl.create({
     
     title:'Registration successfull',
@@ -69,7 +69,7 @@ export class SignUpPage {
     
     title:'Error',
     
-    subTitle:(res.secondParam),
+    subTitle:(res.data),
     
     buttons: ['OK']
     

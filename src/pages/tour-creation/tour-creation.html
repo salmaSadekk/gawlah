@@ -33,8 +33,12 @@
       </ion-label>
       <ion-input type="text" ngModel name="dur"></ion-input>
     </ion-item>
+    <ion-item>
+      <button ion-button type="button" (click)="Camera()"> Take a picture</button>
+      <img [src]="img" *ngIf="img">
+    </ion-item>
 <ion-item text-right >
-  <button ion-button clear type="submit">Next</button>
+  <button ion-button clear type="submit" >Next</button>
 </ion-item>
    
   </ion-list>
