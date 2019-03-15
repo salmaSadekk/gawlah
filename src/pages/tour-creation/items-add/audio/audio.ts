@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Platform, ViewController } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 
@@ -21,9 +21,10 @@ filePath: string;
 fileName: string;
 audio: MediaObject;
 audioList: any[] = [];
+isSet:boolean =false ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams ,  private media: Media,
-    private file: File ,public platform: Platform) {
+    private file: File ,public platform: Platform , public viewCtrl :ViewController) {
   }
   startRecord() {
     if (this.platform.is('ios')) {
@@ -49,6 +50,7 @@ audioList: any[] = [];
     if(this.audioList.length>0)
     this.audioList.pop() ;
     this.audioList.push(data);
+    this.isSet=true ;
     localStorage.setItem("audiolist", JSON.stringify(this.audioList));
     this.recording = false;
     
@@ -63,6 +65,10 @@ audioList: any[] = [];
     }
     this.audio.play();
     this.audio.setVolume(0.8);
+  }
+  submit(){
+    console.log("the file Path from audioPage :"+ this.filePath) ;
+this.viewCtrl.dismiss(this.filePath) ;
   }
 
 }

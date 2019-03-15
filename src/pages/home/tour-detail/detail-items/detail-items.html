@@ -15,8 +15,8 @@
    <img [src]="currentItem.imgUrl" >
    <ion-item text-center> {{currentItem.BasicInfo}}</ion-item>
    <ion-item>
-    <button ion-button clear icon-left>
-      <ion-icon name="musical-notes"></ion-icon>
+    <button ion-button clear icon-left (click)="onListen()">
+      <ion-icon name="musical-notes" ></ion-icon>
       Listen
      </button>
    </ion-item>

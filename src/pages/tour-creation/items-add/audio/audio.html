@@ -19,6 +19,14 @@
     <ion-item *ngFor="let audio of audioList; index as i;">
       <p>{{audio.filename}}</p>
       <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button>
+    
     </ion-item>
+  <ion-grid>
+    <ion-row text-right>
+      <ion-col>
+        <button ion-button clear *ngIf="isSet" (click)="submit()">Submit audio</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
   </ion-list>
 </ion-content>

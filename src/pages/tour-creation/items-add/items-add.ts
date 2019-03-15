@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import { availableMonuments } from '../../../services/availableMonuments';
 import { Items } from '../../../Models/Items';
 import { NgForm } from '@angular/forms';
@@ -8,6 +8,8 @@ import { TabsPage } from '../../tabs/tabs';
 import { ToursService } from '../../../services/Tours';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer';
+import { AudioPage } from './audio/audio';
+import { File } from '@ionic-native/file';
 
 /**
  * Generated class for the ItemsAddPage page.
@@ -28,9 +30,10 @@ export class ItemsAddPage {
    finishBut=false ;
    index:number ;
    img:string ='' ;
+   audio:'' ;
    
   constructor(public toastCtrl :ToastController ,public camera: Camera  ,public navCtrl: NavController, public navParams: NavParams , public avMon:availableMonuments ,public TourSer :
-    ToursService ,private transfer: FileTransfer, private file: File) {
+    ToursService ,private transfer: FileTransfer, private file: File ,public modalCtrl :ModalController) {
   }
 finish() {
 this.finishBut=true ;
@@ -78,6 +81,7 @@ add() {
     ) ;
     this.tour.items[this.index].addedInfo =f.value.txt ;
     this.tour.items[this.index].imgUrl =this.img ;
+    this.tour.items[this.index].audio =this.audio ;
     this.tour.items[this.index].sequenceNum =f.value.seqNum ;
     this.tour.items[this.index].Time =f.value.dur ;
     const fileTransfer: FileTransferObject = this.transfer.create();
@@ -110,6 +114,16 @@ add() {
      
    
     
+  }
+  Record(){
+const modal = this.modalCtrl.create(AudioPage) ;
+ modal.present();
+ modal.onDidDismiss(audio=>{
+   console.log("nothing was returned" +audio) ;
+   this.audio =audio ;
+ }
+
+ )
   }
 
 }

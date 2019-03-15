@@ -26,7 +26,9 @@ import { File } from '@ionic-native/file';
 import { Camera , CameraOptions } from '@ionic-native/camera';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { Media } from '@ionic-native/media';
-import { AudioPage } from '../pages/audio/audio';
+import { AudioPage } from '../pages/tour-creation/items-add/audio/audio';
+
+
 
 
 @NgModule({
@@ -42,7 +44,7 @@ import { AudioPage } from '../pages/audio/audio';
     DetailItemsPage ,
     TourCreationPage ,
     ItemsAddPage ,
-    AudioPage 
+    AudioPage
 
 
 

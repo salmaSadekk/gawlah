@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Items } from '../../../../Models/Items';
+import { MediaObject, Media } from '@ionic-native/media';
 
 /**
  * Generated class for the DetailItemsPage page.
@@ -18,9 +19,10 @@ export class DetailItemsPage implements OnInit {
 items :Items[] ;
 index:number ;
 first =true ;
+audio: MediaObject;
 currentItem:Items ;
 flag=true ;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams , private media: Media) {
   }
 
   ionViewWillEnter() {
@@ -46,6 +48,13 @@ this.navCtrl.popToRoot() ;
 onNextItem() {
   
   this.navCtrl.push(DetailItemsPage ,{'items':this.items , 'index':++this.index }) ;
+}
+onListen(){
+  console.log("the audio file Url :" +this.currentItem.audio) ;
+  this.audio = this.media.create(this.currentItem.audio);
+
+this.audio.play();
+this.audio.setVolume(0.8);
 }
  
 }
