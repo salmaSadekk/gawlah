@@ -29,6 +29,7 @@ import { Media } from '@ionic-native/media';
 import { AudioPage } from '../pages/tour-creation/items-add/audio/audio';
 import{StreamingMedia} from '@ionic-native/streaming-media' ;
 import { CurrentUser } from '../services/CurrentUser';
+import { MuseumsService } from '../services/AvailableMuseums';
 
 
 
@@ -92,6 +93,7 @@ import { CurrentUser } from '../services/CurrentUser';
     File ,
     StreamingMedia,  
     CurrentUser ,
+    MuseumsService ,
   
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

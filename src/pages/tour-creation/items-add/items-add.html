@@ -11,64 +11,63 @@
 </ion-header>
 
 <ion-content padding>
-    
-<form #f="ngForm" (ngSubmit)="onSubmit(f)" >
-    <ion-item>
+
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+    <ion-list>
+      <ion-item>
         <ion-label>Museum's Monuments</ion-label>
-        <ion-select  ngModel name="selected" multiple="false" required>
-            <ion-option   *ngFor="let item of Monum">{{item.name}}</ion-option>
+        <ion-select ngModel name="selected" multiple="false" required>
+          <ion-option *ngFor="let item of Monum">{{item.name}}</ion-option>
         </ion-select>
       </ion-item>
-<ion-list>
-  <ion-item>
-      <ion-textarea required  ngModel name ="txt"placeholder="enter the description realted to the theme" rows="4" cols="12" ></ion-textarea>
-    </ion-item>
-       <ion-item>
+      <ion-item>
+        <ion-textarea required ngModel name="txt" placeholder="enter the description realted to the theme" rows="4"
+          cols="12"></ion-textarea>
+      </ion-item>
+      <ion-item>
         <ion-label>Start Time</ion-label>
-        <ion-datetime displayFormat="m:ss" pickerFormat="m:ss " name="dur"ngModel></ion-datetime>
+        <ion-datetime displayFormat="m:ss" pickerFormat="m:ss " name="dur" ngModel></ion-datetime>
       </ion-item>
       <ion-item>
         <ion-label floating>
-   Sequence Num
+          Sequence Num
         </ion-label>
         <ion-input type="number" ngModel name="seqNum"></ion-input>
       </ion-item>
-  
-  <ion-item>
-    <button
-    ion-button
-    icon-left
-    block
-    outline
-    type="button"
-    (click)="Camera()">
-    <ion-icon name="camera"></ion-icon>
-    Open Camera
-  </button>
-  <button
-  ion-button
-  icon-left
-  block
-  outline
-  type="button"
-  (click)="Record()">
-  <ion-icon  name="musical-notes"></ion-icon>
-  Record Audio
-</button>
-   </ion-item>
-  
-  <ion-grid>
-    <ion-row>
-      <ion-col text-left>
-<button ion-button [disabled]="!f.valid" type ="submit" clear (click)="finish()" [disabled]="!f.valid || img == ''">Finish</button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-    <ion-col text-right>
-        <button ion-button [disabled]="!f.valid"type="submit" clear (click)="add()" [disabled]="!f.valid || img == ''" >Add another</button>
-              </ion-col>
-            </ion-row>
-            <!--
+
+      <ion-item>
+        <button ion-button icon-left block outline type="button" (click)="Camera()">
+          <ion-icon name="camera"></ion-icon>
+          Open Camera
+        </button>
+        <button ion-button icon-left block outline type="button" (click)="Record()">
+          <ion-icon name="musical-notes"></ion-icon>
+          Record Audio
+        </button>
+      </ion-item>
+
+      <ion-grid>
+
+        <ion-row>
+
+          <ion-col>
+            <button ion-button [disabled]="!f.valid" type="submit" clear (click)="finish()"
+              [disabled]="!f.valid || img == ''">Finish
+            </button>
+          </ion-col>
+          <ion-col col-4>
+            <button ion-button [disabled]="!f.valid" type="submit" clear (click)="add()"
+              [disabled]="!f.valid || img == ''">Add another</button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <button ion-button clear color="danger" (click)="onCancel()">Cancel</button>
+          </ion-col>
+
+        </ion-row>
+        <!--
               <ion-item>
       <button
       ion-button
@@ -84,11 +83,11 @@
 <ion-item text-right >
   <button ion-button clear type="submit" [disabled]="!f.valid || img == ''" >Next</button>
             -->
-  </ion-grid>>
+      </ion-grid>
 
-     
- 
-</ion-list>
-</form>
+
+
+    </ion-list>
+  </form>
 
 </ion-content>

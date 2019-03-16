@@ -27,11 +27,14 @@ this.isAuth =val ;
      getAuth() {
         return this.isAuth ;
      }
-   SendTourDetails(data ,url) {
+   SendData(data ,url) {
       return this.http.post(url ,
       data , {}
       
        ) ;
+   }
+   GetData(url , data) {
+      return this.http.get(url ,{} ,{}) ;
    }
 
 

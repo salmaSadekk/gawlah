@@ -14,12 +14,13 @@
 <img src="../../assets/imgs/backGroundCreate.jpg">
 <form #f="ngForm" (ngSubmit)="onSubmit(f)">
   <ion-list>
-    <ion-item>
-      <ion-label floating>
-        Name of the Museum
-      </ion-label>
-      <ion-input type="text" ngModel name ="name" required></ion-input>
-    </ion-item>
+      <ion-item>
+          <ion-label>Choose a Museum</ion-label>
+          <ion-select  ngModel name ="name" multiple="false" required>
+              <ion-option   *ngFor="let item of museums">{{item.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+   
     <ion-item>
       <ion-label floating>
         Theme of the Tour

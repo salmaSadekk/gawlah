@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController, AlertController } from 'ionic-angular';
 import { availableMonuments } from '../../../services/availableMonuments';
 import { Items } from '../../../Models/Items';
 import { NgForm } from '@angular/forms';
@@ -10,6 +10,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-native/file-transfer';
 import { AudioPage } from './audio/audio';
 import { File } from '@ionic-native/file';
+import { MuseumsService } from '../../../services/AvailableMuseums';
 
 /**
  * Generated class for the ItemsAddPage page.
@@ -32,7 +33,7 @@ export class ItemsAddPage {
    img:string ='' ;
    audio:'' ;
    
-  constructor(public toastCtrl :ToastController ,public camera: Camera  ,public navCtrl: NavController, public navParams: NavParams , public avMon:availableMonuments ,public TourSer :
+  constructor(  private alertCtrl :AlertController,private MuseumService :MuseumsService,public toastCtrl :ToastController ,public camera: Camera  ,public navCtrl: NavController, public navParams: NavParams , public avMon:availableMonuments ,public TourSer :
     ToursService ,private transfer: FileTransfer, private file: File ,public modalCtrl :ModalController) {
   }
 finish() {
@@ -43,7 +44,14 @@ add() {
   this.addBut=true ;
 }
   ionViewWillEnter() {
-    this.Monum = this.avMon.getItems() ;
+    //this.Monum = this.avMon.getItems() ;
+    
+    this.Monum =(this.MuseumService.getMuseum().find(museum=>{
+    return museum.name ==(<Tours>this.navParams.get('tour')).name; ;
+    }
+      
+    )).items ;
+    
    
   }
   Camera(){
@@ -124,6 +132,28 @@ const modal = this.modalCtrl.create(AudioPage) ;
  }
 
  )
+  }
+  onCancel(){
+    const confirm = this.alertCtrl.create({
+      title: 'Are you sure you want to cancel?',
+      message: 'if you cancel all your progress will be dismissed',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Canceled clicked');
+          }
+        } ,
+        {
+          text: 'Ok',
+          handler: () => {
+            this.navCtrl.setRoot(TabsPage) ;
+          }
+        }
+        
+      ]
+    });
+    confirm.present();
   }
 
 }

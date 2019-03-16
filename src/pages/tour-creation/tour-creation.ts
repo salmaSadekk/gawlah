@@ -4,6 +4,8 @@ import { NgForm } from '@angular/forms';
 import { Tours } from '../../Models/Tours';
 import { ItemsAddPage } from './items-add/items-add';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { MuseumsService } from '../../services/AvailableMuseums';
+import { Museum } from '../../Models/Museum';
 
 
 /**
@@ -21,12 +23,14 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 export class TourCreationPage {
   tour :Tours = new Tours('','','','','','',[],[]) ;
   img:string='' ;
-  constructor(public toastCtrl :ToastController ,public camera: Camera ,public navCtrl: NavController, public navParams: NavParams) {
+  museums:Museum[] =[];
+  constructor(public toastCtrl :ToastController ,public camera: Camera ,public navCtrl: NavController, public navParams: NavParams , public MuseumService :MuseumsService) {
+  }
+  ionViewWillEnter() {
+    this.museums = this.MuseumService.getMuseum()  ;
+   
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad TourCreationPage');
-  }
   onSubmit(f :NgForm) {
     let name = f.value.name ;
   this.tour.name= f.value.name ;
