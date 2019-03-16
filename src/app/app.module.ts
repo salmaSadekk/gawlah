@@ -27,6 +27,9 @@ import { Camera , CameraOptions } from '@ionic-native/camera';
 import { NativeAudio } from '@ionic-native/native-audio';
 import { Media } from '@ionic-native/media';
 import { AudioPage } from '../pages/tour-creation/items-add/audio/audio';
+import{StreamingMedia} from '@ionic-native/streaming-media' ;
+import { CurrentUser } from '../services/CurrentUser';
+
 
 
 
@@ -87,8 +90,8 @@ import { AudioPage } from '../pages/tour-creation/items-add/audio/audio';
     NativeAudio ,
     Media,
     File ,
-    
-
+    StreamingMedia,  
+    CurrentUser ,
   
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

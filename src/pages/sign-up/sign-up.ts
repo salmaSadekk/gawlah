@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth';
 import { LoadingController, AlertController, NavController } from 'ionic-angular';
-import { CurrentUser } from '../../Models/currentUser';
+
 import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
 

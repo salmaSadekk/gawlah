@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CurrentUser } from '../../services/CurrentUser';
+import { Tours } from '../../Models/Tours';
+import { User } from '../../Models/user';
 
 /**
  * Generated class for the ProfilePage page.
@@ -13,22 +16,26 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
-export class ProfilePage {
-   user :boolean =true;
-   tours:boolean =false;
-   favorites:boolean=false ;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+export class ProfilePage implements OnInit {
+ favTours :Tours[] =[] ;
+ ownTours:Tours[] =[] ;
+ languages :string[] =[] ;
+ score:number = 0 ;
+  constructor(public navCtrl: NavController, public navParams: NavParams , private UserService :CurrentUser) {
+  
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
   }
-  flag(flag :string){
-  switch(flag) {
-    case 'User' :this.user=true ; this.tours=false;this.favorites=false;break;
-    case 'Fav' :this.user=false ; this.tours=false;this.favorites=true;break;
-    case 'Tour' :this.user=false; this.tours=true;this.favorites=false;break;
-  }
+  
+  ngOnInit() {
+    const user :User= this.UserService.getUser() ;
+    this.favTours =user.favoriteTours;
+    this.ownTours =user.ownTours ;
+    this.languages =user.languages ;
+    this.score =user.score ;
+
   }
 
 }
