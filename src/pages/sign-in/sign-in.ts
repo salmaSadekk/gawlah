@@ -36,16 +36,17 @@ export class SignInPage {
     
     loader.present() ;
     var data = {
-      email : f.value.email,
-      password: f.value.password 
+      username : f.value.email,
+      password: f.value.password ,
+      login:'s' 
     } ;
       
     
-    
+    console.log('JSON error detected in signIn') ;
     this.authService.signIn(data
      )
     .then(res => {
-      console.log(res.data) ;
+      console.log("data error:" +res.data) ;
       let dataFromServer = JSON.parse(res.data) ;
       console.log("From Sign In :"+dataFromServer.error) ;
       console.log(res.status) ;
@@ -80,7 +81,7 @@ export class SignInPage {
     
     title:'Error',
     
-    subTitle:dataFromServer.secondParam,
+    subTitle:dataFromServer.error,
     
     buttons: ['OK']
     

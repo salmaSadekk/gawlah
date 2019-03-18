@@ -30,7 +30,9 @@ export class SignUpPage {
     var data = {
       email : f.value.email,
       password: f.value.password ,
-      name: f.value.name
+      username: f.value.name ,
+      role:'user' ,
+      age: f.value.age
     } ;
       
     
@@ -38,18 +40,19 @@ export class SignUpPage {
     this.authService.SignUp(data
      )
     .then(res => {
-    console.log(res.data) ;
+      let dataFromServer = JSON.parse(res.data) ;
+    
   
     loader.dismiss() ; 
     
-   console.log(res.error) ;
-    if(!res.error){
+   console.log("data error from php" +res.data.error) ;
+    if(dataFromServer.error==false){
     console.log(res.data);
     console.log(res.data);
     let alert = this.alertCtrl.create({
     
     title:'Registration successfull',
-    
+    subTitle:(dataFromServer.msg),
    
     
     buttons: ['OK']
@@ -64,12 +67,13 @@ export class SignUpPage {
     }else
     
     {
+      
     
     let alert = this.alertCtrl.create({
     
     title:'Error',
     
-    subTitle:(res.data),
+    subTitle:dataFromServer.msg,
     
     buttons: ['OK']
     

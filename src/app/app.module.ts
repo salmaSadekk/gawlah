@@ -30,9 +30,9 @@ import { AudioPage } from '../pages/tour-creation/items-add/audio/audio';
 import{StreamingMedia} from '@ionic-native/streaming-media' ;
 import { CurrentUser } from '../services/CurrentUser';
 import { MuseumsService } from '../services/AvailableMuseums';
-
-
-
+import { CommentReviewComponent } from '../components/comment-review/comment-review';
+import { AppRate } from '@ionic-native/app-rate';
+import { StarRatingModule } from 'ionic3-star-rating';
 
 
 @NgModule({
@@ -48,7 +48,8 @@ import { MuseumsService } from '../services/AvailableMuseums';
     DetailItemsPage ,
     TourCreationPage ,
     ItemsAddPage ,
-    AudioPage
+    AudioPage ,
+    CommentReviewComponent
 
 
 
@@ -58,7 +59,7 @@ import { MuseumsService } from '../services/AvailableMuseums';
   imports: [
     BrowserModule,
     HttpClientModule,
-    
+    StarRatingModule ,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -74,7 +75,7 @@ import { MuseumsService } from '../services/AvailableMuseums';
     DetailItemsPage ,
     TourCreationPage ,
     ItemsAddPage ,
-    AudioPage
+    AudioPage 
 
 
  
@@ -94,6 +95,7 @@ import { MuseumsService } from '../services/AvailableMuseums';
     StreamingMedia,  
     CurrentUser ,
     MuseumsService ,
+    AppRate  ,
   
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]

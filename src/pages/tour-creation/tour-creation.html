@@ -4,6 +4,7 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
+
 <ion-header>
   <ion-navbar>
     <ion-title>TourCreation</ion-title>
@@ -12,7 +13,7 @@
 
 <ion-content no-lines >
 <img src="../../assets/imgs/backGroundCreate.jpg">
-<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" enctype="multipart/form-data">
   <ion-list>
       <ion-item>
           <ion-label>Choose a Museum</ion-label>
@@ -20,7 +21,18 @@
               <ion-option   *ngFor="let item of museums">{{item.name}}</ion-option>
           </ion-select>
         </ion-item>
-   
+        <ion-item>
+          <ion-label floating>
+            name of the Tour
+          </ion-label>
+          <ion-input type="text" ngModel name="TourName" required></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>
+           Ticket Price
+          </ion-label>
+          <ion-input type="number" ngModel name="TicketPrice" required></ion-input>
+        </ion-item>
     <ion-item>
       <ion-label floating>
         Theme of the Tour
@@ -34,7 +46,9 @@
       </ion-label>
       <ion-input type="text" ngModel name="dur" required ></ion-input>
     </ion-item>
-    
+    <ion-item>
+      <ion-input type="file" name="image" ngModel ></ion-input>
+    </ion-item>
      <ion-item>
       <button
       ion-button
@@ -48,7 +62,7 @@
     </button>
      </ion-item>
 <ion-item text-right >
-  <button ion-button clear type="submit" [disabled]="!f.valid || img == ''" >Next</button>
+  <button ion-button clear type="submit" [disabled]="!f.valid " >Next</button>
 </ion-item>
    
   </ion-list>

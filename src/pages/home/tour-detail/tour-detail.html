@@ -16,14 +16,30 @@
                 <p>{{tour.theme}}</p>
         
         </ion-card-content>
+        
       </ion-card>
-      <ion-list no-lines *ngIf="flag" >
+      <ion-item text-center>
+        <hr>
+        <h4>Rate this Tour</h4>
+        <p>Tell others what you think</p>
+        <ionic3-star-rating 
+        activeIcon = "ios-star"
+        defaultIcon = "ios-star-outline"
+        activeColor = "#488aff" 
+        defaultColor = "#f4f4f4"
+        readonly="false"
+        [rating]="3">
+       </ionic3-star-rating>
+       <button ion-button clear (click)="addReview()">write a review</button>
+      </ion-item>
+      <hr>
+      <ion-list no-lines *ngFor="let review of tour.review" >
         <ion-item>
           <ion-avatar item-start>
-            <img [src]="tour.review[0].image">
+            <img [src]="review.image">
           </ion-avatar>
-          <h2>Cher</h2>
-          <p>Amazing</p>
+          <h2>{{review.user.name}}</h2>
+          <p>{{review.content}}</p>
         </ion-item>
       </ion-list>
 </ion-content>
