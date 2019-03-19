@@ -11,6 +11,7 @@ import { FileTransfer, FileTransferObject, FileUploadOptions } from '@ionic-nati
 import { AudioPage } from './audio/audio';
 import { File } from '@ionic-native/file';
 import { MuseumsService } from '../../../services/AvailableMuseums';
+import { AuthService } from '../../../services/auth';
 
 /**
  * Generated class for the ItemsAddPage page.
@@ -32,8 +33,11 @@ export class ItemsAddPage {
    index:number ;
    img:string ='' ;
    audio:'' ;
+   video='' ;
+   flagVideo =true ;
+   flag=true ;
    
-  constructor(  private alertCtrl :AlertController,private MuseumService :MuseumsService,public toastCtrl :ToastController ,public camera: Camera  ,public navCtrl: NavController, public navParams: NavParams , public avMon:availableMonuments ,public TourSer :
+  constructor( private authservice: AuthService, private alertCtrl :AlertController,private MuseumService :MuseumsService,public toastCtrl :ToastController ,public camera: Camera  ,public navCtrl: NavController, public navParams: NavParams , public avMon:availableMonuments ,public TourSer :
     ToursService ,private transfer: FileTransfer, private file: File ,public modalCtrl :ModalController) {
   }
 finish() {
@@ -51,6 +55,11 @@ add() {
     }
       
     )).items ;
+    console.log(this.Monum.length)
+    this.Monum.forEach( item =>
+      {
+        console.log(item.name) ;
+      })
     
    
   }
@@ -92,21 +101,30 @@ add() {
     this.tour.items[this.index].audio =this.audio ;
     this.tour.items[this.index].sequenceNum =f.value.seqNum ;
     this.tour.items[this.index].Time =f.value.dur ;
-    const fileTransfer: FileTransferObject = this.transfer.create();
-    
-    let options: FileUploadOptions = {
-      fileKey: 'file',
-      fileName: 'name.jpeg',
-      headers: {}
+    const item =this.tour.items[this.index];
+    var data ={
+      addedInfo : item.addedInfo,
+      sequenceNum : item.sequenceNum ,
+      duration :item.Time   ,
+      item_id: item.uid 
+      
+   
+  
+    }
+       // 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php'
+    this.authservice.SendData( data , 'http://192.168.43.87:8000/Gawlah/backup/tour_items.php').then(res=>
+     { console.log('sendData 1 :' +res) ;
      
-   }
-   /*
-   fileTransfer.upload(this.img,'',options).then(data=>{
-     console.log('success:' + data) ;
-   }
+     let dataFromServer = JSON.parse(res.data) ;
+     console.log("items-add from database seqnum :" +dataFromServer.sequence) ;
+     console.log("items-add from database seqnum :" +dataFromServer.tourid) ;
+     console.log(this.tour.uid) ;
+     //this.fileTransfer(this.img ,'image' ) ;
+     }
+    ).catch(error=>
+      console.log(error))  ;
     
-   ).catch((err)=>
-   {alert("error"+JSON.stringify(err));}); */
+    
    
     if(this.addBut){ 
       this.navCtrl.push(ItemsAddPage ,{'tour':this.tour ,'index':++this.index})
@@ -123,6 +141,50 @@ add() {
    
     
   }
+  fileTransfer(imageData ,type) {
+    console.log('in File Transfer 2')
+    const fileTransfer: FileTransferObject = this.transfer.create();
+
+    let options1: FileUploadOptions = {
+      
+       fileKey: type,
+       fileName: 'name',
+       headers: {}
+    
+    }
+
+fileTransfer.upload(imageData, 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php', options1)
+ .then((data) => {
+
+  console.log(data.headers) ;
+  console.log(data.bytesSent) ;
+  console.log(data.response) ;
+  console.log(data.responseCode) ;
+console.log(data) ;
+
+   alert("success");
+   if(this.audio!='' && this.flag) {
+    this.flag = false ;
+    this.fileTransfer(this.audio ,'audio') ;
+  
+   }
+   if(this.video!='' && this.flagVideo) {
+    this.flagVideo = false ;
+    this.fileTransfer(this.video ,'video') ;
+   
+   }
+  
+   
+ }, (err) => {
+   // error
+   alert("error"+JSON.stringify(err));
+ });
+
+
+ 
+
+
+  } 
   Record(){
 const modal = this.modalCtrl.create(AudioPage) ;
  modal.present();

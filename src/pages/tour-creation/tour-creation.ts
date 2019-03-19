@@ -9,6 +9,7 @@ import { Museum } from '../../Models/Museum';
 import { AuthService } from '../../services/auth';
 import { FileTransferObject } from '@ionic-native/file-transfer';
 import { FileTransfer, FileUploadOptions} from '@ionic-native/file-transfer';
+import { CurrentUser } from '../../services/CurrentUser';
 
 /**
  * Generated class for the TourCreationPage page.
@@ -26,11 +27,12 @@ export class TourCreationPage {
   tour :Tours = new Tours('','','','','','','','',[],[],0) ;
   img:string='' ;
   museums:Museum[] =[];
-  constructor(private loadingCtrl:LoadingController, private transfer :FileTransfer,private authservice :AuthService,public toastCtrl :ToastController 
+  constructor(private currentUser :CurrentUser,private loadingCtrl:LoadingController, private transfer :FileTransfer,private authservice :AuthService,public toastCtrl :ToastController 
     ,public camera: Camera ,public navCtrl: NavController, public navParams: NavParams , public MuseumService :MuseumsService) {
   }
   ionViewWillEnter() {
-    this.museums = this.MuseumService.getMuseum()  ;
+   // this.ItemsRetrieve() ;
+   this.museums = this.MuseumService.getMuseum()  ;
    
   }
 
@@ -40,25 +42,29 @@ export class TourCreationPage {
   this.tour.TourName   =f.value.TourName ;
   this.tour.theme = f.value.theme ;
   this.tour.duration =f.value.dur;
-  this.tour.mainImage= f.value.image ;
+  this.tour.CreatorImg = this.currentUser.getUser().profilePic ;
+  //this.tour.mainImage= f.value.image ;
+  this.tour.mainImage= this.img ;
   this.tour.TicketPrice= f.value.TicketPrice ;
   var data ={
     museum : this.tour.name ,
     tourname : this.tour.TourName  ,
     ticketprice :this.tour.TicketPrice ,
-    theme:this.tour.theme  ,
-    file : f.value.image
+    theme:this.tour.theme  
 
   }
      // 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php'
-  this.authservice.SendData( data , 'http://192.168.1.4/android_login_api/Tour_creation.php').then(res=>
+  this.authservice.SendData( data , 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php').then(res=>
    { console.log('sendData 1 :' +res) ;
-   /*
+   
    let dataFromServer = JSON.parse(res.data) ;
+   this.tour.uid = dataFromServer.tour_id ;
+   console.log('username' + dataFromServer.username) ;
+   console.log('msg1'+dataFromServer.tour_id) ;
    console.log('msg1'+dataFromServer.msg1) ;
    console.log('msg2'+dataFromServer.msg2) ;
    console.log('msg3'+dataFromServer.msg3) ;
-   console.log('msg4' +dataFromServer.msg4) ; */
+   console.log('msg4' +dataFromServer.msg4) ;
   this.fileTransfer(this.img ) ;
    }
   ).catch(error=>
@@ -92,6 +98,7 @@ export class TourCreationPage {
     });
   } 
 
+
   fileTransfer(imageData) {
     console.log('in File Transfer 2')
     const fileTransfer: FileTransferObject = this.transfer.create();
@@ -104,7 +111,7 @@ export class TourCreationPage {
     
     }
 
-fileTransfer.upload(imageData, 'http://192.168.1.4/android_login_api/Tour_creation.php', options1)
+fileTransfer.upload(imageData, 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php', options1)
  .then((data) => {
 
   console.log(data.headers) ;
@@ -117,40 +124,37 @@ console.log(data) ;
  }, (err) => {
    // error
    alert("error"+JSON.stringify(err));
+   console.log(JSON.stringify(err)) ;
  });
 
 
  
 
 
-  }  /*
-uploadFile() {
-  let loader = this.loadingCtrl.create({
-    content: "Uploading..."
-  });
-  loader.present();
-  const fileTransfer: FileTransferObject = this.transfer.create();
+  }  
+ /*ItemsRetrieve() {
+   var data = {
+    museum_items :'museum_items'
+   }
+   this.authservice.GetData('http://192.168.43.87:8000/Gawlah/backup/get_items.php' ,data).then(
+     res=>{
+       console.log('Items Retrival from data base :' +res.data) ;
+       console.log(res.error) ;
+       console.log(res.headers) ;
+       console.log(res.status) ;
+       console.log(res.url) ;
+      
+       
 
-  let options: FileUploadOptions = {
-    fileKey: 'ionicfile',
-    fileName: 'ionicfile',
-    chunkedMode: false,
-    mimeType: "image/jpeg",
-    headers: {}
-  }
 
-  fileTransfer.upload(this.img, 'http://192.168.0.7:8080/api/uploadImage', options)
-    .then((data) => {
-    console.log(data+" Uploaded Successfully");
-    //this.imageFileName = "http://192.168.0.7:8080/static/images/ionicfile.jpg"
-    loader.dismiss();
-    //this.presentToast("Image uploaded successfully");
-  }, (err) => {
-    console.log(err);
-    loader.dismiss();
-   // this.presentToast(err);
-  });
-} */
+     //  console.log(dataFromServer.item_id) ;
+      // console.log(dataFromServer.item_name) ;
+     }
+   )
+ } */
+
+
+
   }
   
 

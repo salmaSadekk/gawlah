@@ -32,11 +32,11 @@
        </ionic3-star-rating>
        <button ion-button clear (click)="addReview()">write a review</button>
       </ion-item>
-      <hr>
-      <ion-list no-lines *ngFor="let review of tour.review" >
-        <ion-item>
+      
+      <ion-list   >
+        <ion-item *ngFor="let review of tour.review">
           <ion-avatar item-start>
-            <img [src]="review.image">
+            <img [src]="review.user.profilePic">
           </ion-avatar>
           <h2>{{review.user.name}}</h2>
           <p>{{review.content}}</p>

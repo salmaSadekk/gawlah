@@ -31,6 +31,7 @@ export class TourDetailPage implements OnInit {
    /* if (this.tour.CreatorImg!==''){
 this.flag=true ;
     } */
+    
    
   }
   onItemClick(){
@@ -73,8 +74,8 @@ this.flag=true ;
   }
   addReview(){
     const prompt = this.alertCtrl.create({
-      title: 'Login',
-      message: "Enter a name for this new album you're so keen on adding",
+      title: 'enter a Review',
+      message: "Tell us what you think",
       inputs: [
         {
           name: 'title',
@@ -91,10 +92,18 @@ this.flag=true ;
         {
           text: 'Save',
           handler: data => {
+             console.log('data Read is :' + data.title) ;
             console.log('Saved clicked');
-            this.tourService.addReviewToTour(this.tour.uid ,data ,this.starRating) ;
-            this.tour.review.push(new Review ( this.currentUser.getUser(),'' ,data)) ;
-            console.log("CurrentUser :" +this.currentUser.getUser().name )
+            this.tourService.addReviewToTour(this.tour.uid ,new Review ( this.currentUser.getUser(),'' ,data.title) ,this.starRating) ;
+            
+            console.log('Current User ' + this.currentUser.getUser()) ;
+            console.log("CurrentUser from Review:" +this.tour.review[this.tour.review.length -1].user.profilePic) ;
+            
+           this.tour.review.forEach(
+             review =>{
+               console.log('forEach :' +review.content)
+             }
+           );
           }
         }
       ]

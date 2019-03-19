@@ -34,7 +34,7 @@ this.isAuth =val ;
        ) ;
    }
    GetData(url , data) {
-      return this.http.get(url ,{} ,{}) ;
+      return this.http.get(url ,data ,{}) ;
    }
 
 
