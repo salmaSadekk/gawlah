@@ -32,7 +32,7 @@ export class ItemsAddPage {
    finishBut=false ;
    index:number ;
    img:string ='' ;
-   audio:'' ;
+   audio='' ;
    video='' ;
    flagVideo =true ;
    flag=true ;
@@ -113,13 +113,18 @@ add() {
     }
        // 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php'
     this.authservice.SendData( data , 'http://192.168.43.87:8000/Gawlah/backup/tour_items.php').then(res=>
-     { console.log('sendData 1 :' +res) ;
+     { console.log('sendData items-add :' +res.data) ;
+     console.log(res.error) ;
+     console.log(res.headers) ;
+     console.log(res.status) ;
+     console.log(res.url) ;
      
      let dataFromServer = JSON.parse(res.data) ;
      console.log("items-add from database seqnum :" +dataFromServer.sequence) ;
      console.log("items-add from database seqnum :" +dataFromServer.tourid) ;
      console.log(this.tour.uid) ;
-     //this.fileTransfer(this.img ,'image' ) ;
+     console.log('image Path in fileTransfer : ' +this.img)
+     this.fileTransfer(this.img ,'image' ) ;
      }
     ).catch(error=>
       console.log(error))  ;
@@ -133,6 +138,7 @@ add() {
    
     if(this.finishBut){
       console.log('submit finish button') ;
+    
       
       this.TourSer.addTour(this.tour) ;
       this.navCtrl.setRoot(TabsPage) ;
@@ -153,7 +159,7 @@ add() {
     
     }
 
-fileTransfer.upload(imageData, 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php', options1)
+fileTransfer.upload(imageData, 'http://192.168.43.87:8000/Gawlah/backup/tour_items.php', options1)
  .then((data) => {
 
   console.log(data.headers) ;
@@ -165,12 +171,13 @@ console.log(data) ;
    alert("success");
    if(this.audio!='' && this.flag) {
     this.flag = false ;
+    console.log('called audio transfer' + this.audio) ;
     this.fileTransfer(this.audio ,'audio') ;
   
    }
    if(this.video!='' && this.flagVideo) {
     this.flagVideo = false ;
-    this.fileTransfer(this.video ,'video') ;
+   // this.fileTransfer(this.video ,'video') ;
    
    }
   
@@ -188,7 +195,7 @@ console.log(data) ;
   Record(){
 const modal = this.modalCtrl.create(AudioPage) ;
  modal.present();
- modal.onDidDismiss(audio=>{
+ modal.onDidDismiss((audio:string)=>{
    console.log("nothing was returned" +audio) ;
    this.audio =audio ;
  }

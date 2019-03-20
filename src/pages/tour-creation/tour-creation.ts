@@ -10,6 +10,7 @@ import { AuthService } from '../../services/auth';
 import { FileTransferObject } from '@ionic-native/file-transfer';
 import { FileTransfer, FileUploadOptions} from '@ionic-native/file-transfer';
 import { CurrentUser } from '../../services/CurrentUser';
+import { ActionSheetController } from 'ionic-angular';
 
 /**
  * Generated class for the TourCreationPage page.
@@ -27,7 +28,7 @@ export class TourCreationPage {
   tour :Tours = new Tours('','','','','','','','',[],[],0) ;
   img:string='' ;
   museums:Museum[] =[];
-  constructor(private currentUser :CurrentUser,private loadingCtrl:LoadingController, private transfer :FileTransfer,private authservice :AuthService,public toastCtrl :ToastController 
+  constructor(public actionSheetCtrl: ActionSheetController ,private currentUser :CurrentUser,private loadingCtrl:LoadingController, private transfer :FileTransfer,private authservice :AuthService,public toastCtrl :ToastController 
     ,public camera: Camera ,public navCtrl: NavController, public navParams: NavParams , public MuseumService :MuseumsService) {
   }
   ionViewWillEnter() {
@@ -74,13 +75,13 @@ export class TourCreationPage {
  
    this.navCtrl.push(ItemsAddPage , {'tour':this.tour ,'index':0}) ;
   }
-  Camera(){
+  Camera(source){
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL ,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE ,
-      sourceType:0
+      sourceType:source
     }
     
     this.camera.getPicture(options).then((imageData) => {
@@ -152,6 +153,35 @@ console.log(data) ;
      }
    )
  } */
+ presentActionSheet() {
+  const actionSheet = this.actionSheetCtrl.create({
+    title: 'Add a picture',
+    buttons: [
+      {
+        text: 'Camera',
+        
+        handler: () => {
+          console.log('Destructive clicked');
+          this. Camera(1) ;
+        }
+      },{
+        text: 'from gallery',
+       
+        handler: () => {
+          this. Camera(0) ;
+        } },
+        {
+          text: 'cancel',
+          role :'cancel',
+         
+          handler: () => {
+          console.log('cancelled')
+          }
+      }
+    ]
+  });
+  actionSheet.present();
+}
 
 
 
