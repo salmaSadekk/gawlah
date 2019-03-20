@@ -12,7 +12,7 @@ import { AudioPage } from './audio/audio';
 import { File } from '@ionic-native/file';
 import { MuseumsService } from '../../../services/AvailableMuseums';
 import { AuthService } from '../../../services/auth';
-
+import { MediaCapture, CaptureImageOptions, MediaFile, CaptureError, CaptureVideoOptions } from '@ionic-native/media-capture';
 /**
  * Generated class for the ItemsAddPage page.
  *
@@ -36,8 +36,9 @@ export class ItemsAddPage {
    video='' ;
    flagVideo =true ;
    flag=true ;
+ 
    
-  constructor( private authservice: AuthService, private alertCtrl :AlertController,private MuseumService :MuseumsService,public toastCtrl :ToastController ,public camera: Camera  ,public navCtrl: NavController, public navParams: NavParams , public avMon:availableMonuments ,public TourSer :
+  constructor(private mediaCapture: MediaCapture , private authservice: AuthService, private alertCtrl :AlertController,private MuseumService :MuseumsService,public toastCtrl :ToastController ,public camera: Camera  ,public navCtrl: NavController, public navParams: NavParams , public avMon:availableMonuments ,public TourSer :
     ToursService ,private transfer: FileTransfer, private file: File ,public modalCtrl :ModalController) {
   }
 finish() {
@@ -177,7 +178,7 @@ console.log(data) ;
    }
    if(this.video!='' && this.flagVideo) {
     this.flagVideo = false ;
-   // this.fileTransfer(this.video ,'video') ;
+   this.fileTransfer(this.video ,'video') ;
    
    }
   
@@ -191,7 +192,30 @@ console.log(data) ;
  
 
 
-  } 
+  }  
+  /*
+ startrecording(){
+    console.log('Start Recording');
+    let options: CaptureVideoOptions = { limit: 1 };
+    this.mediaCapture.captureVideo(options)
+      .then(
+        (data: MediaFile[]) => console.log(data[0].fullPath),
+        (err: CaptureError) => console.error(err)
+      );
+    }
+
+
+  */
+  videoCapture() {
+    console.log('Start Recording');
+    let options: CaptureVideoOptions = { limit: 1 };
+    this.mediaCapture.captureVideo(options)
+      .then(
+        (data: MediaFile[]) => {console.log(data[0].fullPath) ;
+        this.video= data[0].fullPath ; },
+        (err: CaptureError) => console.error(err)
+      );
+  }
   Record(){
 const modal = this.modalCtrl.create(AudioPage) ;
  modal.present();
@@ -224,5 +248,6 @@ const modal = this.modalCtrl.create(AudioPage) ;
     });
     confirm.present();
   }
+  
 
 }

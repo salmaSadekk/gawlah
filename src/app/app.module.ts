@@ -33,6 +33,7 @@ import { MuseumsService } from '../services/AvailableMuseums';
 import { CommentReviewComponent } from '../components/comment-review/comment-review';
 import { AppRate } from '@ionic-native/app-rate';
 import { StarRatingModule } from 'ionic3-star-rating';
+import { MediaCapture } from '@ionic-native/media-capture';
 
 
 @NgModule({
@@ -96,6 +97,8 @@ import { StarRatingModule } from 'ionic3-star-rating';
     CurrentUser ,
     MuseumsService ,
     AppRate  ,
+    MediaCapture,
+  
   
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
