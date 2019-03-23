@@ -9,8 +9,8 @@ export class ToursService {
      new Items('','anch amoum' ,'../../assets/imgs/status.jpg','Retrieved data from data base','Accessories Related Info','a','v',2,2,'2') ,
      new Items('','m1' ,'../../assets/imgs/m1.jpg','Retrieved data from data base','Accessories Related Info','a','v',2,3,'2') ,
      new Items('','m2' ,'../../assets/imgs/m2.jpg','Retrieved data from data base','Accessories Related Info','a','v',2,5,'3')] ;
-    tours:Tours[] =[new Tours('','xdxdxdxd','Accessories','Egyptian Museum','../../assets/imgs/UserProfile.png' ,'../../assets/imgs/egyptian Museum.png','17min','5',this.items,[ new Review(new User ('','Salma','../../assets/imgs/UserProfile.png',[] ,[],['English','French','German'],20 ) ,'1d ago','An amazing Tour')],9) ,
-    new Tours('','hhhhhhh','Sports','Egyptian Museum','../../assets/imgs/UserProfile.png' ,'../../assets/imgs/egyMuse.jpg','17min','5.5',[new Items('','statue','../../assets/imgs/status.jpg','Retrieved data from data base','Sports related info ','audio','video',2,2 ,'2')],[new Review(new User ('','Salma','../../assets/imgs/UserProfile.png',[] ,[],['English','French','German'],20 ) ,'1d ago','An amazing Tour')],5)] ;
+    tours:Tours[] =[new Tours('','xdxdxdxd','Accessories','Egyptian Museum','../../assets/imgs/UserProfile.png' ,'../../assets/imgs/egyptian Museum.png','17min','5',this.items,[ new Review(new User ('','Salma','../../assets/imgs/UserProfile.png',[] ,[],['English','French','German'],20 ) ,'1d ago','An amazing Tour',4)],9) ,
+    new Tours('','hhhhhhh','Sports','Egyptian Museum','../../assets/imgs/UserProfile.png' ,'../../assets/imgs/egyMuse.jpg','17min','5.5',[new Items('','statue','../../assets/imgs/status.jpg','Retrieved data from data base','Sports related info ','audio','video',2,2 ,'2')],[new Review(new User ('','Salma','../../assets/imgs/UserProfile.png',[] ,[],['English','French','German'],20 ) ,'1d ago','An amazing Tour',4)],5)] ;
     
   // we will get the data from database from here
   getTours() {

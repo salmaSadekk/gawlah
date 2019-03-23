@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angu
 import { Items } from '../../../../Models/Items';
 import { MediaObject, Media } from '@ionic-native/media';
 import { TabsPage } from '../../../tabs/tabs';
+import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
 
 /**
  * Generated class for the DetailItemsPage page.
@@ -23,7 +24,7 @@ hasPrevious=false ;
 audio: MediaObject;
 currentItem:Items ;
 flag=true ;
-  constructor(public navCtrl: NavController, public navParams: NavParams , private media: Media , private alertCtrl : AlertController) {
+  constructor(private streamingMedia: StreamingMedia ,public navCtrl: NavController, public navParams: NavParams , private media: Media , private alertCtrl : AlertController) {
   }
 
   ionViewWillEnter() {
@@ -59,7 +60,18 @@ this.audio.setVolume(0.8);
 onPrevItem(){
   this.navCtrl.push(DetailItemsPage  ,{'items':this.items , 'index':this.items[this.index].parentnum}) ;
   }
-
+  onWatch(){
+    console.log("the audio file Url :" +this.currentItem.video) ;
+    let options: StreamingVideoOptions = {
+      successCallback: () => { console.log('Video played') },
+      errorCallback: (e) => { console.log('Error streaming') },
+      orientation: 'landscape',
+      shouldAutoClose: true,
+      controls: false
+    };
+    
+    this.streamingMedia.playVideo(this.currentItem.video, options);
+  }
 
   }
  

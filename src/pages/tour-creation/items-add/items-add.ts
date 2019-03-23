@@ -99,6 +99,7 @@ add() {
     ) ;
     this.tour.items[this.index].addedInfo =f.value.txt ;
     this.tour.items[this.index].imgUrl =this.img ;
+    this.tour.items[this.index].video = this.video ;
     this.tour.items[this.index].audio =this.audio ;
     this.tour.items[this.index].sequenceNum =f.value.seqNum ;
     this.tour.items[this.index].Time =f.value.dur ;

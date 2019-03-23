@@ -18,7 +18,7 @@ export class TourDetailPage implements OnInit {
    starRating :number =0 ;
   
   constructor(private currentUser : CurrentUser,private tourService :ToursService ,private alertCtrl :AlertController, private events:Events ,public navCtrl: NavController, public navParams: NavParams ) {
-    
+     
     events.subscribe('star-rating:changed', (starRating) => {this.starRating=starRating ;console.log("star Rating is :"+starRating + typeof(starRating))});
   }
 
@@ -94,7 +94,7 @@ this.flag=true ;
           handler: data => {
              console.log('data Read is :' + data.title) ;
             console.log('Saved clicked');
-            this.tourService.addReviewToTour(this.tour.uid ,new Review ( this.currentUser.getUser(),'' ,data.title) ,this.starRating) ;
+            this.tourService.addReviewToTour(this.tour.uid ,new Review ( this.currentUser.getUser(),'' ,data.title,this.starRating) ,this.starRating) ;
             
             console.log('Current User ' + this.currentUser.getUser()) ;
             console.log("CurrentUser from Review:" +this.tour.review[this.tour.review.length -1].user.profilePic) ;

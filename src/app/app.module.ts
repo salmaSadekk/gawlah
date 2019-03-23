@@ -98,7 +98,7 @@ import { MediaCapture } from '@ionic-native/media-capture';
     MuseumsService ,
     AppRate  ,
     MediaCapture,
-  
+    StreamingMedia ,
   
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
