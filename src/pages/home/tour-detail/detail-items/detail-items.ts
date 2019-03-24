@@ -38,7 +38,7 @@ ngOnInit() {
     this.hasPrevious =true ;
     }
   this.currentItem =this.items[this.index] ;
-  console.log('salom'+this.index) ;
+  console.log('salom'+this.index + this.currentItem.addedInfo + this.currentItem.BasicInfo + this.currentItem.name  + this.currentItem.imgUrl) ;
   if (this.index==this.items.length-1){
     this.flag =false ;
   }

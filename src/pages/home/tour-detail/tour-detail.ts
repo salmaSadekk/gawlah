@@ -5,6 +5,8 @@ import { DetailItemsPage } from './detail-items/detail-items';
 import { ToursService } from '../../../services/Tours';
 import { Review } from '../../../Models/Review';
 import { CurrentUser } from '../../../services/CurrentUser';
+import { AuthService } from '../../../services/auth';
+import { Items } from '../../../Models/Items';
 
 
 @IonicPage()
@@ -17,7 +19,7 @@ export class TourDetailPage implements OnInit {
    //flag=false ;
    starRating :number =0 ;
   
-  constructor(private currentUser : CurrentUser,private tourService :ToursService ,private alertCtrl :AlertController, private events:Events ,public navCtrl: NavController, public navParams: NavParams ) {
+  constructor(private authService :AuthService ,private currentUser : CurrentUser,private tourService :ToursService ,private alertCtrl :AlertController, private events:Events ,public navCtrl: NavController, public navParams: NavParams ) {
      
     events.subscribe('star-rating:changed', (starRating) => {this.starRating=starRating ;console.log("star Rating is :"+starRating + typeof(starRating))});
   }
@@ -31,11 +33,33 @@ export class TourDetailPage implements OnInit {
    /* if (this.tour.CreatorImg!==''){
 this.flag=true ;
     } */
+    var  data = {
+      tour_id:this.tour.uid
+    }
+    this.authService.SendData(data , 'http://192.168.43.87:8000/Gawlah/backup/get_tour_items').then(
+      res=>{
+        console.log('data :'+ res.data) ;
+     let dataFromServer = JSON.parse(res.data) ; 
+
+      for(var i =0 ;i<dataFromServer.length ;i++) {
+        var   base64Data= dataFromServer[i].image;
+        var converted_image= "data:image/jpeg;base64,"+base64Data;
+        console.log('the image :'+ converted_image) ;
+
+        this.tour.items.push(new Items('' , dataFromServer[i].name , converted_image , dataFromServer[i].basic_info ,
+        dataFromServer[i].added_info , '','', dataFromServer[i].sequence ,-1 , '')) ;
+        console.log(this.tour.items[i].name ) ;
+      }
+      console.log(this.tour.items[0].name ) ;
+
+      }
+    )
     
    
   }
   onItemClick(){
     this.sort() ;
+   
    this.navCtrl.push(DetailItemsPage ,{'items':this.tour.items , 'index':0  }) ;
   }
   sort() {

@@ -78,6 +78,7 @@ add() {
      // If it's base64 (DATA_URL):
      this.img= 'data:image/jpeg;base64,' + imageData;
      let base64Image = 'data:image/jpeg;base64,' + imageData;
+  
     }, (err) => {
       const toast = this.toastCtrl.create({
         message: err,
