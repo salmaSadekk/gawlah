@@ -38,7 +38,7 @@ ionViewWillEnter() {
     getTours:'s'
    } 
    console.log('data sendd try1 ') ;
-  this.authser.SendData(data, 'http://192.168.43.87:8000/Gawlah/backup/get_tours.php' ).then(
+  this.authser.SendData(data, 'http://192.168.1.9/Gawlah/backup/get_tours.php' ).then(
     res=>{
       console.log('data sendd try2 ') ;
       console.log(res.error) ;
@@ -48,13 +48,13 @@ ionViewWillEnter() {
       console.log(res.url) ;
       let dataFromServer = JSON.parse(res.data) ;
       for(var i =0 ; i< dataFromServer.length ;i++) {
-      var   base64Data= dataFromServer[i].image;
- var converted_image= "data:image/jpeg;base64,"+base64Data;
- console.log('the image :'+ converted_image) ;
+      // var   base64Data= dataFromServer[i].image;
+ //var converted_image= "data:image/jpeg;base64,"+base64Data;
+ //console.log('the image :'+ converted_image) ;
  //this.img= 'data:image/jpeg;base64,' + imageData;
 
         this.tours.push(new Tours('' ,dataFromServer[i].tour_id  ,dataFromServer[i].theme ,dataFromServer[i].name ,
-        '' ,converted_image,'','',[],[],7 
+        '' ,dataFromServer[i].image,'','',[],[],7 
          )) ;
       }
      // this.tours= this.toursService.getTours() ;
@@ -85,18 +85,18 @@ ionViewWillEnter() {
       last_tour_id: this.tours[this.tours.length -1].uid
      }
      console.log('it entered on infinite') ;
-       return this.authser.SendData( data ,'http://192.168.43.87:8000/Gawlah/backup/get_tours.php' ).then(result => {
+       return this.authser.SendData( data ,'http://192.168.1.9/Gawlah/backup/get_tours.php' ).then(result => {
         console.log('it entered on infinite2') ;
             let dataFromServer = JSON.parse(result.data) ;
             for(var i =0 ; i< dataFromServer.length ;i++) {
-           var   base64Data= dataFromServer[i].image;
-         var converted_image= "data:image/jpeg;base64,"+base64Data;
-         console.log('the image :'+ converted_image) ;
+          // var   base64Data= dataFromServer[i].image;
+         //var converted_image= "data:image/jpeg;base64,"+base64Data;
+         //console.log('the image :'+ converted_image) ;
        
          
         
                 this.tours.push(new Tours('' ,dataFromServer[i].tour_id  ,dataFromServer[i].theme ,dataFromServer[i].name ,
-                '' ,converted_image,'','',[],[],7 
+                '' ,dataFromServer[i].image,'','',[],[],7 
                  )) ;
               }
             // this.tours =  this.toursService.getTours() ;

@@ -55,7 +55,7 @@ export class TourCreationPage {
 
   }
      // 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php'
-  this.authservice.SendData( data , 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php').then(res=>
+  this.authservice.SendData( data , 'http://192.168.1.9/Gawlah/backup/Tour_creation.php').then(res=>
    { console.log('sendData 1 :' +res) ;
    
    let dataFromServer = JSON.parse(res.data) ;
@@ -112,7 +112,7 @@ export class TourCreationPage {
     
     }
 
-fileTransfer.upload(imageData, 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php', options1)
+fileTransfer.upload(imageData, 'http://192.168.1.9/Gawlah/backup/Tour_creation.php', options1)
  .then((data) => {
 
   console.log(data.headers) ;

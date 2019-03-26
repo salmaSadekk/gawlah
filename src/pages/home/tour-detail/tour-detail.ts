@@ -36,21 +36,23 @@ this.flag=true ;
     var  data = {
       tour_id:this.tour.uid
     }
-    this.authService.SendData(data , 'http://192.168.43.87:8000/Gawlah/backup/get_tour_items').then(
+    console.log('the tour_id' + data.tour_id) ;
+    this.authService.SendData(data , 'http://192.168.1.9/Gawlah/backup/get_tour_items').then(
       res=>{
         console.log('data :'+ res.data) ;
      let dataFromServer = JSON.parse(res.data) ; 
 
       for(var i =0 ;i<dataFromServer.length ;i++) {
-        var   base64Data= dataFromServer[i].image;
-        var converted_image= "data:image/jpeg;base64,"+base64Data;
-        console.log('the image :'+ converted_image) ;
+       // var   base64Data= dataFromServer[i].image;
+       // var converted_image= "data:image/jpeg;base64,"+base64Data;
+       // console.log('the image :'+ converted_image) ;
 
-        this.tour.items.push(new Items('' , dataFromServer[i].name , converted_image , dataFromServer[i].basic_info ,
-        dataFromServer[i].added_info , '','', dataFromServer[i].sequence ,-1 , '')) ;
+        this.tour.items.push(new Items('' , dataFromServer[i].name , dataFromServer[i].image , dataFromServer[i].basic_info ,
+        dataFromServer[i].added_info ,dataFromServer[i].audio,dataFromServer[i].video , dataFromServer[i].sequence ,-1 , '')) ;
         console.log(this.tour.items[i].name ) ;
       }
-      console.log(this.tour.items[0].name ) ;
+     
+
 
       }
     )

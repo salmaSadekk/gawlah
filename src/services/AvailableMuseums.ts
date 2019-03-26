@@ -20,7 +20,7 @@ export class MuseumsService{
     var data = {
      museum_items :'museum_items'
     }
-    this.authService.GetData('http://192.168.43.87:8000/Gawlah/backup/get_items.php' ,data).then(
+    this.authService.GetData('http://192.168.1.9/Gawlah/backup/get_items.php' ,data).then(
       res=>{
         console.log('Items Retrival from data base :' +res.data) ;
         console.log(res.error) ;
