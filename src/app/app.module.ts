@@ -35,6 +35,7 @@ import { AppRate } from '@ionic-native/app-rate';
 import { StarRatingModule } from 'ionic3-star-rating';
 import { MediaCapture } from '@ionic-native/media-capture';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
+import { SearchService } from '../services/search';
 
 
 @NgModule({
@@ -86,6 +87,7 @@ import { TextToSpeech } from '@ionic-native/text-to-speech';
     StatusBar,
     SplashScreen,
     AuthService, 
+    SearchService ,
     ToursService ,
     availableMonuments ,
    HTTP ,

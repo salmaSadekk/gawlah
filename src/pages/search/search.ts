@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from '../../services/auth';
 import { Tours } from '../../Models/Tours';
 import { TourDetailPage } from '../home/tour-detail/tour-detail';
+import { SearchService } from '../../services/search';
 
 /**
  * Generated class for the SearchPage page.
@@ -24,12 +25,14 @@ export class SearchPage {
   didChoose = false ;
   tours :Tours[] =[] ;
 
-  constructor(private authService :AuthService , private navCtrl :NavController , private navParams : NavParams) {
+  constructor(private searchSer :SearchService, private authService :AuthService , private navCtrl :NavController , private navParams : NavParams) {
    
   }
   ionViewWillEnter() {
-    if(this.navParams.data !=null) {
-      this.search(this.navParams.data) ;
+
+    if(this.searchSer.item!='') {
+      this.search(this.searchSer.item) ;
+      this.searchSer.item ='' ;
     }
  this.authService.SendData({getArray:'all'} , 'http://192.168.1.9/Gawlah/backup/Search.php').then(
       res=>{

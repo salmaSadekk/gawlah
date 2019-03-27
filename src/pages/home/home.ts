@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Tours } from '../../Models/Tours';
-import { NavController, App, ToastController } from 'ionic-angular';
+import { NavController, App, ToastController, Tabs } from 'ionic-angular';
 import { TourDetailPage } from './tour-detail/tour-detail';
 import { ToursService } from '../../services/Tours';
 import { TourCreationPage } from '../tour-creation/tour-creation';
@@ -10,6 +10,7 @@ import { AudioPage } from '../tour-creation/items-add/audio/audio';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { SearchPage } from '../search/search';
+import { SearchService } from '../../services/search';
 
 
 
@@ -21,7 +22,7 @@ export class HomePage {
   tours:Tours[]=[] ;
  img:string ='' ;
   fileTransfer: FileTransferObject = this.transfer.create();
-   constructor(private transfer: FileTransfer ,private file: File ,private navCtrl :NavController ,private toursService :ToursService,private app:App ,private authser:AuthService , private toastCtrl :ToastController ) {
+   constructor(private searchSer :SearchService,private transfer: FileTransfer ,private file: File ,private navCtrl :NavController ,private toursService :ToursService,private app:App ,private authser:AuthService , private toastCtrl :ToastController ) {
    
    } 
 ionViewWillEnter() {
@@ -53,7 +54,10 @@ ionViewWillEnter() {
  
 }
 search(theme){
- this.navCtrl.push(SearchPage , theme)
+ //this.navCtrl.push(SearchPage , theme)
+ var t: Tabs = this.navCtrl.parent;
+ this.searchSer.item =theme ;
+ t.select(1);
 }
   onClickItem(item:Tours){
   this.navCtrl.push(TourDetailPage ,item) ;
