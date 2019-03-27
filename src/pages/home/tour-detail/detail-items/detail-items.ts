@@ -5,12 +5,7 @@ import { MediaObject, Media } from '@ionic-native/media';
 import { TabsPage } from '../../../tabs/tabs';
 import { StreamingMedia, StreamingVideoOptions } from '@ionic-native/streaming-media';
 
-/**
- * Generated class for the DetailItemsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 @IonicPage()
 @Component({
@@ -24,21 +19,26 @@ hasPrevious=false ;
 audio: MediaObject;
 currentItem:Items ;
 flag=true ;
-  constructor(private streamingMedia: StreamingMedia ,public navCtrl: NavController, public navParams: NavParams , private media: Media , private alertCtrl : AlertController) {
+  constructor(private tts: TextToSpeech ,private streamingMedia: StreamingMedia ,public navCtrl: NavController, public navParams: NavParams , private media: Media , private alertCtrl : AlertController) {
   }
 
   ionViewWillEnter() {
-    console.log('salomaaa') ;
+  
+}
+read(data:string){
+  this.tts.speak(data)
+  .then(() => console.log('Success'))
+  .catch((reason: any) => console.log(reason));
 }
 ngOnInit() {
   this.items =this.navParams.get('items') ;
   this.index =this.navParams.get('index') ;
   if(this.items[this.index].parentnum>-1) {
-    console.log('hasPrevious :'+this.hasPrevious) ;
+  
     this.hasPrevious =true ;
     }
   this.currentItem =this.items[this.index] ;
-  console.log('salom'+this.index + this.currentItem.addedInfo + this.currentItem.BasicInfo + this.currentItem.name  + this.currentItem.imgUrl) ;
+  
   if (this.index==this.items.length-1){
     this.flag =false ;
   }
@@ -51,7 +51,7 @@ onNextItem() {
   this.navCtrl.push(DetailItemsPage ,{'items':this.items , 'index':++this.index }) ;
 }
 onListen(){
-  console.log("the audio file Url :" +this.currentItem.audio) ;
+  
   this.audio = this.media.create(this.currentItem.audio);
 
 this.audio.play();
@@ -61,7 +61,7 @@ onPrevItem(){
   this.navCtrl.push(DetailItemsPage  ,{'items':this.items , 'index':this.items[this.index].parentnum}) ;
   }
   onWatch(){
-    console.log("the audio file Url :" +this.currentItem.video) ;
+ 
     let options: StreamingVideoOptions = {
       successCallback: () => { console.log('Video played') },
       errorCallback: (e) => { console.log('Error streaming') },

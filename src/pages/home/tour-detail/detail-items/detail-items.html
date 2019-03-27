@@ -12,16 +12,30 @@
 
 <ion-content padding>
  <ion-card >
-   <img [src]="currentItem.imgUrl" >
-   <ion-item text-center> {{currentItem.BasicInfo}}</ion-item>
+   <img [src]="currentItem.imgUrl"  height="200" >
+  
+   <ion-item text-center> 
+    <b>Basic Information</b> 
+    <button icon-only ion-button clear (click)="read(currentItem.BasicInfo)">
+      <ion-icon name ="mic"></ion-icon>
+    </button>
+    <br>
+     {{currentItem.BasicInfo}}</ion-item>
+   <ion-item text-center  >
+      <b>Added Information</b>
+      <button icon-only ion-button clear (click)="read(currentItem.addedInfo)">
+          <ion-icon name ="mic"></ion-icon>
+        </button><br>
+      {{currentItem.addedInfo}}</ion-item>
+   
    <ion-item>
     <button ion-button clear icon-left (click)="onListen()">
       <ion-icon name="musical-notes" ></ion-icon>
       Listen
      </button>
-   </ion-item>
-   <ion-item>
-    <button ion-button clear icon-left (click)="onWatch()">
+    </ion-item>
+    <ion-item>
+     <button ion-button clear icon-left (click)="onWatch()">
       <ion-icon name="videocam"  ></ion-icon>
       Watch video
      </button>
@@ -46,6 +60,6 @@
   
   </ion-grid>
 </ion-card>
-<ion-item text-center no-lines ><b>{{currentItem.addedInfo}}</b></ion-item>
+
 
 </ion-content>

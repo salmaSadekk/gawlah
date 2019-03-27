@@ -34,6 +34,7 @@ import { CommentReviewComponent } from '../components/comment-review/comment-rev
 import { AppRate } from '@ionic-native/app-rate';
 import { StarRatingModule } from 'ionic3-star-rating';
 import { MediaCapture } from '@ionic-native/media-capture';
+import { TextToSpeech } from '@ionic-native/text-to-speech';
 
 
 @NgModule({
@@ -99,7 +100,7 @@ import { MediaCapture } from '@ionic-native/media-capture';
     AppRate  ,
     MediaCapture,
     StreamingMedia ,
-  
+    TextToSpeech ,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -36,7 +36,6 @@ this.flag=true ;
     var  data = {
       tour_id:this.tour.uid
     }
-    console.log('the tour_id' + data.tour_id) ;
     this.authService.SendData(data , 'http://192.168.1.9/Gawlah/backup/get_tour_items').then(
       res=>{
         console.log('data :'+ res.data) ;
@@ -51,8 +50,7 @@ this.flag=true ;
         dataFromServer[i].added_info ,dataFromServer[i].audio,dataFromServer[i].video , dataFromServer[i].sequence ,-1 , '')) ;
         console.log(this.tour.items[i].name ) ;
       }
-     
-
+     // console.log(this.tour.items[0].name ) ;
 
       }
     )

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AuthService } from '../../services/auth';
+import { Tours } from '../../Models/Tours';
+import { TourDetailPage } from '../home/tour-detail/tour-detail';
 
 /**
  * Generated class for the SearchPage page.
@@ -14,57 +17,76 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'search.html',
 })
 export class SearchPage {
-  items;
+  items:string[]=[];
+  ini :string[] =[] ;
+  i:number =0 ;
+  myInput:string ;
+  didChoose = false ;
+  tours :Tours[] =[] ;
 
-  constructor() {
-    this.initializeItems();
+  constructor(private authService :AuthService , private navCtrl :NavController , private navParams : NavParams) {
+   
+  }
+  ionViewWillEnter() {
+    if(this.navParams.data !=null) {
+      this.search(this.navParams.data) ;
+    }
+ this.authService.SendData({getArray:'all'} , 'http://192.168.1.9/Gawlah/backup/Search.php').then(
+      res=>{
+        console.log(res.data) ;
+        console.log(res.error) ;
+        console.log(res.headers) ;
+        console.log(res.status) ;
+        console.log(res.url) ;
+        let dataFromServer = JSON.parse(res.data) ;
+        for(var i=0 ;i<dataFromServer.length ; i++) {
+          this.items.push(dataFromServer[i].data) ;
+        }
+        this.ini = this.items.slice() ;
+      }
+    )
   }
 
   initializeItems() {
-    this.items = [
-      'Amsterdam',
-      'Bogota',
-      'Buenos Aires',
-      'Cairo',
-      'Dhaka',
-      'Edinburgh',
-      'Geneva',
-      'Genoa',
-      'Glasglow',
-      'Hanoi',
-      'Hong Kong',
-      'Islamabad',
-      'Istanbul',
-      'Jakarta',
-      'Kiel',
-      'Kyoto',
-      'Le Havre',
-      'Lebanon',
-      'Lhasa',
-      'Lima',
-      'London',
-      'Los Angeles',
-      'Madrid',
-      'Manila',
-      'New York',
-      'Olympia',
-      'Oslo',
-      'Panama City',
-      'Peking',
-      'Philadelphia',
-      'San Francisco',
-      'Seoul',
-      'Taipeh',
-      'Tel Aviv',
-      'Tokio',
-      'Uelzen',
-      'Washington'
-    ];
+ this.items= this.ini.slice() ;
+  }
+  onClickItem(item){
+    console.log(item.name) ;
+    this.navCtrl.push(TourDetailPage ,item) ;
+  }
+  search(item:string){
+    this.tours=[] ;
+console.log('the selected item' +item) ;
+this.authService.SendData({item:item} , 'http://192.168.1.9/Gawlah/backup/Search.php').then(
+  res=>{
+    
+    console.log(res.data) ;
+    console.log(res.error) ;
+    console.log(res.headers) ;
+    console.log(res.status) ;
+    console.log(res.url) ;
+    let dataFromServer = JSON.parse(res.data) ;
+    console.log(dataFromServer) ;
+
+    for(var i =0 ; i< dataFromServer.length ;i++) {
+     
+
+      this.tours.push(new Tours('' ,dataFromServer[i].tour_id  ,dataFromServer[i].theme ,dataFromServer[i].name ,
+      '' ,dataFromServer[i].image,'','',[],[],7 
+       )) ;
+    }
+
+
+    this.didChoose =true ;
+
+  }
+)
   }
 
   getItems(ev) {
+    this.didChoose =false ;
     // Reset items back to all of the items
-    this.initializeItems();
+   this.initializeItems();
 
     // set val to the value of the ev target
     var val = ev.target.value;
@@ -72,7 +94,10 @@ export class SearchPage {
     // if the value is an empty string don't filter the items
     if (val && val.trim() != '') {
       this.items = this.items.filter((item) => {
-        return (item.toLowerCase().indexOf(val.toLowerCase()) > -1);
+        var txt =  (item.toLowerCase().indexOf(val.toLowerCase()) > -1) ;
+        this.i++ ;
+        console.log('txt value'+this.i+txt) ;
+        return txt;
       })
     }
   }

@@ -56,16 +56,11 @@ export class TourCreationPage {
   }
      // 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php'
   this.authservice.SendData( data , 'http://192.168.1.9/Gawlah/backup/Tour_creation.php').then(res=>
-   { console.log('sendData 1 :' +res) ;
+   { 
    
    let dataFromServer = JSON.parse(res.data) ;
    this.tour.uid = dataFromServer.tour_id ;
-   console.log('username' + dataFromServer.username) ;
-   console.log('msg1'+dataFromServer.tour_id) ;
-   console.log('msg1'+dataFromServer.msg1) ;
-   console.log('msg2'+dataFromServer.msg2) ;
-   console.log('msg3'+dataFromServer.msg3) ;
-   console.log('msg4' +dataFromServer.msg4) ;
+  
   this.fileTransfer(this.img ) ;
    }
   ).catch(error=>
@@ -101,7 +96,7 @@ export class TourCreationPage {
 
 
   fileTransfer(imageData) {
-    console.log('in File Transfer 2')
+    
     const fileTransfer: FileTransferObject = this.transfer.create();
 
     let options1: FileUploadOptions = {
@@ -115,16 +110,12 @@ export class TourCreationPage {
 fileTransfer.upload(imageData, 'http://192.168.1.9/Gawlah/backup/Tour_creation.php', options1)
  .then((data) => {
 
-  console.log(data.headers) ;
-  console.log(data.bytesSent) ;
-  console.log(data.response) ;
-  console.log(data.responseCode) ;
-console.log(data) ;
+  
 
    alert("success");
  }, (err) => {
    // error
-   alert("error"+JSON.stringify(err));
+  // alert("error"+JSON.stringify(err));
    console.log(JSON.stringify(err)) ;
  });
 

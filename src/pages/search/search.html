@@ -8,10 +8,39 @@
   </ion-header>
   
   <ion-content>
-    <ion-searchbar autocorrect="on" (ionInput)="getItems($event)"></ion-searchbar>
-    <ion-list>
-      <ion-item *ngFor="let item of items">
+    <ion-searchbar [(ngModel)]="myInput" autocorrect="on" (ionInput)="getItems($event)"></ion-searchbar>
+    <ion-list *ngIf ="!didChoose">
+      <ion-item *ngFor="let item of items" (click)="search(item)">
         {{ item }}
       </ion-item>
     </ion-list>
+    <ion-list  no-lines *ngIf ="didChoose" >
+      <ion-item (click)="onClickItem(item)" *ngFor="let item of tours">
+         <ion-card>
+             <img [src]="item.mainImage"/>
+             <ion-card-content>
+               <ion-grid>
+                 <ion-row>
+                   <ion-col col-2>
+                      <ion-avatar item-start>
+                          <img [src]="item.CreatorImg">
+                        </ion-avatar>
+                   </ion-col>
+                   <ion-col>
+                      <ion-card-title>
+                        {{item.name}}
+                          </ion-card-title>
+                         
+                        <p>{{item.theme}}</p>
+                   </ion-col>
+                 </ion-row>
+               </ion-grid>
+             
+             </ion-card-content>
+           </ion-card>
+           
+      </ion-item>
+   
+      
+     </ion-list>
   </ion-content>

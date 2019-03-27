@@ -165,16 +165,12 @@ add() {
 fileTransfer.upload(imageData, 'http://192.168.1.9/Gawlah/backup/tour_items.php', options1)
  .then((data) => {
 
-  console.log(data.headers) ;
-  console.log(data.bytesSent) ;
-  console.log(data.response) ;
-  console.log(data.responseCode) ;
-console.log(data) ;
+  
 
    alert("success");
    if(this.audio!='' && this.flag) {
     this.flag = false ;
-    console.log('called audio transfer' + this.audio) ;
+   
     this.fileTransfer(this.audio ,'audio') ;
   
    }
@@ -195,21 +191,9 @@ console.log(data) ;
 
 
   }  
-  /*
- startrecording(){
-    console.log('Start Recording');
-    let options: CaptureVideoOptions = { limit: 1 };
-    this.mediaCapture.captureVideo(options)
-      .then(
-        (data: MediaFile[]) => console.log(data[0].fullPath),
-        (err: CaptureError) => console.error(err)
-      );
-    }
-
-
-  */
+ 
   videoCapture() {
-    console.log('Start Recording');
+  
     let options: CaptureVideoOptions = { limit: 1 };
     this.mediaCapture.captureVideo(options)
       .then(
@@ -222,7 +206,7 @@ console.log(data) ;
 const modal = this.modalCtrl.create(AudioPage) ;
  modal.present();
  modal.onDidDismiss((audio:string)=>{
-   console.log("nothing was returned" +audio) ;
+  
    this.audio =audio ;
  }
 
