@@ -1,0 +1,43 @@
+
+<ion-header>
+    <ion-navbar hideBackButton>
+      <ion-title>add game items</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+  
+   
+  
+      <ion-list>
+        <ion-item>
+          <ion-label>Museum's Monuments</ion-label>
+          <ion-select  [(ngModel)]="Monument" name="selected" multiple="false" required>
+            <ion-option *ngFor="let item of Monum">{{item.name}}</ion-option>
+          </ion-select>
+        </ion-item>
+        
+     <ion-item no-line> 
+      <button
+      type="submit"
+      ion-button
+      icon-left
+      block
+      outline
+      (click) ="onaddChoices()">
+        <ion-icon name="paper"></ion-icon>
+        Add Question
+      </button>
+       </ion-item>
+        <ion-list>
+          <ion-list-header>
+          <h1> Questions</h1>  
+          </ion-list-header>
+          <button ion-item> 
+            <ion-icon name="paper"></ion-icon>
+            {{}}
+          </button>
+        </ion-list>
+        
+  
+  </ion-content>

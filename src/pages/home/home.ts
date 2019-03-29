@@ -11,6 +11,7 @@ import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { SearchPage } from '../search/search';
 import { SearchService } from '../../services/search';
+import { GamecreationPage } from '../gamecreation/gamecreation';
 
 
 
@@ -31,13 +32,14 @@ ionViewWillEnter() {
   var data ={
     getTours:'s'
    } 
+   let url = this.authser.get_tours ;
   
-  this.authser.SendData(data, 'http://192.168.1.9/Gawlah/backup/get_tours.php' ).then(
+  this.authser.SendData(data, url).then(
     res=>{
      
       let dataFromServer = JSON.parse(res.data) ;
       for(var i =0 ; i< dataFromServer.length ;i++) {
-     
+     console.log(dataFromServer[i].image) ;
 
         this.tours.push(new Tours('' ,dataFromServer[i].tour_id  ,dataFromServer[i].theme ,dataFromServer[i].name ,
         '' ,dataFromServer[i].image,'','',[],[],7 
@@ -53,6 +55,10 @@ ionViewWillEnter() {
 
  
 }
+onGameCreate() {
+  this.app.getRootNav().setRoot(GamecreationPage);
+
+}
 search(theme){
  //this.navCtrl.push(SearchPage , theme)
  var t: Tabs = this.navCtrl.parent;
@@ -63,6 +69,7 @@ search(theme){
   this.navCtrl.push(TourDetailPage ,item) ;
   }
   onTourCreate(){
+    console.log('it enters here') ;
     this.app.getRootNav().setRoot(TourCreationPage);
   }
   Video(){
@@ -76,14 +83,14 @@ search(theme){
       getTours:'s' ,
       last_tour_id: this.tours[this.tours.length -1].uid
      }
-     
-       return this.authser.SendData( data ,'http://192.168.1.9/Gawlah/backup/get_tours.php' ).then(result => {
+     let url = this.authser.get_tours ;
+       return this.authser.SendData( data ,url ).then(result => {
        
             let dataFromServer = JSON.parse(result.data) ;
             for(var i =0 ; i< dataFromServer.length ;i++) {
           
        
-         
+                 console.log(dataFromServer[i].image) ;
         
                 this.tours.push(new Tours('' ,dataFromServer[i].tour_id  ,dataFromServer[i].theme ,dataFromServer[i].name ,
                 '' ,dataFromServer[i].image,'','',[],[],7 

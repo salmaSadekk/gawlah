@@ -34,7 +34,7 @@ export class SearchPage {
       this.search(this.searchSer.item) ;
       this.searchSer.item ='' ;
     }
- this.authService.SendData({getArray:'all'} , 'http://192.168.1.9/Gawlah/backup/Search.php').then(
+ this.authService.SendData({getArray:'all'} , 'http://192.168.43.87:8000/Gawlah/backup/Search.php').then(
       res=>{
         console.log(res.data) ;
         console.log(res.error) ;
@@ -43,7 +43,7 @@ export class SearchPage {
         console.log(res.url) ;
         let dataFromServer = JSON.parse(res.data) ;
         for(var i=0 ;i<dataFromServer.length ; i++) {
-          this.items.push(dataFromServer[i].data) ;
+          this.items.push(dataFromServer[i]) ;
         }
         this.ini = this.items.slice() ;
       }
@@ -60,7 +60,7 @@ export class SearchPage {
   search(item:string){
     this.tours=[] ;
 console.log('the selected item' +item) ;
-this.authService.SendData({item:item} , 'http://192.168.1.9/Gawlah/backup/Search.php').then(
+this.authService.SendData({item:item} , 'http://192.168.43.87:8000/Gawlah/backup/Search.php').then(
   res=>{
     
     console.log(res.data) ;

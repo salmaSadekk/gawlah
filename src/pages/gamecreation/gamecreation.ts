@@ -1,30 +1,23 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
-import { NgForm } from '@angular/forms';
-import { Tours } from '../../Models/Tours';
-import { ItemsAddPage } from './items-add/items-add';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { IonicPage, NavController, NavParams, ActionSheetController, LoadingController, ToastController } from 'ionic-angular';
 import { MuseumsService } from '../../services/AvailableMuseums';
 import { Museum } from '../../Models/Museum';
-import { AuthService } from '../../services/auth';
-import { FileTransferObject } from '@ionic-native/file-transfer';
-import { FileTransfer, FileUploadOptions} from '@ionic-native/file-transfer';
+import { NgForm } from '@angular/forms';
+import { Tours } from '../../Models/Tours';
+import { FileTransferObject, FileUploadOptions, FileTransfer } from '@ionic-native/file-transfer';
+import { CameraOptions, Camera } from '@ionic-native/camera';
 import { CurrentUser } from '../../services/CurrentUser';
-import { ActionSheetController } from 'ionic-angular';
+import { AuthService } from '../../services/auth';
+import { GameItemsaddPage } from './game-itemsadd/game-itemsadd';
 
-/**
- * Generated class for the TourCreationPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+
 
 @IonicPage()
 @Component({
-  selector: 'page-tour-creation',
-  templateUrl: 'tour-creation.html',
+  selector: 'page-gamecreation',
+  templateUrl: 'gamecreation.html',
 })
-export class TourCreationPage {
+export class GamecreationPage {
   tour :Tours = new Tours('','','','','','','','',[],[],0) ;
   img:string='' ;
   museums:Museum[] =[];
@@ -32,40 +25,57 @@ export class TourCreationPage {
     ,public camera: Camera ,public navCtrl: NavController, public navParams: NavParams , public MuseumService :MuseumsService) {
   }
   ionViewWillEnter() {
-   // this.ItemsRetrieve() ;
-   this.museums = this.MuseumService.getMuseum()  ;
+  
+  
+   let url = this.authservice.get_museums ;
+   this.authservice.SendData({museum_items:'s'} ,url).then(
+     res=>{
+      let dataFromServer = JSON.parse(res.data) ; 
+      
+      for(var i=0 ;i<dataFromServer.length ; i++) {
+        
+this.museums.push(new Museum(dataFromServer[i].museum_name , dataFromServer[i].museum_id,[])) ;
+      }
+
+     }
+   );
    
   }
 
   onSubmit(f :NgForm) {
-    let name = f.value.name ;
-  this.tour.name= f.value.name ;
-  this.tour.TourName   =f.value.TourName ;
+  
+  this.tour.name= f.value.name ; //museum name
+  this.tour.name =this.museums.find(
+    museum=>{
+      return this.tour.name == museum.name ;
+    }
+  ).description ;
+  this.tour.TourName   =f.value.GameName ;
   this.tour.theme = f.value.theme ;
-  //this.tour.duration =f.value.dur;
+  this.tour.duration =f.value.txt; //the description
   this.tour.CreatorImg = this.currentUser.getUser().profilePic ;
-  //this.tour.mainImage= f.value.image ;
-  this.tour.mainImage= this.img ;
-  this.tour.TicketPrice= f.value.TicketPrice ;
-  var data ={
+   this.tour.mainImage= this.img ;
+  
+  var data ={ 
+    gamename : this.tour.TourName   ,
+    game_info:this.tour.theme   ,
     museum : this.tour.name ,
-    tourname : this.tour.TourName  ,
-    ticketprice :this.tour.TicketPrice ,
-    theme:this.tour.theme  ,
-    rating : 0 ,
-    tour_info :f.value.txt
+    image : this.img ,
+    theme :this.tour.theme ,
+    rating :0
+    
+   
 
   }
-     // 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php'
-     let url = this.authservice.tourCreationUrl ;
+     
+     let url = this.authservice.game_creation ;
   this.authservice.SendData( data ,url).then(res=>
    { 
-     console.log('tour-Creation') ;
-     console.log(res.data) ;
-     console.log(res.url) ;
-     console.log(res.headers) ;
-     console.log(res.error) ;
-     console.log(res.status) ;   
+   console.log(res.data) ;
+   console.log(res.error) ;
+   console.log(res.headers) ;
+   console.log(res.status) ;
+   console.log(res.url) ;
    let dataFromServer = JSON.parse(res.data) ;
    this.tour.uid = dataFromServer.tour_id ;
   
@@ -76,7 +86,7 @@ export class TourCreationPage {
 
   
  
-   this.navCtrl.push(ItemsAddPage , {'tour':this.tour ,'index':0}) ;
+   this.navCtrl.push(GameItemsaddPage , {'tour':this.tour ,'index':0}) ;
   }
   Camera(source){
     const options: CameraOptions = {
@@ -114,10 +124,13 @@ export class TourCreationPage {
        headers: {}
     
     }
-    let url = this.authservice.tourCreationUrl ;
+    let url = this.authservice.game_creation ;
 fileTransfer.upload(imageData, url, options1)
  .then((data) => {
-
+console.log(data.bytesSent) ;
+console.log(data.headers) ;
+console.log(data.response) ;
+console.log(data.responseCode) ;
   
 
    alert("success");
@@ -132,26 +145,6 @@ fileTransfer.upload(imageData, url, options1)
 
 
   }  
- /*ItemsRetrieve() {
-   var data = {
-    museum_items :'museum_items'
-   }
-   this.authservice.GetData('http://192.168.43.87:8000/Gawlah/backup/get_items.php' ,data).then(
-     res=>{
-       console.log('Items Retrival from data base :' +res.data) ;
-       console.log(res.error) ;
-       console.log(res.headers) ;
-       console.log(res.status) ;
-       console.log(res.url) ;
-      
-       
-
-
-     //  console.log(dataFromServer.item_id) ;
-      // console.log(dataFromServer.item_name) ;
-     }
-   )
- } */
  presentActionSheet() {
   const actionSheet = this.actionSheetCtrl.create({
     title: 'Add a picture',
@@ -186,4 +179,3 @@ fileTransfer.upload(imageData, url, options1)
 
   }
   
-

@@ -1,0 +1,58 @@
+<!--
+  Generated template for the QuestionModalPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Add a Question</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" >
+ 
+    <ion-item  >
+      <ion-label stacked>Enter a question</ion-label>
+      <ion-input type="text" name="qu"  ngModel required></ion-input>
+     </ion-item>
+     <ion-item  >
+      <ion-label stacked>Hint</ion-label>
+      <ion-input type="text" name="hint"  ngModel ></ion-input>
+     </ion-item>
+     <ion-item no-line> 
+        <button
+        type="submit"
+        [disabled] ="!f.valid"
+         ion-button
+        icon-left
+        block
+        outline
+        (click) ="onaddChoices()">
+          <ion-icon name="paper"></ion-icon>
+          Add Choices
+        </button>
+         </ion-item>
+  </form>
+    
+  <ion-list  *ngIf="flag">
+      <ion-list-header>
+          <h1>Choices</h1>
+        </ion-list-header>
+        <ion-item-sliding *ngFor="let choice of Choices; let i = index">
+       
+  <ion-item (click)="answer(choice)" color="primary">
+  {{i+1}}- {{choice}}
+  </ion-item>
+  <ion-item-options side="right">
+      <button ion-button color="danger" (click)="delete(i,false)">
+        <ion-icon name="trash"></ion-icon>
+        delete
+      </button>
+    </ion-item-options>
+</ion-item-sliding>
+</ion-list>
+<button class="down" ion-button (click) ="onFinish()" clear>Submit Question</button>
+
+</ion-content>

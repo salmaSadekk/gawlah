@@ -1,0 +1,67 @@
+<!--
+  Generated template for the GamecreationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>Game creation</ion-title>
+  </ion-navbar>
+</ion-header>
+
+  <ion-content no-lines >
+    <img src="../../assets/imgs/gameCreation.png">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" >
+      <ion-list>
+          <ion-item>
+              <ion-label>Choose a Museum</ion-label>
+              <ion-select  ngModel name ="name" multiple="false" required>
+                  <ion-option   *ngFor="let item of museums">{{item.name}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label floating>
+                name of the Game
+              </ion-label>
+              <ion-input type="text" ngModel name="GameName" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label floating>
+               theme
+              </ion-label>
+              <ion-input type="text" ngModel name="theme" required></ion-input> 
+            </ion-item>
+            <ion-item>
+           
+              <ion-textarea required ngModel name="txt" placeholder="enter the description related to the Game" rows="4"
+              cols="12"></ion-textarea>
+            </ion-item>
+            <ion-item>
+              <button
+              ion-button
+              icon-left
+              block
+              outline
+              type="button"
+              (click)=" presentActionSheet()">
+              <ion-icon name="camera"></ion-icon>
+             add a picture 
+            </button>
+             </ion-item>
+            
+        
+        
+        
+         
+    <ion-item text-right >
+      <button ion-button clear type="submit" [disabled]="!f.valid " >Next</button>
+      <!-- the disabled will have a condition if the flag =(this.img!=''&& a certain flag set by true on image click==true) then
+      -->
+    </ion-item>
+       
+      </ion-list>
+    </form>
+    
+    
+</ion-content>

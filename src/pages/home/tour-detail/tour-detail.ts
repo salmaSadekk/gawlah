@@ -36,7 +36,8 @@ this.flag=true ;
     var  data = {
       tour_id:this.tour.uid
     }
-    this.authService.SendData(data , 'http://192.168.1.9/Gawlah/backup/get_tour_items').then(
+    let url = this.authService.get_tour_items ;
+    this.authService.SendData(data ,url).then(
       res=>{
         console.log('data :'+ res.data) ;
      let dataFromServer = JSON.parse(res.data) ; 

@@ -115,7 +115,8 @@ add() {
   
     }
        // 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php'
-    this.authservice.SendData( data , 'http://192.168.1.9/Gawlah/backup/tour_items.php').then(res=>
+       let url = this.authservice.tour_items ;
+    this.authservice.SendData( data , url).then(res=>
      { console.log('sendData items-add :' +res.data) ;
      console.log(res.error) ;
      console.log(res.headers) ;
@@ -161,8 +162,9 @@ add() {
        headers: {}
     
     }
+    let url = this.authservice.tour_items ;
 
-fileTransfer.upload(imageData, 'http://192.168.1.9/Gawlah/backup/tour_items.php', options1)
+fileTransfer.upload(imageData, url, options1)
  .then((data) => {
 
   

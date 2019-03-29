@@ -3,16 +3,21 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content >
     <ion-fab bottom right >
-        <button ion-fab mini (click)="onTourCreate()"><ion-icon name="add"></ion-icon></button>
+        <button ion-fab mini ><ion-icon name="add"></ion-icon></button>
+        <ion-fab-list side="top">
+          <button ion-fab (click)="onTourCreate()"><ion-icon name="map" ></ion-icon></button>
+          <button ion-fab (click)="onGameCreate()"><ion-icon name="game-controller-a" ></ion-icon></button>
+        </ion-fab-list>
+        
        
       </ion-fab>
     
-    <ion-list  no-lines>
-        <ion-item (click)="onClickItem(item)" *ngFor="let item of tours">
-           <ion-card>
-               <img [src]="item.mainImage"/>
+    <ion-list  no-lines > 
+        <ion-item *ngFor="let item of tours">
+           <ion-card no-padding>
+               <img [src]="item.mainImage" height="250" (click)="onClickItem(item)" />
                <ion-card-content>
                  <ion-grid>
                    <ion-row>
@@ -26,7 +31,7 @@
                           {{item.name}}
                             </ion-card-title>
                            
-                          <button ion-button clear (click) ="search(item.theme)">{{item.theme}}</button>
+                          <button ion-button clear (click) ="search(item.theme)">#{{item.theme}}</button>
                      </ion-col>
                    </ion-row>
                  </ion-grid>

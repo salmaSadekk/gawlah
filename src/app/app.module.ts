@@ -36,6 +36,9 @@ import { StarRatingModule } from 'ionic3-star-rating';
 import { MediaCapture } from '@ionic-native/media-capture';
 import { TextToSpeech } from '@ionic-native/text-to-speech';
 import { SearchService } from '../services/search';
+import { GamecreationPage } from '../pages/gamecreation/gamecreation';
+import { GameItemsaddPage } from '../pages/gamecreation/game-itemsadd/game-itemsadd';
+import { QuestionModalPage } from '../pages/gamecreation/game-itemsadd/question-modal/question-modal';
 
 
 @NgModule({
@@ -52,7 +55,10 @@ import { SearchService } from '../services/search';
     TourCreationPage ,
     ItemsAddPage ,
     AudioPage ,
-    CommentReviewComponent
+    CommentReviewComponent ,
+    GamecreationPage ,
+    GameItemsaddPage ,
+    QuestionModalPage 
 
 
 
@@ -78,7 +84,10 @@ import { SearchService } from '../services/search';
     DetailItemsPage ,
     TourCreationPage ,
     ItemsAddPage ,
-    AudioPage 
+    AudioPage ,
+    GamecreationPage ,
+    GameItemsaddPage  ,
+    QuestionModalPage
 
 
  
