@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Tours } from '../../Models/Tours';
-import { NavController, App, ToastController, Tabs } from 'ionic-angular';
+import { NavController, App, ToastController, Tabs, NavParams, PopoverController } from 'ionic-angular';
 import { TourDetailPage } from './tour-detail/tour-detail';
 import { ToursService } from '../../services/Tours';
 import { TourCreationPage } from '../tour-creation/tour-creation';
@@ -12,6 +12,8 @@ import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { SearchPage } from '../search/search';
 import { SearchService } from '../../services/search';
 import { GamecreationPage } from '../gamecreation/gamecreation';
+import { OptionsPage } from './popover';
+import { sponsorService } from '../../services/sponsored';
 
 
 
@@ -20,13 +22,29 @@ import { GamecreationPage } from '../gamecreation/gamecreation';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  flag=false ;
   tours:Tours[]=[] ;
  img:string ='' ;
   fileTransfer: FileTransferObject = this.transfer.create();
-   constructor(private searchSer :SearchService,private transfer: FileTransfer ,private file: File ,private navCtrl :NavController ,private toursService :ToursService,private app:App ,private authser:AuthService , private toastCtrl :ToastController ) {
+   constructor( private sponsorService : sponsorService ,private popoverCtrl :PopoverController,private navParams :NavParams,private searchSer :SearchService,private transfer: FileTransfer ,private file: File ,private navCtrl :NavController ,private toursService :ToursService,private app:App ,private authser:AuthService , private toastCtrl :ToastController ) {
    
    } 
+   presentPopover(event ,item) {
+    const popover = this.popoverCtrl.create(OptionsPage);
+    popover.present({ev:event});
+    popover.onDidDismiss(
+      data=>{
+        if(data.action=='sponsor')
+        this.sponsorService.tours.push(item) ;
+      }
+    )
+  }
+  doneButton(){
+    this.navCtrl.pop() ;
+  }
 ionViewWillEnter() {
+  if(this.navParams.get('flag')!=null && this.navParams.get('flag')==true)
+  this.flag = this.navParams.get('flag') ;
   this.tours =[] ;
   this.authser.setAuth(true) ;
   var data ={

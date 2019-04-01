@@ -1,0 +1,151 @@
+<!--
+  <ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+**************
+     <ion-item>
+      <img src="../../assets/imgs/sponsor.jpg" height="90%"> 
+    
+  </ion-item>
+  <button ion-button clear (click)="first=false ;">Become a sponsor</button>
+</ion-list>
+<div *ngIf="!first">
+  
+</div>
+ ************<ion-list *ngIf="first">
+
+</ion-content>
+-->
+
+
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Slides</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="tutorial-page">
+
+  <ion-slides *ngIf="first" pager>
+    <ion-slide *ngFor="let slide of slides">
+  
+      <img [src]="slide.image" class="slide-image"/>
+      <h2 class="slide-title" [innerHTML]="slide.title"></h2>
+      <p [innerHTML]="slide.description"></p>
+    </ion-slide>
+    <ion-slide>
+      <ion-toolbar>
+      </ion-toolbar>
+      <img src="../../assets/imgs/2016_sponsorship_logos.png" class="slide-image"/>
+      <h2 class="slide-title">Join Our Sponsors</h2>
+      <button ion-button large clear icon-end color="primary" (click) ="first=false  ; second=true;">
+        Continue
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-slide>
+  </ion-slides>
+  <div *ngIf="!first && second && Sponsored.length ==0 ">
+      <ion-list no-lines>
+          <ion-list-header>
+              <h2>Advertiser details</h2> 
+                </ion-list-header>
+                <ion-item>
+                    <ion-label color="primary"> Name of Advertiser</ion-label>
+                  <ion-input [(ngModel)]="name" ></ion-input>
+                    </ion-item>
+                    <ion-item text-center>
+                        <button ion-button outline block color="primary" (click)="logoadd()">Add a Logo</button>
+                        <img [src] ="logo"> 
+  
+                    </ion-item>
+                   
+          <ion-list-header>
+          <h2>Advertisment type</h2> 
+            </ion-list-header>
+            <ion-item>
+              <ion-label color="primary"> Ad type</ion-label>
+              <ion-select  [(ngModel)]="adv"  multiple="false" >
+                    <ion-option  value ="video" >video</ion-option>
+                    <ion-option  value ="image" >image</ion-option>
+                </ion-select>
+              </ion-item>
+           
+              
+            </ion-list>
+            <ion-item no-lines *ngIf="adv=='video'">
+                <button ion-button block icon-left outline > 
+                    <ion-icon name="videocam" ></ion-icon>
+    Add a video
+                    
+                  </button>
+            </ion-item>
+            <ion-item no-lines *ngIf="adv=='image'">
+                <button ion-button icon-left block outline > 
+                    <ion-icon name="camera" ></ion-icon>
+  Add an Image
+                    
+                  </button>
+            </ion-item>
+            <button class="down"ion-button clear (click) ="addTours() ;"> Add tours to sponsor</button>
+           
+           
+  
+    <!--
+<ion-list no-lines>
+        <ion-list-header color="primary">
+        <h4>marketing objective?</h4> 
+          </ion-list-header>
+          <ion-item>
+            <ion-label> marketing objective?</ion-label>
+            <ion-select  [(ngModel)]="mod"  multiple="false" required>
+                  <ion-option  [value]="choice.value"  *ngFor="let choice of choices">{{choice.text}}</ion-option>
+              </ion-select>
+            </ion-item>
+            <ion-list-header color="primary">
+             <h4> Audience</h4>  
+                 </ion-list-header>
+                 <ion-item>
+                   <ion-label>Gender</ion-label>
+                   <ion-select  [(ngModel)]="gender"  multiple="false" required>
+                      <ion-option  value="f" >female</ion-option>
+                      <ion-option  value="m" >Male</ion-option>
+                  </ion-select>
+                   
+                   </ion-item>
+                   <ion-item>
+                      <ion-label fixed>language</ion-label>
+                      <ion-input  [(ngModel)]="lang" ></ion-input>
+                       </ion-item>
+                     
+                      <ion-item>
+                     <ion-label fixed >Country</ion-label>
+                     <ion-input  [(ngModel)]="country" ></ion-input>
+                      </ion-item>
+                     
+                  
+    </ion-list>
+    <button ion-button clear (click)="third=true ;second=false ; ">Next</button>
+    -->
+    
+
+
+  </div>
+  <div *ngIf ="Sponsored.length >0">
+    <ion-list>
+      <ion-item *ngFor="let item of Sponsored ">
+{{item.name}}
+      </ion-item>
+    </ion-list>
+    <button ion-button outline block (click)="pay()">pay for tours</button>
+  </div>
+  
+
+</ion-content>

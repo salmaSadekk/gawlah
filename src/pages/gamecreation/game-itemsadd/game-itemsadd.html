@@ -8,7 +8,7 @@
   <ion-content padding>
   
    
-  
+<form #f="ngForm" (ngSubmit)="onSubmit1(f)" >
       <ion-list>
         <ion-item>
           <ion-label>Museum's Monuments</ion-label>
@@ -28,16 +28,41 @@
         <ion-icon name="paper"></ion-icon>
         Add Question
       </button>
-       </ion-item>
-        <ion-list>
+      </ion-item>
+      </ion-list>
+    </form>
+  
+        <ion-list *ngIf="Questions.length>0" >
           <ion-list-header>
           <h1> Questions</h1>  
           </ion-list-header>
-          <button ion-item> 
+          <button ion-item *ngFor="let question of Questions"> 
             <ion-icon name="paper"></ion-icon>
-            {{}}
-          </button>
+           {{question.Qu}}
+            </button>
         </ion-list>
         
+        <ion-grid>
+
+          <ion-row>
   
+            <ion-col>
+              <button ion-button  clear (click)="finish() "
+               >Finish
+              </button>
+            </ion-col>
+            <ion-col col-4>
+              <button ion-button  clear (click)="add()"
+                >Add another</button>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button ion-button clear color="danger" (click)="onCancel()">Cancel</button>
+            </ion-col>
+  
+          </ion-row>
+         
+             
+        </ion-grid>
   </ion-content>

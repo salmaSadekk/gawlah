@@ -1,5 +1,14 @@
 <ion-header>
   <ion-navbar>
+      <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        
+        <ion-buttons end>
+          <button ion-button  color="primary" *ngIf="flag" (click)="doneButton()">
+            Done
+          </button>
+        </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -32,9 +41,15 @@
                             </ion-card-title>
                            
                           <button ion-button clear (click) ="search(item.theme)">#{{item.theme}}</button>
+                          
                      </ion-col>
                    </ion-row>
                  </ion-grid>
+                 <ion-item *ngIf="flag">
+                   <button ion-button icon-only clear item-end (click)=" presentPopover($event ,item)">
+                     <ion-icon name="more"></ion-icon>
+                   </button>
+                 </ion-item>
                
                </ion-card-content>
              </ion-card>

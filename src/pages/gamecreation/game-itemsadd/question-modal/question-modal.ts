@@ -20,6 +20,7 @@ export class QuestionModalPage {
  hint :string ='' ;
 flag:boolean = false ;
  correctAns :string ='' ;
+
   constructor( private viewCtrl :ViewController,public alertCtrl: AlertController ,public navCtrl: NavController, public navParams: NavParams) {
   }
   delete(i , deleteAll){
@@ -63,7 +64,17 @@ flag:boolean = false ;
     console.log('daata from prompt' +prompt.data) ;
   }
   answer(choice){
-    this.answer = choice ;
+   this.Choices.splice( 
+    this.Choices.findIndex(
+      res=>{
+        console.log('pop' +res ==choice ) ;
+        console.log('pop1' +JSON.stringify(this.Choices)) ;
+        return res ==choice ;
+      }
+    ) ,1
+   )  ;
+   console.log('pop2' +JSON.stringify(this.Choices)) ;
+    this. correctAns  = choice ;
   }
   onSubmit(f:NgForm) {
 this.qu = f.value.qu ;
@@ -71,7 +82,9 @@ this.hint = f.value.hint ;
 this.flag=true  ;
   }
   onFinish(){
-   this.viewCtrl.dismiss({Qu:this.qu , choices :this.Choices , hint :this.hint}) ;
+    let data ={Qu:this.qu , choices :this.Choices , answer : this. correctAns} ;
+    console.log('from Question modal'+JSON.stringify(data)) ;
+   this.viewCtrl.dismiss(data) ;
   }
 
 }

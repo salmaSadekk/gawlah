@@ -18,6 +18,8 @@ import { GameItemsaddPage } from './game-itemsadd/game-itemsadd';
   templateUrl: 'gamecreation.html',
 })
 export class GamecreationPage {
+ 
+ 
   tour :Tours = new Tours('','','','','','','','',[],[],0) ;
   img:string='' ;
   museums:Museum[] =[];
@@ -67,6 +69,7 @@ this.museums.push(new Museum(dataFromServer[i].museum_name , dataFromServer[i].m
    
 
   }
+  console.log('the game creation :'+JSON.stringify(data))
      
      let url = this.authservice.game_creation ;
   this.authservice.SendData( data ,url).then(res=>
@@ -77,7 +80,8 @@ this.museums.push(new Museum(dataFromServer[i].museum_name , dataFromServer[i].m
    console.log(res.status) ;
    console.log(res.url) ;
    let dataFromServer = JSON.parse(res.data) ;
-   this.tour.uid = dataFromServer.tour_id ;
+   this.tour.uid = dataFromServer.msg5 ;
+   console.log( 'From game Creation id' +this.tour.uid) ;
   
   this.fileTransfer(this.img ) ;
    }

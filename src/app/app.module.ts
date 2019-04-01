@@ -39,6 +39,10 @@ import { SearchService } from '../services/search';
 import { GamecreationPage } from '../pages/gamecreation/gamecreation';
 import { GameItemsaddPage } from '../pages/gamecreation/game-itemsadd/game-itemsadd';
 import { QuestionModalPage } from '../pages/gamecreation/game-itemsadd/question-modal/question-modal';
+import { SponsorPage } from '../pages/sponsor/sponsor';
+import { sponsorService } from '../services/sponsored';
+import { OptionsPage } from '../pages/home/popover';
+
 
 
 @NgModule({
@@ -58,7 +62,10 @@ import { QuestionModalPage } from '../pages/gamecreation/game-itemsadd/question-
     CommentReviewComponent ,
     GamecreationPage ,
     GameItemsaddPage ,
-    QuestionModalPage 
+    QuestionModalPage ,
+    SponsorPage ,
+    OptionsPage
+
 
 
 
@@ -87,7 +94,9 @@ import { QuestionModalPage } from '../pages/gamecreation/game-itemsadd/question-
     AudioPage ,
     GamecreationPage ,
     GameItemsaddPage  ,
-    QuestionModalPage
+    QuestionModalPage ,
+    SponsorPage ,
+    OptionsPage
 
 
  
@@ -112,6 +121,7 @@ import { QuestionModalPage } from '../pages/gamecreation/game-itemsadd/question-
     MediaCapture,
     StreamingMedia ,
     TextToSpeech ,
+    sponsorService ,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

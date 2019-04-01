@@ -21,7 +21,7 @@ import { Tours } from '../../../Models/Tours';
 })
 export class GameItemsaddPage implements OnInit {
   Monum:Items[] =[];
-  Monument ='' ;
+  Monument :Items ;
    tour:Tours ;
    addBut=false ;
    finishBut=false ;
@@ -31,6 +31,8 @@ export class GameItemsaddPage implements OnInit {
    video='' ;
    flagVideo =true ;
    flag=true ;
+   /*-------------------------------------------------------------------------------*/
+   Questions =[] ;
   constructor(private alertCtrl :AlertController,private authservice:AuthService ,private modalCtrl  : ModalController,public navCtrl: NavController, public navParams: NavParams) {
   }
   openModal(){
@@ -38,11 +40,15 @@ export class GameItemsaddPage implements OnInit {
 modal.present() ;
   }
   finish() {
+  
     this.finishBut=true ;
+    this. onSubmit() ;
     
     }
     add() {
+     
       this.addBut=true ;
+      this. onSubmit() ;
     }
       ngOnInit() {
         this.tour =this.navParams.get('tour');
@@ -68,34 +74,23 @@ console.log('the museum id from game items add' + this.tour.name) ;
       }
  
      
-      onSubmit(f:NgForm) {
+      onSubmit() {
        
         this.index=this.navParams.get('index') ;
-       
-         
-        this.tour.items[this.index]  =this.Monum .find(
-          val=>{
-            return val.name == f.value.selected ;
-          }
-        ) ;
-        this.tour.items[this.index].addedInfo =f.value.txt ;
-        this.tour.items[this.index].imgUrl =this.img ;
-        this.tour.items[this.index].video = this.video ;
-        this.tour.items[this.index].audio =this.audio ;
-        this.tour.items[this.index].sequenceNum =f.value.seqNum ;
-        this.tour.items[this.index].Time =f.value.dur ;
         const item =this.tour.items[this.index];
+        console.log('Game Id ' + this.tour.uid ) ;
         var data ={
-          addedInfo : item.addedInfo,
-          sequenceNum : item.sequenceNum ,
-          duration :item.Time   ,
-          item_id: item.uid 
+     
+        game_id: this.tour.uid ,
+        item_id: item.uid ,
+        Questions:this.Questions 
           
        
       
         }
+        console.log('ONsubmit' + JSON.stringify(this.Questions )) ;
            // 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php'
-           let url = this.authservice.tour_items ;
+           let url = this.authservice.game_items ;
         this.authservice.SendData( data , url).then(res=>
          { console.log('sendData items-add :' +res.data) ;
          console.log(res.error) ;
@@ -155,7 +150,30 @@ console.log('the museum id from game items add' + this.tour.name) ;
         });
         confirm.present();
       }
-
+      onaddChoices(){
+        console.log('the currently selected mon' +this.Monument.uid)
+      let modal = this.modalCtrl.create(QuestionModalPage) ;
+        modal.present();
+        modal.onDidDismiss((data)=>{
+          
+         this.Questions.push({
+          Qu:data.Qu , choices :data.choices , hint :data.hint , correct_answer :data.answer 
+         }) ;
+       console.log('game-itemadd' + data.qu ) ;
+        }
+       
+        )
+      }
   
+      onSubmit1(f:NgForm){
+        this.index=this.navParams.get('index') ;
+       
+         
+        this.tour.items[this.index]  =this.Monum .find(
+          val=>{
+            return val.name == f.value.selected ;
+          }
+        ) ;
 
+      }
 }
