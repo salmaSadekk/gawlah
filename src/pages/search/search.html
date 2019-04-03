@@ -17,7 +17,7 @@
     <ion-list  no-lines *ngIf ="didChoose" >
       <ion-item (click)="onClickItem(item)" *ngFor="let item of tours">
          <ion-card>
-             <img [src]="item.mainImage"/>
+             <img [src]="item.mainImage"  height="250" />
              <ion-card-content>
                <ion-grid>
                  <ion-row>

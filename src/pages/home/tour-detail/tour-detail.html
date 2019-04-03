@@ -6,14 +6,17 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-card text-center  (click)="onItemClick()">
-        <img [src]="tour.mainImage" height="250"/>
+    <ion-card text-center >
+        <img [src]="tour.mainImage" height="250" (click)="onItemClick()"/>
         <ion-card-content>
             <ion-card-title>
                 {{tour.name}}
                   </ion-card-title>
                  
-                <p>{{tour.theme}}</p>
+                  <ion-chip *ngFor="let theme of tour.theme.split('#').splice(1,tour.theme.split('#').length -1)" (click)="SearchTheme(theme)">
+                      <ion-label>#{{theme}}</ion-label>
+                     
+                    </ion-chip>
         
         </ion-card-content>
         
@@ -32,6 +35,9 @@
        </ionic3-star-rating>
        <button ion-button clear (click)="addReview()">write a review</button>
       </ion-item>
+     
+         
+           
       
       <ion-list   >
         <ion-item *ngFor="let review of tour.review">

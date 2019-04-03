@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, AlertController, Tabs } from 'ionic-angular';
 import { Tours } from '../../../Models/Tours';
 import { DetailItemsPage } from './detail-items/detail-items';
 import { ToursService } from '../../../services/Tours';
@@ -7,6 +7,7 @@ import { Review } from '../../../Models/Review';
 import { CurrentUser } from '../../../services/CurrentUser';
 import { AuthService } from '../../../services/auth';
 import { Items } from '../../../Models/Items';
+import { SearchService } from '../../../services/search';
 
 
 @IonicPage()
@@ -18,12 +19,17 @@ export class TourDetailPage implements OnInit {
    tour:Tours ;
    //flag=false ;
    starRating :number =0 ;
+   
   
-  constructor(private authService :AuthService ,private currentUser : CurrentUser,private tourService :ToursService ,private alertCtrl :AlertController, private events:Events ,public navCtrl: NavController, public navParams: NavParams ) {
+  constructor(private searchSer:SearchService,private authService :AuthService ,private currentUser : CurrentUser,private tourService :ToursService ,private alertCtrl :AlertController, private events:Events ,public navCtrl: NavController, public navParams: NavParams ) {
      
     events.subscribe('star-rating:changed', (starRating) => {this.starRating=starRating ;console.log("star Rating is :"+starRating + typeof(starRating))});
   }
-
+  SearchTheme(theme){
+    var t: Tabs = this.navCtrl.parent;
+ this.searchSer.item =theme ;
+ t.select(1);
+  }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TourDetailPage');
   }
@@ -41,7 +47,7 @@ this.flag=true ;
       res=>{
         console.log('data :'+ res.data) ;
      let dataFromServer = JSON.parse(res.data) ; 
-
+     
       for(var i =0 ;i<dataFromServer.length ;i++) {
        // var   base64Data= dataFromServer[i].image;
        // var converted_image= "data:image/jpeg;base64,"+base64Data;

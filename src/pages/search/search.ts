@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from '../../services/auth';
 import { Tours } from '../../Models/Tours';
@@ -17,7 +17,7 @@ import { SearchService } from '../../services/search';
   selector: 'page-search',
   templateUrl: 'search.html',
 })
-export class SearchPage {
+export class SearchPage implements OnInit {
   items:string[]=[];
   ini :string[] =[] ;
   i:number =0 ;
@@ -34,20 +34,24 @@ export class SearchPage {
       this.search(this.searchSer.item) ;
       this.searchSer.item ='' ;
     }
- this.authService.SendData({getArray:'all'} , 'http://192.168.43.87:8000/Gawlah/backup/Search.php').then(
-      res=>{
-        console.log(res.data) ;
-        console.log(res.error) ;
-        console.log(res.headers) ;
-        console.log(res.status) ;
-        console.log(res.url) ;
-        let dataFromServer = JSON.parse(res.data) ;
-        for(var i=0 ;i<dataFromServer.length ; i++) {
-          this.items.push(dataFromServer[i]) ;
-        }
-        this.ini = this.items.slice() ;
-      }
-    )
+   
+  }
+  ngOnInit(){
+    let url =this.authService.search_by_theme ;
+    this.authService.SendData({getAllThemes:'all'} , url).then(
+         res=>{
+           console.log(res.data) ;
+           console.log(res.error) ;
+           console.log(res.headers) ;
+           console.log(res.status) ;
+           console.log(res.url) ;
+           let dataFromServer = JSON.parse(res.data) ;
+           for(var i=0 ;i<dataFromServer.length ; i++) {
+             this.items.push(dataFromServer[i]) ;
+           }
+           this.ini = this.items.slice() ;
+         }
+       )
   }
 
   initializeItems() {
@@ -59,8 +63,8 @@ export class SearchPage {
   }
   search(item:string){
     this.tours=[] ;
-console.log('the selected item' +item) ;
-this.authService.SendData({item:item} , 'http://192.168.43.87:8000/Gawlah/backup/Search.php').then(
+    let url =this.authService.search_by_theme ;
+this.authService.SendData({SearchKey:item} , url).then(
   res=>{
     
     console.log(res.data) ;

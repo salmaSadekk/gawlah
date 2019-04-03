@@ -27,7 +27,7 @@ export class HomePage {
  img:string ='' ;
   fileTransfer: FileTransferObject = this.transfer.create();
    constructor( private sponsorService : sponsorService ,private popoverCtrl :PopoverController,private navParams :NavParams,private searchSer :SearchService,private transfer: FileTransfer ,private file: File ,private navCtrl :NavController ,private toursService :ToursService,private app:App ,private authser:AuthService , private toastCtrl :ToastController ) {
-   
+  
    } 
    presentPopover(event ,item) {
     const popover = this.popoverCtrl.create(OptionsPage);
@@ -42,6 +42,7 @@ export class HomePage {
   doneButton(){
     this.navCtrl.pop() ;
   }
+ 
 ionViewWillEnter() {
   if(this.navParams.get('flag')!=null && this.navParams.get('flag')==true)
   this.flag = this.navParams.get('flag') ;

@@ -5,7 +5,7 @@ import { HTTP } from "@ionic-native/http";
 @Injectable ()
 export class AuthService{
    private isAuth =false ;
-   httpPart = 'http://192.168.1.4' ;
+   httpPart = 'http://172.20.10.5:8000' ;
    tourCreationUrl =  this.httpPart +'/Gawlah/backup/Tour_creation.php' ;
    tour_items =this.httpPart +'/Gawlah/backup/tour_items.php' ;
    get_items =this.httpPart +'/Gawlah/backup/get_items.php'  ;
@@ -14,6 +14,7 @@ export class AuthService{
    get_museums = this.httpPart +'/Gawlah/backup/get_museums.php'
    game_creation =this.httpPart +'/Gawlah/backup/game_creation.php' ;
    game_items = this.httpPart +'/Gawlah/backup/adding_game_items.php' ; 
+   search_by_theme = this.httpPart +'/Gawlah/backup/search_by_theme.php'  ;
     constructor(private http: HTTP){}
     signIn(data ){
       this.http.setRequestTimeout(120000) ;
