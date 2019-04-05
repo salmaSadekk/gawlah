@@ -1,15 +1,42 @@
 <ion-menu [content]="content">
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Menu</ion-title>
-      </ion-toolbar>
-    </ion-header>
+   
   
     <ion-content>
-      <ion-list>
+      <ion-grid class ="m">
+          <ion-row >
+              <ion-col col-4>
+                 <ion-avatar item-start (click) ="openPage(  profilePage )">
+                
+                   <img [src]="currentUser.getUser().profilePic">
+                   </ion-avatar>
+              </ion-col>
+              <ion-col >
+                <h4 id="user">{{currentUser.getUser().name}}</h4>
+               
+              </ion-col>
+             
+
+        </ion-row>
+      
+      </ion-grid>
+       
+      <ion-list no-lines>
+          <button menuClose ion-item  (click)="openPage(  profilePage )">
+            <ion-icon name="person"></ion-icon>
+              Profile
+             </button>
         <button menuClose ion-item  (click)="openPage( sponsorPage )">
+            <ion-icon name="cash"></ion-icon>
          Sponsor
         </button>
+        <button menuClose ion-item  (click)="openPage( sponsorPage )">
+            <ion-icon name="help-circle"></ion-icon>
+           Help Center
+           </button>
+           <button menuClose ion-item  (click)="onLogout()">
+              <ion-icon name="log-out"></ion-icon>
+              Logout 
+             </button>
       </ion-list>
     </ion-content>
   

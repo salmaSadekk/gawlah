@@ -61,7 +61,8 @@ ionViewWillEnter() {
      console.log(dataFromServer[i].image) ;
 
         this.tours.push(new Tours('' ,dataFromServer[i].tour_id  ,dataFromServer[i].theme ,dataFromServer[i].name ,
-        '' ,dataFromServer[i].image,'','',[],[],7 
+        dataFromServer[i].creator,dataFromServer[i].image,'',dataFromServer[i].rating,[],[],dataFromServer[i].price ,
+        dataFromServer[i].museum , dataFromServer[i].tour_info , dataFromServer[i].creator_id
          )) ;
       }
      // this.tours= this.toursService.getTours() ;
@@ -111,9 +112,10 @@ search(theme){
        
                  console.log(dataFromServer[i].image) ;
         
-                this.tours.push(new Tours('' ,dataFromServer[i].tour_id  ,dataFromServer[i].theme ,dataFromServer[i].name ,
-                '' ,dataFromServer[i].image,'','',[],[],7 
-                 )) ;
+                 this.tours.push(new Tours('' ,dataFromServer[i].tour_id  ,dataFromServer[i].theme ,dataFromServer[i].name ,
+                 dataFromServer[i].creator,dataFromServer[i].image,'',dataFromServer[i].rating,[],[],dataFromServer[i].price ,
+                 dataFromServer[i].museum , dataFromServer[i].tour_info , dataFromServer[i].creator_id
+                  )) ;
               }
             // this.tours =  this.toursService.getTours() ;
             

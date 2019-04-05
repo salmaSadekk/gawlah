@@ -81,7 +81,8 @@ console.log('the museum id from game items add' + this.tour.name) ;
         console.log('Game Id ' + this.tour.uid ) ;
         var data ={
      
-        game_id: this.tour.uid ,
+       // game_id: this.tour.uid ,
+       game_id: this.tour.uid ,
         item_id: item.uid ,
         Questions:this.Questions 
           

@@ -1,32 +1,91 @@
 
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>SignUp</ion-title>
+  <ion-navbar *ngIf="first||second" color="primary">
+    <ion-title>Create account</ion-title>
   </ion-navbar>
+  <ion-navbar *ngIf="third" hideBackButton color="primary">
+      <ion-title>Add a Picture</ion-title>
+      <ion-buttons end>
+          <button ion-button  (click)=" completeSignUp() ">
+            skip
+          </button>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
-
-<ion-content padding>
-  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
-  <ion-list>
-      <ion-item>
-          <ion-label fixed>Full Name</ion-label>
-          <ion-input type="text" name="name" ngModel required></ion-input>
-         </ion-item>
-    <ion-item>
-     <ion-label fixed>email</ion-label>
-     <ion-input type="email" name="email" ngModel required></ion-input>
-    </ion-item>
-    <ion-item>
-        <ion-label fixed>password</ion-label>
-        <ion-input type="password" name="password" ngModel required></ion-input>
-       </ion-item>
-       <ion-item>
-        <ion-label fixed>Age</ion-label>
-       <ion-input type="number" name="age" ngModel required></ion-input>
+<ion-content>
+  <div *ngIf="first">
+      <img src="../../assets/imgs/instagram_profile_image.png" width="100%" height="50%">
+      <ion-item text-center no-lines>
+        <h1>Join our cloud</h1>
+        <h6>Create amazing tours and games in different museums using tour creation </h6>
       </ion-item>
-     
-  </ion-list>
-  <button round ion-button  [disabled]="!f.valid">Register</button>
-  </form>
+      <ion-item>
+        <button  ion-button block (click) ="first=false ;
+        second=true ;">Next</button>
+      </ion-item>
+
+  </div>
+  <div *ngIf="second">
+      <img src="../../assets/imgs/instagram_profile_image.png" width="30%" height="30%" style="margin-left: 35%">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+          <ion-list>
+              <ion-item>
+                  <ion-label fixed>Full Name</ion-label>
+                  <ion-input type="text" name="name" ngModel required></ion-input>
+                 </ion-item>
+            <ion-item>
+             <ion-label fixed>email</ion-label>
+             <ion-input type="email" name="email" ngModel required></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label fixed>password</ion-label>
+                <ion-input type="password" name="password" ngModel required></ion-input>
+               </ion-item>
+               <ion-item>
+                <ion-label fixed>Age</ion-label>
+               <ion-input type="number" name="age" ngModel required></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label>languages</ion-label>
+                  <ion-select  ngModel name ="selectLang" multiple="true" required>
+                      <ion-option   *ngFor="let lang of languages">{{lang}}</ion-option>
+                  </ion-select>
+                </ion-item>
+             
+          </ion-list>
+          <ion-item text-center>
+              <button round ion-button  [disabled]="!f.valid">Register</button>
+          </ion-item>
+          
+          </form>
+  </div> 
+  <div *ngIf="third" style="margin-top: 20%;">
+    <h1 text-center> Add a profile picture</h1>
+    <img src="../../assets/imgs/defaultShape.png" height="40%" width="40%" style="margin-left: 30% ;margin-top: 15%">
+
+    <ion-grid class="down">
+      <ion-row>
+        <ion-col>
+          <button ion-button block icon-left  (click)="Camera(1)">
+            <ion-icon name ="camera"></ion-icon>
+            Take a picture
+          </button>
+        </ion-col>
+     </ion-row>
+     <ion-row>
+        <ion-col>
+            <button ion-button block icon-left (click)="Camera(0)">
+                <ion-icon name="cloud-upload"></ion-icon>
+              picture from mobile
+            </button>
+          </ion-col>
+     </ion-row>
   
+    </ion-grid>
+   
+
+  </div>
+ 
+
 </ion-content>
+

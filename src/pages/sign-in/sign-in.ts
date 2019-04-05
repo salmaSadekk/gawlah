@@ -8,6 +8,8 @@ import { AuthService } from '../../services/auth';
 import { SignUpPage } from '../sign-up/sign-up';
 import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
+import { CurrentUser } from '../../services/CurrentUser';
+import { User } from '../../Models/user';
 
 @Component({
   selector: 'page-sign-in',
@@ -16,7 +18,7 @@ import { TabsPage } from '../tabs/tabs';
 export class SignInPage {
 
  
-  constructor(public navCtrl: NavController, public navParams: NavParams ,private loading :LoadingController,
+  constructor( private currentUser :CurrentUser,public navCtrl: NavController, public navParams: NavParams ,private loading :LoadingController,
     private authService :AuthService, private alertCtrl:AlertController ,public toastCtrl: ToastController) {
    
   }
@@ -48,11 +50,9 @@ export class SignInPage {
     .then(res => {
       console.log("data error:" +res.data) ;
       let dataFromServer = JSON.parse(res.data) ;
-      console.log("From Sign In :"+dataFromServer.error) ;
-      console.log(res.status) ;
-      console.log(res.headers) ;
-      console.log(res.url) ;
-    console.log('the error' +res.error) ;
+      console.log('from signIn :'+ dataFromServer ) ;
+      this.currentUser.setUser( new User(dataFromServer.user_id , dataFromServer.username , dataFromServer.profileImg) ) ;
+      
     
    
     loader.dismiss() ; 

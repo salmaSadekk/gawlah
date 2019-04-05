@@ -20,7 +20,7 @@ import { GameItemsaddPage } from './game-itemsadd/game-itemsadd';
 export class GamecreationPage {
  
  
-  tour :Tours = new Tours('','','','','','','','',[],[],0) ;
+  tour :Tours = new Tours('','','','','','','','',[],[],0,'','','') ;
   img:string='' ;
   museums:Museum[] =[];
   constructor(public actionSheetCtrl: ActionSheetController ,private currentUser :CurrentUser,private loadingCtrl:LoadingController, private transfer :FileTransfer,private authservice :AuthService,public toastCtrl :ToastController 

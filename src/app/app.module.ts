@@ -45,6 +45,7 @@ import { OptionsPage } from '../pages/home/popover';
 
 
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -64,8 +65,7 @@ import { OptionsPage } from '../pages/home/popover';
     GameItemsaddPage ,
     QuestionModalPage ,
     SponsorPage ,
-    OptionsPage
-
+    OptionsPage 
 
 
 
@@ -96,7 +96,7 @@ import { OptionsPage } from '../pages/home/popover';
     GameItemsaddPage  ,
     QuestionModalPage ,
     SponsorPage ,
-    OptionsPage
+    OptionsPage 
 
 
  

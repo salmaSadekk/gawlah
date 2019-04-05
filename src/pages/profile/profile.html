@@ -23,7 +23,9 @@
         <ion-list *ngSwitchCase="'Users'"  no-lines>
        
             <ion-item-group >
-                <ion-item-divider >LANGUAGES</ion-item-divider>
+              
+                <ion-item-divider >
+                  LANGUAGES</ion-item-divider>
                 <ion-item *ngFor="let lang of languages">
                   <ion-icon name="flag"></ion-icon>
                   {{lang}}</ion-item>
@@ -50,20 +52,40 @@
           </ion-item-group>
       </ion-list>
       
-        <ion-list *ngSwitchCase="'Tours'" no-lines>
-         <ion-item *ngFor ="let tour of ownTours" >
-            <ion-card>
-                <img [src]="tour.mainImage"/>
-                <ion-card-content>
-                  <ion-card-title>
-                    {{tour.name}}
-                    </ion-card-title>
-                 {{ tour.theme}}
-                </ion-card-content>
-              </ion-card>
-         </ion-item>
+        <ion-list *ngSwitchCase="'Tours'" >
+              
+            <ion-item text-center *ngIf="!hasTours">
+                <h4>No Tours Created yet</h4>
+              </ion-item>
+              <ion-item-sliding *ngFor ="let tour of ownTours">
+                  <ion-item >
+                      <ion-thumbnail item-start>
+                        <img  [src]="tour.mainImage">
+                      </ion-thumbnail>
+                      <h2>  {{tour.name}}</h2>
+                      <p>{{tour.rating}}</p>
+                      <button ion-button clear item-end>View</button>
+                    </ion-item>
+                    <ion-item-options side="right">
+                        <button ion-button color="secondary">
+                          <ion-icon name="text"></ion-icon>
+                          Edit
+                        </button>
+                        <button ion-button color="danger">
+                          <ion-icon name="trash"></ion-icon>
+                          Call
+                        </button>
+                      </ion-item-options>
+              </ion-item-sliding>
+            
+               
+          
+         
         </ion-list>
         <ion-list *ngSwitchCase="'Favs'" no-lines>
+            <ion-item text-center *ngIf="!hasFav">
+                <h4>No favorite Tours yet</h4>
+              </ion-item>
             <ion-item *ngFor ="let tour of favTours" >
                 <ion-card>
                     <img [src]="tour.mainImage"/>
