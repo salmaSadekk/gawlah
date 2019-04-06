@@ -7,7 +7,7 @@
     </ion-card> --> 
     <div  class="d1"padding>
         <ion-segment [(ngModel)]="icons" >
-          <ion-segment-button   value="Users">
+          <ion-segment-button   value="Users" selected=true>
             User
           </ion-segment-button>
           <ion-segment-button  value="Tours">
@@ -20,7 +20,7 @@
       </div>
       
       <div [ngSwitch]="icons">
-        <ion-list *ngSwitchCase="'Users'"  no-lines>
+        <ion-list *ngSwitchCase="'Users'"   no-lines>
        
             <ion-item-group >
               
@@ -37,20 +37,7 @@
                 
               </ion-item-group>
         </ion-list>
-        <ion-list  *ngSwitchDefault no-lines>
-          <ion-item-group >
-            <ion-item-divider >LANGUAGES</ion-item-divider>
-            <ion-item *ngFor="let lang of languages">
-              <ion-icon name="flag"></ion-icon>
-              {{lang}}</ion-item>
-            
-            <ion-item-divider >POINTS</ion-item-divider>
-            <ion-item icon-left>
-              <ion-icon name="cash"></ion-icon>
-              {{score}}</ion-item>
-            
-          </ion-item-group>
-      </ion-list>
+      
       
         <ion-list *ngSwitchCase="'Tours'" >
               

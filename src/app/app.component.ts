@@ -9,13 +9,15 @@ import { ProfilePage } from '../pages/profile/profile';
 import { TabsPage } from '../pages/tabs/tabs';
 import { SponsorPage } from '../pages/sponsor/sponsor';
 import { CurrentUser } from '../services/CurrentUser';
+import { TestPage } from '../pages/test/test';
 
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
- rootPage:any = SignInPage;
+ //rootPage:any = SignInPage;
+ rootPage:any = TestPage;
 
   profilePage =ProfilePage ;
  

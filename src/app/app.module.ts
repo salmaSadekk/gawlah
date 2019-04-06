@@ -42,7 +42,8 @@ import { QuestionModalPage } from '../pages/gamecreation/game-itemsadd/question-
 import { SponsorPage } from '../pages/sponsor/sponsor';
 import { sponsorService } from '../services/sponsored';
 import { OptionsPage } from '../pages/home/popover';
-
+import { LottieAnimationViewModule } from 'ng-lottie';
+import { TestPage } from '../pages/test/test';
 
 
 
@@ -65,7 +66,8 @@ import { OptionsPage } from '../pages/home/popover';
     GameItemsaddPage ,
     QuestionModalPage ,
     SponsorPage ,
-    OptionsPage 
+    OptionsPage  ,
+    TestPage
 
 
 
@@ -76,6 +78,7 @@ import { OptionsPage } from '../pages/home/popover';
     BrowserModule,
     HttpClientModule,
     StarRatingModule ,
+    LottieAnimationViewModule.forRoot(),
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -96,8 +99,8 @@ import { OptionsPage } from '../pages/home/popover';
     GameItemsaddPage  ,
     QuestionModalPage ,
     SponsorPage ,
-    OptionsPage 
-
+    OptionsPage ,
+    TestPage
 
  
   ],

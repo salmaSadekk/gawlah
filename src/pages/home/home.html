@@ -23,15 +23,34 @@
         
        
       </ion-fab>
-      <ion-card (click)="goToDetail(item)">
-          <img src="../../assets/imgs/anch amoun.jpg">
-          <ion-card-content>
-              <div class="card-title">2ay 7aga </div>
-              <div class="card-subtitle">2aywa ba2a</div>
+      <ion-list  no-lines > 
+          <ion-item *ngFor="let item of tours">
+      <ion-card >
+          <ion-row>
+              <ion-col col-2>
+                 <ion-avatar item-start (click)="UserProfile(item.creator_id)">
+                     <img [src]="item.CreatorImg">
+                   </ion-avatar>
+              </ion-col>
+              </ion-row>
+             
+        <img [src]="item.mainImage" height="300" (click)="onClickItem(item)" />
+          <ion-card-content text-center>
+               <h1> {{item.TourName}}</h1> 
+              <div >{{item.tour_info}}</div>
+            
+              <ionic3-star-rating 
+              activeIcon = "ios-star"
+              defaultIcon = "ios-star-outline"
+              activeColor = "#3c6894" 
+              defaultColor = "#c2cfd8"
+              readonly="true"
+              [rating]="item.Rating">
+             </ionic3-star-rating>
           </ion-card-content>
           <ion-row>
               <ion-col>
-                  <button ion-button icon-left clear small color="light">
+                  <button ion-button icon-left clear small color="light" >
                       <ion-icon name="thumbs-up"></ion-icon>
                       <div>30</div>
                   </button>
@@ -40,57 +59,22 @@
               <ion-col center text-center>
                   <button ion-button icon-left clear small color="light">
                       <ion-icon name="md-pin"></ion-icon>
-                      <div> dkdkdk</div>
+                      <div> {{item.name}}</div>
                    </button>
               </ion-col>
-              <ion-col center text-center>
-                  <button ion-button icon-left clear small color="light">
-                      <ion-icon name="md-arrow-round-forward"></ion-icon>
-                   </button>
-              </ion-col>
+              
           </ion-row>
       </ion-card>
-
+    </ion-item>
+     
+        
+  </ion-list>
 
 
 
 
     
-    <ion-list  no-lines > 
-        <ion-item *ngFor="let item of tours">
-           <ion-card no-padding>
-               <img [src]="item.mainImage" height="250" (click)="onClickItem(item)" />
-               <ion-card-content>
-                 <ion-grid>
-                   <ion-row>
-                     <ion-col col-2>
-                        <ion-avatar item-start>
-                            <img [src]="item.CreatorImg">
-                          </ion-avatar>
-                     </ion-col>
-                     <ion-col>
-                        <ion-card-title>
-                          {{item.name}}
-                            </ion-card-title>
-                           
-                          <!--<button ion-button clear (click) ="search(item.theme)">#{{item.theme}}</button>-->
-                          
-                     </ion-col>
-                   </ion-row>
-                 </ion-grid>
-                 <ion-item *ngIf="flag">
-                   <button ion-button icon-only clear item-end (click)=" presentPopover($event ,item)">
-                     <ion-icon name="more"></ion-icon>
-                   </button>
-                 </ion-item>
-               
-               </ion-card-content>
-             </ion-card>
-             
-        </ion-item>
-     
-        
-       </ion-list>
+    
        <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
         <ion-infinite-scroll-content   loadingSpinner="bubbles"
         loadingText="Loading more data..."></ion-infinite-scroll-content>

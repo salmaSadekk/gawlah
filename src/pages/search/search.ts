@@ -79,7 +79,7 @@ this.authService.SendData({SearchKey:item} , url).then(
      
 
       this.tours.push(new Tours('' ,dataFromServer[i].tour_id  ,dataFromServer[i].theme ,dataFromServer[i].name ,
-      '' ,dataFromServer[i].image,'','',[],[],7 
+      '' ,dataFromServer[i].image,'','',[],[],7 ,'',''
        )) ;
     }
 

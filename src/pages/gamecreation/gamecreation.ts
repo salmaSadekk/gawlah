@@ -18,14 +18,54 @@ import { GameItemsaddPage } from './game-itemsadd/game-itemsadd';
   templateUrl: 'gamecreation.html',
 })
 export class GamecreationPage {
+  public lottieConfig: Object;
+  private anim: any;
+  private animationSpeed: number = 1;
+  ///////////////////////////////////////////
  
- 
-  tour :Tours = new Tours('','','','','','','','',[],[],0,'','','') ;
+
+
+handleAnimation(anim: any) {
+this.anim = anim;
+}
+
+stop() {
+this.anim.stop();
+}
+
+play() {
+this.anim.play();
+}
+
+pause() {
+this.anim.pause();
+}
+
+setSpeed(speed: number) {
+this.animationSpeed = speed;
+this.anim.setSpeed(speed);
+}
+
+
+
+
+
+  ///////////////////////////////////////////////////
+ first =true ;
+  tour :Tours = new Tours('','','','','','','','',[],[],0,'','') ;
   img:string='' ;
   museums:Museum[] =[];
   constructor(public actionSheetCtrl: ActionSheetController ,private currentUser :CurrentUser,private loadingCtrl:LoadingController, private transfer :FileTransfer,private authservice :AuthService,public toastCtrl :ToastController 
     ,public camera: Camera ,public navCtrl: NavController, public navParams: NavParams , public MuseumService :MuseumsService) {
-  }
+  
+      this.lottieConfig = {
+        path: 'assets/animations/trophy.json',
+        renderer: 'canvas',
+        autoplay: true,
+        loop: true
+    };
+  
+    }
   ionViewWillEnter() {
   
   
@@ -54,13 +94,14 @@ this.museums.push(new Museum(dataFromServer[i].museum_name , dataFromServer[i].m
   ).description ;
   this.tour.TourName   =f.value.GameName ;
   this.tour.theme = f.value.theme ;
-  this.tour.duration =f.value.txt; //the description
+  //this.tour.duration =f.value.txt; //the description
+  this.tour.tour_info = f.value.txt ;
   this.tour.CreatorImg = this.currentUser.getUser().profilePic ;
    this.tour.mainImage= this.img ;
   
   var data ={ 
     gamename : this.tour.TourName   ,
-    game_info:this.tour.theme   ,
+    game_info:this.tour.tour_info  ,
     museum : this.tour.name ,
     image : this.img ,
     theme :this.tour.theme ,

@@ -14,6 +14,7 @@ import { SearchService } from '../../services/search';
 import { GamecreationPage } from '../gamecreation/gamecreation';
 import { OptionsPage } from './popover';
 import { sponsorService } from '../../services/sponsored';
+import { ProfilePage } from '../profile/profile';
 
 
 
@@ -58,12 +59,12 @@ ionViewWillEnter() {
      
       let dataFromServer = JSON.parse(res.data) ;
       for(var i =0 ; i< dataFromServer.length ;i++) {
-     console.log(dataFromServer[i].image) ;
+     console.log(dataFromServer[i].rating) ;
 
-        this.tours.push(new Tours('' ,dataFromServer[i].tour_id  ,dataFromServer[i].theme ,dataFromServer[i].name ,
-        dataFromServer[i].creator,dataFromServer[i].image,'',dataFromServer[i].rating,[],[],dataFromServer[i].price ,
-        dataFromServer[i].museum , dataFromServer[i].tour_info , dataFromServer[i].creator_id
-         )) ;
+     this.tours.push(new Tours(dataFromServer[i].name ,dataFromServer[i].tour_id  ,dataFromServer[i].theme , dataFromServer[i].museum ,
+      dataFromServer[i].creator,dataFromServer[i].image,'',dataFromServer[i].rating,[],[],dataFromServer[i].price ,
+       dataFromServer[i].tour_info , dataFromServer[i].creator_id
+       )) ;
       }
      // this.tours= this.toursService.getTours() ;
 
@@ -74,6 +75,11 @@ ionViewWillEnter() {
 
 
  
+}
+UserProfile(User_id){
+ this.navCtrl.push(ProfilePage , {user_id : User_id}) ;
+ 
+
 }
 onGameCreate() {
   this.app.getRootNav().setRoot(GamecreationPage);
@@ -111,10 +117,10 @@ search(theme){
           
        
                  console.log(dataFromServer[i].image) ;
-        
-                 this.tours.push(new Tours('' ,dataFromServer[i].tour_id  ,dataFromServer[i].theme ,dataFromServer[i].name ,
+                
+                 this.tours.push(new Tours(dataFromServer[i].name ,dataFromServer[i].tour_id  ,dataFromServer[i].theme , dataFromServer[i].museum ,
                  dataFromServer[i].creator,dataFromServer[i].image,'',dataFromServer[i].rating,[],[],dataFromServer[i].price ,
-                 dataFromServer[i].museum , dataFromServer[i].tour_info , dataFromServer[i].creator_id
+                  dataFromServer[i].tour_info , dataFromServer[i].creator_id
                   )) ;
               }
             // this.tours =  this.toursService.getTours() ;
