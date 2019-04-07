@@ -44,6 +44,7 @@ import { sponsorService } from '../services/sponsored';
 import { OptionsPage } from '../pages/home/popover';
 import { LottieAnimationViewModule } from 'ng-lottie';
 import { TestPage } from '../pages/test/test';
+import { PusherServiceProvider } from '../providers/push-service/push-service';
 
 
 
@@ -125,7 +126,9 @@ import { TestPage } from '../pages/test/test';
     StreamingMedia ,
     TextToSpeech ,
     sponsorService ,
+    PusherServiceProvider ,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
+    
   ]
 })
 export class AppModule {}

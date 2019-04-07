@@ -1,20 +1,69 @@
-page-test {
-    
-    
-        #rounded {
-            width: 100%;
-            height: 100px;
-            -moz-border-radius: 50px;
-            -webkit-border-radius: 50px;
-            border-radius: 10px;
-            margin-bottom: 10px;  
-        }
-    
-        #container {
-            width: 300px; 
-            margin-left:auto; 
-            margin-right: auto; 
-        }
-    
-    
+.scroll-zoom-wrapper {
+    white-space: nowrap;
 }
+
+ion-card {
+    border-radius:30px !important;
+    display: inline-block;
+}
+
+ion-scroll {
+    min-height: 160px; 
+    height: auto;
+
+        .scroll-content {
+        padding: 0px !important;
+    } 
+    
+    
+
+   
+
+}
+ion-content {
+    // width: 100wh;
+    //  height: 90vh;
+      color: #fff;
+      background: linear-gradient(-45deg, #b4c8d5,#7698b5 ,#3b6893, #dbbad3);
+      background-size: 400% 400%;
+      -webkit-animation: Gradient 15s ease infinite;
+      -moz-animation: Gradient 15s ease infinite;
+      animation: Gradient 15s ease infinite;
+  }
+  
+  @-webkit-keyframes Gradient {
+      0% {
+          background-position: 0% 50%
+      }
+      50% {
+          background-position: 100% 50%
+      }
+      100% {
+          background-position: 0% 50%
+      }
+  }
+  
+  @-moz-keyframes Gradient {
+      0% {
+          background-position: 0% 50%
+      }
+      50% {
+          background-position: 100% 50%
+      }
+      100% {
+          background-position: 0% 50%
+      }
+  }
+  
+  @keyframes Gradient {
+      0% {
+          background-position: 0% 50%
+      }
+      50% {
+          background-position: 100% 50%
+      }
+      100% {
+          background-position: 0% 50%
+      }
+  }
+  

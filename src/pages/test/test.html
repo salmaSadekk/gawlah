@@ -4,22 +4,33 @@
         Ionic Blank
       </ion-title>
     </ion-navbar>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300" type="text/css" />
   </ion-header>
   
   <ion-content padding>
-    <div id="container">
-      <ion-list>
-  
-        <ion-item id="rounded">
-          <ion-label fixed>Username</ion-label>
-          <ion-input type="text" value=""></ion-input>
-        </ion-item>
-  
-        <ion-item id="rounded">
-          <ion-label fixed>Username</ion-label>
-          <ion-input type="text" value=""></ion-input>
-        </ion-item>     
-  
-      </ion-list>
-    </div>
+    <ion-scroll scrollX="true" direction="x">
+      <ion-card >
+        <ion-card-content>
+          <ion-card-title>
+            the title
+            </ion-card-title>
+          <button ion-item (click)="openDetailActivity(item)">            
+            More info
+            <ion-icon name="arrow-forward" item-right color="primary"></ion-icon>
+          </button>
+        </ion-card-content>
+      </ion-card>
+      <ion-card >
+        <ion-card-content>
+          <ion-card-title>
+            the title
+            </ion-card-title>
+          <button ion-item (click)="openDetailActivity(item)">            
+            More info
+            <ion-icon name="arrow-forward" item-right color="primary"></ion-icon>
+          </button>
+        </ion-card-content>
+      </ion-card>
+    </ion-scroll>
+    
   </ion-content>
