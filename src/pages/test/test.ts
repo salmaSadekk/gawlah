@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { PusherServiceProvider } from '../../providers/push-service/push-service';
+import { AuthService } from '../../services/auth';
 
 /**
  * Generated class for the TestPage page.
@@ -13,105 +15,36 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-test',
   templateUrl: 'test.html',
 })
-export class TestPage {
+export class TestPage{
+  comments = [];
+      message: string;
+      url: string = 'http://localhost:4000/message'
+      rating = {
+        bad : 0,
+        good : 0,
+      }
+      constructor(private authservice :AuthService ,public navCtrl: NavController, private pusher : PusherServiceProvider
+        ) {}
 
-  selectedAnimation: any = "interactive";
-  animations: any;
-  interactive = false;
-  anim: any;
-  animationSpeed: number = 1;
+      sendComment(){
+        if(this.message != ''){
+          this.authservice.SendData(this.url, {message : this.message}).then((res : any) => {
+            this.message = '';
+          })
+        }
+      }
 
-  interactiveAnimationOption = {
-    loop: true,
-    prerender: false,
-    autoplay: false,
-    autoloadSegments: false,
-    path: 'assets/animations/other/jake.json'
-  }
 
-  lottieAnimations = [
-    {
-      path: 'assets/animations/lottie/Watermelon.json'
-    }, {
-      path: 'assets/animations/lottie/MotionCorpse-Jrcanest.json'
-    }, {
-      path: 'assets/animations/lottie/TwitterHeart.json'
-    }, {
-      path: 'assets/animations/lottie/LottieLogo1.json'
-    }, {
-      path: 'assets/animations/lottie/LottieWalkthrough.json'
-    }, {
-      path: 'assets/animations/lottie/LottieLogo2.json'
-    }, {
-      path: 'assets/animations/lottie/9squares-AlBoardman.json'
-    }
-  ];
-
-  bodymovinAnimations = [
-    {
-      path: 'assets/animations/bodymovin/gatin.json'
-    }, {
-      path: 'assets/animations/bodymovin/adrock.json'
-    }, {
-      path: 'assets/animations/bodymovin/happy2016.json'
-    }, {
-      path: 'assets/animations/bodymovin/navidad.json'
-    }, {
-      path: 'assets/animations/bodymovin/bodymovin.json'
-    },
-  ]
-
-  otherAnimations = [
-    {
-      path: 'assets/animations/other/tibetan-monk.json'
-    }, {
-      path: 'assets/animations/other/bobber.json'
-    }
-  ]
-
-  constructor(public navCtrl: NavController) {
-    this.changeAnimations();
-  }
-
-  handleAnimation(anim) {
-    this.anim = anim;
-  }
-
-  stop() {
-      this.anim.stop();
-  }
-
-  play() {
-      this.anim.play();
-  }
-
-  pause() {
-      this.anim.pause();
-  }
-
-  setSpeed() {
-      this.anim.setSpeed(this.animationSpeed);
-  }
-
-  animate() {
-    this.anim.playSegments([[27, 142], [14, 26]], true);
-  }
-
-  changeAnimations() {
-    this.interactive = false;
-    switch (this.selectedAnimation) {
-      case "lottie":
-        this.animations = this.lottieAnimations;
-        break;
-      case "bodymovin":
-        this.animations = this.bodymovinAnimations;
-        break;
-      case "other":
-        this.animations = this.otherAnimations;
-        break;
-      case "interactive":
-        this.interactive = true;
-        break;
-    }
+  ionViewDidLoad(){
+   const channel = this.pusher.init();
+      channel.bind('message', (data) => {
+        if(data.score >= 1){
+          this.rating.good = this.rating.good + 1;
+        }
+        else{
+          this.rating.bad = this.rating.bad + 1;
+        }
+        this.comments.push(data);
+      });
   }
 }

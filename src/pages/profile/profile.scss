@@ -8,6 +8,16 @@ page-profile {
   ion-content{
     padding:0px;
   }
+ .background{
+   background-image: url("../../assets/imgs/ProfileBack.jpg") ;
+   height : 30% !important ;
+   background-repeat: no-repeat;
+   background-size:cover;
+   position: absolute ;
+
+
+ }
+
   /*
   .d1{
 background-image: url("../../assets/imgs/ProfileBack.jpg") ;

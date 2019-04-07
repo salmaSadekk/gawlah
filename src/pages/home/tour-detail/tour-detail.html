@@ -25,7 +25,8 @@
         <hr>
         <h4>Rate this Tour</h4>
         <p>Tell others what you think</p>
-        <ionic3-star-rating 
+        <ionic3-star-rating
+        size="20" 
         activeIcon = "ios-star"
         defaultIcon = "ios-star-outline"
         activeColor = "#3c6894" 
@@ -47,6 +48,7 @@
           <h2>{{review.user.name}}</h2>
           <p>{{review.content}}</p>
           <ionic3-star-rating 
+          
           activeIcon = "ios-star"
           defaultIcon = "ios-star-outline"
           activeColor = "#488aff" 
@@ -56,4 +58,8 @@
       </ionic3-star-rating>
         </ion-item>
       </ion-list>
+      <ion-infinite-scroll (ionInfinite)="$event.waitFor(doInfinite())">
+        <ion-infinite-scroll-content   loadingSpinner="bubbles"
+        loadingText="Loading more data..."></ion-infinite-scroll-content>
+     </ion-infinite-scroll>
 </ion-content>

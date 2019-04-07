@@ -8,6 +8,8 @@ import { CurrentUser } from '../../../services/CurrentUser';
 import { AuthService } from '../../../services/auth';
 import { Items } from '../../../Models/Items';
 import { SearchService } from '../../../services/search';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { User } from '../../../Models/user';
 
 
 @IonicPage()
@@ -58,6 +60,15 @@ this.flag=true ;
         console.log(this.tour.items[i].name ) ;
       }
      // console.log(this.tour.items[0].name ) ;
+     let url = this.authService.get_Reviews ;
+    this.authService.SendData({getReviews:'true' , tour_id : this.tour.uid } , url).then(
+      res=>{
+        let dataFromServer = JSON.parse(res.data) ;
+        for(var i=0 ;i<dataFromServer.length ; i++) {
+          this.tour.review.push(new Review (new User(dataFromServer[i].creator_id , dataFromServer[i].creator_name , dataFromServer[i].creator_image) ,'' , dataFromServer[i].review , dataFromServer[i].rating , dataFromServer[i].review_id)) ;
+        }
+      }
+    ) ;
 
       }
     )
@@ -123,7 +134,7 @@ this.flag=true ;
         {
           text: 'Save',
           handler: data => {
-             console.log('data Read is :' + data.title) ;
+            /* console.log('data Read is :' + data.title) ;
             console.log('Saved clicked');
             this.tourService.addReviewToTour(this.tour.uid ,new Review ( this.currentUser.getUser(),'' ,data.title,this.starRating) ,this.starRating) ;
             
@@ -134,14 +145,33 @@ this.flag=true ;
              review =>{
                console.log('forEach :' +review.content)
              }
-           );
-          }
+           ); */
+           let url = this.authService.set_Review ;
+           this.authService.SendData( {user_id :this.currentUser.getUser().uid , tour_id: this.tour.uid , review :data.title ,rating : this.starRating} ,url) ;
+          } 
         }
       ]
     });
     prompt.present();
    
   }
+  doInfinite(e): Promise<any> {
+   
+    
+    var data ={
+      getReviews:'true' , tour_id : this.tour.uid  ,
+      last_Review_id : this.tour.review[this.tour.review.length -1].review_id
+     }
+     let url = this.authService.get_Reviews;
+       return this.authService.SendData( data ,url ).then(result => {
+       
+        let dataFromServer = JSON.parse(result.data) ;
+        for(var i=0 ;i<dataFromServer.length ; i++) {
+          this.tour.review.push(new Review (new User(dataFromServer[i].creator_id , dataFromServer[i].creator_name , dataFromServer[i].creator_image) ,'' , dataFromServer[i].review , dataFromServer[i].rating ,dataFromServer[i].review_id )) ;
+        }
+            // this.tours =  this.toursService.getTours() ;
+            
+    }) } 
 
 
   

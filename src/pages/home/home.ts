@@ -15,6 +15,8 @@ import { GamecreationPage } from '../gamecreation/gamecreation';
 import { OptionsPage } from './popover';
 import { sponsorService } from '../../services/sponsored';
 import { ProfilePage } from '../profile/profile';
+import { CurrentUser } from '../../services/CurrentUser';
+import { ItemsAddPageModule } from '../tour-creation/items-add/items-add.module';
 
 
 
@@ -23,11 +25,12 @@ import { ProfilePage } from '../profile/profile';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  games =false ;
   flag=false ;
   tours:Tours[]=[] ;
  img:string ='' ;
   fileTransfer: FileTransferObject = this.transfer.create();
-   constructor( private sponsorService : sponsorService ,private popoverCtrl :PopoverController,private navParams :NavParams,private searchSer :SearchService,private transfer: FileTransfer ,private file: File ,private navCtrl :NavController ,private toursService :ToursService,private app:App ,private authser:AuthService , private toastCtrl :ToastController ) {
+   constructor(   private currentUser :CurrentUser ,private sponsorService : sponsorService ,private popoverCtrl :PopoverController,private navParams :NavParams,private searchSer :SearchService,private transfer: FileTransfer ,private file: File ,private navCtrl :NavController ,private toursService :ToursService,private app:App ,private authser:AuthService , private toastCtrl :ToastController ) {
   
    } 
    presentPopover(event ,item) {
@@ -40,6 +43,25 @@ export class HomePage {
       }
     )
   }
+  presentPopover2(event ,item) {
+    const popover = this.popoverCtrl.create(OptionsPage , {fav :true});
+    popover.present({ev:event  });
+    popover.onDidDismiss(
+      data=>{
+        let url = this.authser.fav_tours ;
+       this.authser.SendData( {user_id :this.currentUser.getUser().uid , tour_id :item.uid } ,url).then(
+         res=>
+         {
+           console.log(res.data) ;
+         }
+       )
+      }
+    )
+  
+  }
+
+
+
   doneButton(){
     this.navCtrl.pop() ;
   }
@@ -47,6 +69,9 @@ export class HomePage {
 ionViewWillEnter() {
   if(this.navParams.get('flag')!=null && this.navParams.get('flag')==true)
   this.flag = this.navParams.get('flag') ;
+  if(this.games){
+    
+  }
   this.tours =[] ;
   this.authser.setAuth(true) ;
   var data ={

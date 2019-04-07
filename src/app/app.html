@@ -2,21 +2,26 @@
    
   
     <ion-content>
-      <ion-grid class ="m">
+      <ion-grid class ="m" >
           <ion-row >
               <ion-col col-4>
-                 <ion-avatar item-start (click) ="openPage(  profilePage )">
+                 <ion-avatar  style="border-radius:50%;
+                 height:12rem;
+                 width:12rem;" item-start (click) ="openPage(  profilePage )" >
                 
-                   <img [src]="currentUser.getUser().profilePic">
+                   <img  style="border-radius:50%;
+                   height:12rem;
+                   width:12rem;"[src]="currentUser.getUser().profilePic" >
                    </ion-avatar>
               </ion-col>
+            
+           </ion-row>
+           <ion-row >
               <ion-col >
-                <h4 id="user">{{currentUser.getUser().name}}</h4>
-               
-              </ion-col>
-             
-
-        </ion-row>
+                  <h4 id="user">{{currentUser.getUser().name}}</h4>
+                 
+                </ion-col>
+           </ion-row>
       
       </ion-grid>
        
@@ -33,6 +38,10 @@
             <ion-icon name="help-circle"></ion-icon>
            Help Center
            </button>
+           <button menuClose ion-item  (click)="onLogout()">
+              <ion-icon name="game-controller-a"></ion-icon>
+              Switch to Game Creation
+             </button>
            <button menuClose ion-item  (click)="onLogout()">
               <ion-icon name="log-out"></ion-icon>
               Logout 

@@ -17,6 +17,9 @@ export class AuthService{
    search_by_theme = this.httpPart +'/Gawlah/backup/search_by_theme.php'  ;
    ProfilePicUpload= this.httpPart + '/Gawlah/backup/ProfilePicUpload.php'  ;
    Profile_data = this.httpPart + '/Gawlah/backup/Profile_data.php'  ;
+   fav_tours =this.httpPart + '/Gawlah/backup/fav_tours.php' ;
+   set_Review  = this.httpPart +'/Gawlah/backup/set_Review.php' ;
+   get_Reviews = this.httpPart +'/Gawlah/backup/get_Reviews.php' ;
     constructor(private http: HTTP){}
     signIn(data ){
       this.http.setRequestTimeout(120000) ;
