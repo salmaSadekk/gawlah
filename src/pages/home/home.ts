@@ -70,7 +70,8 @@ ionViewWillEnter() {
   if(this.navParams.get('flag')!=null && this.navParams.get('flag')==true)
   this.flag = this.navParams.get('flag') ;
   if(this.games){
-    
+    //let url = this.authser.get_games ;
+    //this.authser.SendData()
   }
   this.tours =[] ;
   this.authser.setAuth(true) ;

@@ -10,6 +10,7 @@ import { Items } from '../../../Models/Items';
 import { SearchService } from '../../../services/search';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { User } from '../../../Models/user';
+import { ProfilePage } from '../../profile/profile';
 
 
 @IonicPage()
@@ -173,7 +174,9 @@ this.flag=true ;
             
     }) } 
 
-
+    showProfile(user) {
+      this.navCtrl.push(ProfilePage , {user_id : user.uid}) ;
+    }
   
 
 }

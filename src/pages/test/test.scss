@@ -4,9 +4,22 @@ page-test {
 }
 
 ion-card {
+    border-top: 3px solid #d25cf0 ;
     border-radius:30px !important;
-    display: inline-block;
+    margin-bottom: 100 !important ;
+
+    
 }
+
+ion-list{
+  //  display: inline-block;
+    background: linear-gradient(-45deg, #f1b0f7,#d25cf0 ,#d1add6, #dbbad3);
+     // background-size: 400% 400%;
+      -webkit-animation: Gradient 15s ease infinite;
+      -moz-animation: Gradient 15s ease infinite;
+      animation: Gradient 15s ease infinite;
+}
+
 
 ion-scroll {
     min-height: 160px; 
@@ -67,5 +80,11 @@ ion-content {
           background-position: 0% 50%
       }
   }
+  .down{
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+
 }
   

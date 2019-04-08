@@ -4,6 +4,7 @@ import { CurrentUser } from '../../services/CurrentUser';
 import { Tours } from '../../Models/Tours';
 import { User } from '../../Models/user';
 import { AuthService } from '../../services/auth';
+import { TourDetailPage } from '../home/tour-detail/tour-detail';
 
 /**
  * Generated class for the ProfilePage page.
@@ -24,10 +25,15 @@ export class ProfilePage implements OnInit {
  score:number = 0 ;
 hasFav = false ;
 hasTours = false ;
+img = '' ;
+name = '' ;
 
  
   constructor( private currentUser:CurrentUser,private authService :AuthService,public navCtrl: NavController, public navParams: NavParams , private UserService :CurrentUser) {
   
+  }
+  gotoTour(tour){
+    this.navCtrl.push(TourDetailPage ,tour) ;
   }
 
   ionViewDidLoad() {
@@ -35,7 +41,10 @@ hasTours = false ;
   }
   
   ngOnInit() {
-  var user = this.UserService.getUser().uid ;
+  var user = this.UserService.getUser().uid ; 
+  
+  
+  console.log("user from profilr" + user) ;
     //this.favTours =user.favoriteTours;
    // this.ownTours =user.ownTours ;
    // this.languages =user.languages ;
@@ -62,6 +71,9 @@ hasTours = false ;
       let dataFromServer = JSON.parse(res.data) ;
       this.languages = dataFromServer.data.language.split(",") ;
       this.score = dataFromServer.data.score ;
+      this.img = dataFromServer.data.ProfileImg ;
+      this.name =dataFromServer.data.name ;
+
       
       let toursOfUser =  dataFromServer.own_tours ;
        if(toursOfUser !=undefined){
@@ -81,12 +93,13 @@ hasTours = false ;
          let fav_tours =  dataFromServer.fav_tours ;
          if(fav_tours != undefined) {
            this.hasFav =true ;
+           console.log("favvv" + res.data) ;
           for(var i =0 ; i< fav_tours.length ;i++) {
             console.log(fav_tours[i].image) ;
        
                this.favTours.push(new Tours(fav_tours[i].name ,fav_tours[i].tour_id  ,fav_tours[i].theme ,fav_tours[i].museum,
                 fav_tours[i].creator ,fav_tours[i].image,'',fav_tours[i].rating,[],[],fav_tours[i].price ,fav_tours[i].tour_info ,
-             toursOfUser[i].creator_id
+                fav_tours[i].creator_id
               )) ;
              }
          }

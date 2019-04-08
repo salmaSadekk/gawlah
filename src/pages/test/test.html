@@ -1,39 +1,94 @@
+<!--
+  Generated template for the GamecreationPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
 <ion-header>
   <ion-navbar>
-    <ion-title>
-      Live Comments
-    </ion-title>
+    <ion-title>Game creation</ion-title>
   </ion-navbar>
 </ion-header>
-<ion-content padding>
-  <!-- example blog post-->
-  <h1 text-center> Interesting Article</h1>
-  <p>
-    Once you're done creating the quality content, you still have the challenge of presenting it that clearly dictates what your blog is about. Images, text, and links need to be shown off just right -- otherwise, readers might abandon your content if it's not aesthetically showcased in a way that's both appealing and easy to follow. </p>
-    <div class="flex-items">
-        <ion-row>
-            <ion-col col-6>
-                  <h1 float-right>{{rating.good}} <ion-icon  name="arrow-round-up" style="color : #90EE90; font-size: 25px;"></ion-icon></h1>
-            </ion-col>
-            <ion-col col-6>
-                <h1>{{rating.bad}} <ion-icon name="arrow-round-down" style="color: #FF0000; font-size: 25px;"></ion-icon></h1>
-            </ion-col>
-          </ion-row>
-    </div>
-    <div class="comment-box">
-      <ion-card *ngFor="let comment of comments">
-        <ion-card-content>
-              <strong>{{comment.message}}</strong>
-              <p>
-               {{comment.timeStamp | date : 'H:mm a'}}
-              </p>
-        </ion-card-content>
 
-      </ion-card>
-    </div>
-  <ion-footer padding>
-    <ion-textarea [(ngModel)]="message" type="text" placeholder="Comment .... "></ion-textarea>
-    <button ion-button small float-right round (click)="sendComment()">Send</button>
-  </ion-footer>
+  <ion-content no-lines padding>
 
+<div *ngIf="first">
+    <lottie-animation-view
+    [options]="lottieConfig"
+    [width]="300"
+    [height]="300"
+    (animCreated)="handleAnimation($event)">
+</lottie-animation-view>
+<lottie-animation-view
+        [options]="lottieConfig2"
+        [width]="150"
+        [height]="150"
+        (animCreated)="handleAnimation($event)">
+    </lottie-animation-view>
+
+<ion-item text-center>
+    <button clear ion-button (click)="first=false">Continue</button>
+</ion-item>
+</div>
+
+
+    <div *ngIf="!first">
+        
+        <form #f="ngForm" (ngSubmit)="onSubmit(f)" >
+          <ion-card>
+              <ion-list>
+                  <ion-item>
+                      <ion-label>Choose a Museum</ion-label>
+                      <ion-select  ngModel name ="name" multiple="false" required>
+                          <ion-option   *ngFor="let item of museums">{{item.name}}</ion-option>
+                      </ion-select>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label floating>
+                        name of the Game
+                      </ion-label>
+                      <ion-input type="text" ngModel name="GameName" required></ion-input>
+                    </ion-item>
+                    <ion-item>
+                      <ion-label floating>
+                       theme
+                      </ion-label>
+                      <ion-input type="text" ngModel name="theme" required></ion-input> 
+                    </ion-item>
+                    <ion-item>
+                   
+                      <ion-textarea required ngModel name="txt" placeholder="enter the description related to the Game" rows="4"
+                      cols="12"></ion-textarea>
+                    </ion-item>
+                    <ion-item>
+                      <button
+                      ion-button
+                      icon-left
+                      block
+                      outline
+                      type="button"
+                      (click)=" presentActionSheet()">
+                      <ion-icon name="camera"></ion-icon>
+                     add a picture 
+                    </button>
+                     </ion-item>
+                    
+                
+                
+                
+                 
+            <ion-item text-right >
+              <button ion-button clear type="submit" [disabled]="!f.valid " >Next</button>
+              <!-- the disabled will have a condition if the flag =(this.img!=''&& a certain flag set by true on image click==true) then
+              -->
+            </ion-item>
+               
+              </ion-list>
+          </ion-card>
+          
+        </form>
+    </div>
+   
+    
+    
 </ion-content>

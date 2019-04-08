@@ -43,7 +43,7 @@
       <ion-list   >
         <ion-item *ngFor="let review of tour.review">
           <ion-avatar item-start>
-            <img [src]="review.user.profilePic" >
+            <img [src]="review.user.profilePic"  (click) ="showProfile(review.user)">
           </ion-avatar>
           <h2>{{review.user.name}}</h2>
           <p>{{review.content}}</p>
@@ -51,8 +51,8 @@
           
           activeIcon = "ios-star"
           defaultIcon = "ios-star-outline"
-          activeColor = "#488aff" 
-          defaultColor = "#f4f4f4"
+          activeColor = "#3c6894" 
+          defaultColor = "#c2cfd8"
           readonly="true"
           [rating]="review.rating">
       </ionic3-star-rating>

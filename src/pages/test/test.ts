@@ -16,35 +16,25 @@ import { AuthService } from '../../services/auth';
   templateUrl: 'test.html',
 })
 export class TestPage{
-  comments = [];
-      message: string;
-      url: string = 'http://localhost:4000/message'
-      rating = {
-        bad : 0,
-        good : 0,
-      }
-      constructor(private authservice :AuthService ,public navCtrl: NavController, private pusher : PusherServiceProvider
-        ) {}
-
-      sendComment(){
-        if(this.message != ''){
-          this.authservice.SendData(this.url, {message : this.message}).then((res : any) => {
-            this.message = '';
-          })
-        }
-      }
-
-
-  ionViewDidLoad(){
-   const channel = this.pusher.init();
-      channel.bind('message', (data) => {
-        if(data.score >= 1){
-          this.rating.good = this.rating.good + 1;
-        }
-        else{
-          this.rating.bad = this.rating.bad + 1;
-        }
-        this.comments.push(data);
-      });
+  lottieConfig  :Object ;
+  lottieConfig2  :Object ;
+  first =true ;
+  private anim: any;
+ constructor(){
+  this.lottieConfig = {
+    path: 'assets/animations/trophy.json',
+    renderer: 'canvas',
+    autoplay: true,
+    loop: true
+};
+this.lottieConfig2 = {
+  path: 'assets/animations/coins.json',
+  renderer: 'canvas',
+  autoplay: true,
+  loop: true
+};
+ }
+ handleAnimation(anim: any) {
+  this.anim = anim;
   }
 }

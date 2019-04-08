@@ -23,6 +23,35 @@ export class SignUpPage {
   private loading :LoadingController ,private alertCtrl :AlertController ,private navCtrl :NavController) {
 
   }
+
+
+  showConfirm() {
+    const confirm = this.alertCtrl.create({
+      title: 'Change Image ?',
+      message: 'Do you agree to change the default profile image?',
+      buttons: [
+        {
+          text: 'Disagree',
+          handler: () => {
+            console.log('Disagree clicked');
+          }
+        },
+        {
+          text: 'Agree',
+          handler: () => {
+            this.fileTransfer(this.img)  ;
+            
+            console.log('Agree clicked');
+          }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+
+
+
   onSubmit(f:NgForm){
     
     
@@ -106,6 +135,7 @@ export class SignUpPage {
   console.log(data.headers) ;
   console.log(data.response) ;
   console.log(data.responseCode) ;
+  this.navCtrl.push(TabsPage) ;
     
   
      
@@ -135,7 +165,11 @@ export class SignUpPage {
        // If it's base64 (DATA_URL):
        this.img= 'data:image/jpeg;base64,' + imageData;
        let base64Image = 'data:image/jpeg;base64,' + imageData;
-       //this.fileTransfer(base64Image) ;
+      // this.fileTransfer(base64Image) ;
+     this. showConfirm()  ;
+      this.alertCtrl.create(
+
+      )
       }, (err) => {
         const toast = this.toastCtrl.create({
           message: err,

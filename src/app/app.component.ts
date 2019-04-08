@@ -16,8 +16,8 @@ import { TestPage } from '../pages/test/test';
   templateUrl: 'app.html'
 })
 export class MyApp {
- //rootPage:any = SignInPage;
  rootPage:any = SignInPage;
+ //rootPage:any = TestPage;
 
   profilePage =ProfilePage ;
  
