@@ -24,7 +24,7 @@
         
        
       </ion-fab>
-      <ion-list  no-lines > 
+      <ion-list  no-lines *ngIf="!GameView" > 
           <ion-item *ngFor="let item of tours">
       <ion-card >
           <ion-row>
@@ -80,7 +80,17 @@
      
         
   </ion-list>
+  <div class="card-background-page" *ngIf="GameView">
 
+    <ion-card *ngFor="let game of tours " (click) =" onGameDetails(game)">
+      <img [src] ="game.mainImage "/>
+      <div class="card-title">{{game.TourName}}</div>
+      <div class="card-subtitle">{{ game.name }}</div>
+    </ion-card>
+  
+  
+  
+  </div>
 
 
 

@@ -25,7 +25,7 @@ import { ItemsAddPageModule } from '../tour-creation/items-add/items-add.module'
   templateUrl: 'home.html'
 })
 export class HomePage {
-  games =false ;
+  GameView=false ;
   flag=false ;
   tours:Tours[]=[] ;
  img:string ='' ;
@@ -65,21 +65,34 @@ export class HomePage {
   doneButton(){
     this.navCtrl.pop() ;
   }
+  ionViewWillLeave() {
+    this.GameView =false ;
+  }
  
 ionViewWillEnter() {
+
   if(this.navParams.get('flag')!=null && this.navParams.get('flag')==true)
   this.flag = this.navParams.get('flag') ;
-  if(this.games){
-    //let url = this.authser.get_games ;
-    //this.authser.SendData()
+   this.GameView = this.navParams.data.GameView;
+   console.log('Game View value' + this.GameView) ;
+   this.tours =[] ;
+   this.authser.setAuth(true) ;
+   var data :any;
+  if(this.GameView !==undefined && this.GameView == true ){
+   
+    data ={
+      getGames:'s'
+     } 
+     
+     var url = this.authser.get_games ;
   }
-  this.tours =[] ;
-  this.authser.setAuth(true) ;
-  var data ={
+  else{
+  
+   data ={
     getTours:'s'
    } 
-   let url = this.authser.get_tours ;
-  
+   var url = this.authser.get_tours ;
+  }
   this.authser.SendData(data, url).then(
     res=>{
      
@@ -99,9 +112,12 @@ ionViewWillEnter() {
   );
   
 
+  
+
 
  
 }
+
 UserProfile(User_id){
  this.navCtrl.push(ProfilePage , {user_id : User_id}) ;
  
@@ -111,6 +127,9 @@ onGameCreate() {
   this.app.getRootNav().setRoot(GamecreationPage);
 
 }
+onGameDetails(item){
+  this.navCtrl.push(TourDetailPage , {Game:true ,item:item})
+}
 search(theme){
  //this.navCtrl.push(SearchPage , theme)
  var t: Tabs = this.navCtrl.parent;
@@ -118,7 +137,7 @@ search(theme){
  t.select(1);
 }
   onClickItem(item:Tours){
-  this.navCtrl.push(TourDetailPage ,item) ;
+  this.navCtrl.push(TourDetailPage ,{item:item}) ;
   }
   onTourCreate(){
     console.log('it enters here') ;
@@ -128,17 +147,32 @@ search(theme){
    // this.file.checkDir(this.file.dataDirectory, 'mydir').then(_ => console.log('Directory exists')).catch(err => console.log('Directory doesn\'t exist'));
   }
   doInfinite(e): Promise<any> {
+    var data:any ;
+    if(this.GameView !==undefined && this.GameView == true) {
+      data ={
+        getGames:'s' ,
+        last_game_id: this.tours[this.tours.length -1].uid
+       }
+      var url = this.authser.get_games ;
+      console.log('from spinner' + this.tours[this.tours.length -1].uid) ;
+      console.log("length of tours" + this.tours.length) ;
+
+      
+    } else{
+      data ={
+        getTours:'s' ,
+        last_tour_id: this.tours[this.tours.length -1].uid
+       }
+      var url = this.authser.get_tours ;
+    }
     
    
     
-    var data ={
-      getTours:'s' ,
-      last_tour_id: this.tours[this.tours.length -1].uid
-     }
-     let url = this.authser.get_tours ;
+   
        return this.authser.SendData( data ,url ).then(result => {
        
             let dataFromServer = JSON.parse(result.data) ;
+            console.log('from withim the spinner ' +result.data)
             for(var i =0 ; i< dataFromServer.length ;i++) {
           
        

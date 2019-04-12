@@ -21,11 +21,21 @@ import { ProfilePage } from '../../profile/profile';
 export class TourDetailPage implements OnInit {
    tour:Tours ;
    //flag=false ;
+   Game=false ;
    starRating :number =0 ;
-   
+   lottieConfig  :Object ;
+   private anim: any;
+   handleAnimation(anim: any) {
+    this.anim = anim;
+    }
   
   constructor(private searchSer:SearchService,private authService :AuthService ,private currentUser : CurrentUser,private tourService :ToursService ,private alertCtrl :AlertController, private events:Events ,public navCtrl: NavController, public navParams: NavParams ) {
-     
+    this.lottieConfig = {
+      path: 'assets/animations/coins2.json',
+      renderer: 'canvas',
+      autoplay: true,
+      loop: true
+  };
     events.subscribe('star-rating:changed', (starRating) => {this.starRating=starRating ;console.log("star Rating is :"+starRating + typeof(starRating))});
   }
   SearchTheme(theme){
@@ -37,8 +47,10 @@ export class TourDetailPage implements OnInit {
     console.log('ionViewDidLoad TourDetailPage');
   }
   ngOnInit(){
-   
-    this.tour = this.navParams.data ;
+    if( this.navParams.data.Game!== undefined && this.navParams.data.Game ==true ){
+      this.Game = true ;
+    }
+    this.tour = this.navParams.data.item ;
    /* if (this.tour.CreatorImg!==''){
 this.flag=true ;
     } */

@@ -18,7 +18,7 @@ import { TestPage } from '../pages/test/test';
 export class MyApp {
  rootPage:any = SignInPage;
  //rootPage:any = TestPage;
-
+ isAuthenticated = false ;
   profilePage =ProfilePage ;
  
   sponsorPage =SponsorPage ;
@@ -34,6 +34,9 @@ export class MyApp {
       splashScreen.hide();
     });
   
+  }
+  GameView(){
+    this.nav.push(HomePage , {GameView : true}) ;
   }
   onLoad(page :any) {
   this.nav.setRoot(page) ;

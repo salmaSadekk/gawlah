@@ -94,6 +94,8 @@
     <plugin name="cordova-plugin-media-capture" spec="3.0.2" />
     <plugin name="cordova-plugin-streaming-media" spec="2.2.0" />
     <plugin name="cordova-plugin-tts" spec="0.2.3" />
+    <plugin name="com.paypal.cordova.mobilesdk" spec="3.5.0" />
     <engine name="android" spec="7.1.4" />
     <engine name="ios" spec="4.5.5" />
+    <plugin name="cordova-sqlite-storage" spec="3.2.0" />
 </widget>

@@ -4,7 +4,9 @@ import { Review } from "../Models/Review";
 import { Items } from "../Models/Items";
 
 export class CurrentUser {
-    
+    constructor( private storage: Storage) {
+
+    }
    private  currentUser :User =new User ('','','') ;
     getUser() {
         //C:\Users\m\Desktop\angularIonic\gawlah\src\assets\imgs\UserProfile.png
@@ -13,6 +15,10 @@ export class CurrentUser {
     }
     setUser(user :User) {
      this.currentUser = user ;
+     this.storage.set('uid', user.uid);
+     this.storage.set('profilePic' , user.profilePic) ;
+     this.storage.set('name' , user.name) ;
+
     }
 
 }

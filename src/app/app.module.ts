@@ -6,7 +6,7 @@ import { HomePage } from '../pages/home/home';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-
+import { PayPal} from '@ionic-native/paypal'; 
 import { AuthService } from '../services/auth';
 import {HttpClientModule} from '@angular/common/http' ;
 import { SignInPage } from '../pages/sign-in/sign-in';
@@ -45,6 +45,10 @@ import { OptionsPage } from '../pages/home/popover';
 import { LottieAnimationViewModule } from 'ng-lottie';
 import { TestPage } from '../pages/test/test';
 import { PusherServiceProvider } from '../providers/push-service/push-service';
+import { GamePreviewItemsPage } from '../pages/home/tour-detail/game-preview-items/game-preview-items';
+import { PreviewItemPage } from '../pages/test/preview-item/preview-item';
+import { FlashCardComponent } from '../components/flash-card/flash-card';
+import { IonicStorageModule } from '@ionic/storage';
 
 
 
@@ -68,7 +72,11 @@ import { PusherServiceProvider } from '../providers/push-service/push-service';
     QuestionModalPage ,
     SponsorPage ,
     OptionsPage  ,
-    TestPage
+    TestPage ,
+    GamePreviewItemsPage ,
+    PreviewItemPage ,
+    FlashCardComponent
+
 
 
 
@@ -77,6 +85,7 @@ import { PusherServiceProvider } from '../providers/push-service/push-service';
   ],
   imports: [
     BrowserModule,
+    IonicStorageModule.forRoot() ,
     HttpClientModule,
     StarRatingModule ,
     LottieAnimationViewModule.forRoot(),
@@ -101,12 +110,15 @@ import { PusherServiceProvider } from '../providers/push-service/push-service';
     QuestionModalPage ,
     SponsorPage ,
     OptionsPage ,
-    TestPage
+    TestPage ,
+    GamePreviewItemsPage  ,
+    PreviewItemPage
 
  
   ],
   providers: [
     StatusBar,
+    PayPal ,
     SplashScreen,
     AuthService, 
     SearchService ,

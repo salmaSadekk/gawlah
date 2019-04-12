@@ -1,94 +1,70 @@
+<!--<ion-content padding>
+    <form name="paymentForm">
+        <ion-item>
+          <ion-label floating>Amount</ion-label>
+          <ion-input type="text" name="amount" [(ngModel)]="payment.amount"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Currency</ion-label>
+          <ion-select [(ngModel)]="payment.currency" name="currency">
+            <ion-option value="{{currency}}" *ngFor="let currency of currencies">{{currency}}</ion-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Description</ion-label>
+          <ion-input type="text" name="description" [(ngModel)]="payment.shortDescription"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Intent</ion-label>
+          <ion-input type="text" name="intent" [(ngModel)]="payment.intent"></ion-input>
+        </ion-item>
+        <p>
+          <button ion-button block color="secondary" (click)="makePayment()">MAKE PAYMENT</button>
+        </p>
+    </form>
+</ion-content>
+-->
 <!--
-  Generated template for the GamecreationPage page.
+  Generated template for the GamePreviewItemsPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
-    <ion-title>Game creation</ion-title>
-  </ion-navbar>
-</ion-header>
-
-  <ion-content no-lines padding>
-
-<div *ngIf="first">
-    <lottie-animation-view
-    [options]="lottieConfig"
-    [width]="300"
-    [height]="300"
-    (animCreated)="handleAnimation($event)">
-</lottie-animation-view>
-<lottie-animation-view
-        [options]="lottieConfig2"
-        [width]="150"
-        [height]="150"
-        (animCreated)="handleAnimation($event)">
-    </lottie-animation-view>
-
-<ion-item text-center>
-    <button clear ion-button (click)="first=false">Continue</button>
-</ion-item>
-</div>
-
-
-    <div *ngIf="!first">
-        
-        <form #f="ngForm" (ngSubmit)="onSubmit(f)" >
-          <ion-card>
-              <ion-list>
-                  <ion-item>
-                      <ion-label>Choose a Museum</ion-label>
-                      <ion-select  ngModel name ="name" multiple="false" required>
-                          <ion-option   *ngFor="let item of museums">{{item.name}}</ion-option>
-                      </ion-select>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label floating>
-                        name of the Game
-                      </ion-label>
-                      <ion-input type="text" ngModel name="GameName" required></ion-input>
-                    </ion-item>
-                    <ion-item>
-                      <ion-label floating>
-                       theme
-                      </ion-label>
-                      <ion-input type="text" ngModel name="theme" required></ion-input> 
-                    </ion-item>
-                    <ion-item>
-                   
-                      <ion-textarea required ngModel name="txt" placeholder="enter the description related to the Game" rows="4"
-                      cols="12"></ion-textarea>
-                    </ion-item>
-                    <ion-item>
-                      <button
-                      ion-button
-                      icon-left
-                      block
-                      outline
-                      type="button"
-                      (click)=" presentActionSheet()">
-                      <ion-icon name="camera"></ion-icon>
-                     add a picture 
-                    </button>
-                     </ion-item>
-                    
-                
-                
-                
-                 
-            <ion-item text-right >
-              <button ion-button clear type="submit" [disabled]="!f.valid " >Next</button>
-              <!-- the disabled will have a condition if the flag =(this.img!=''&& a certain flag set by true on image click==true) then
-              -->
+    <ion-navbar>
+      <ion-title>GamePreviewItems</ion-title>
+    </ion-navbar>
+  </ion-header>
+  
+  <ion-content padding>
+     <div >
+        <ion-list no-lines>
+        <ion-list-header>
+          Items
+        </ion-list-header>
+            <ion-item>
+              <ion-thumbnail item-start>
+                <img src="../../assets/imgs/m1.jpg">
+              </ion-thumbnail>
+              <h2>My Neighbor Totoro</h2>
+              <p>Hayao Miyazaki • 1988</p>
+              <button ion-button clear item-end  (click) ="ShowQuestions()">View</button>
             </ion-item>
-               
-              </ion-list>
-          </ion-card>
+            <ion-item>
+                <ion-thumbnail item-start>
+                  <img src="../../assets/imgs/m1.jpg">
+                </ion-thumbnail>
+                <h2>My Neighbor Totoro</h2>
+                <p>Hayao Miyazaki • 1988</p>
+                <button ion-button clear item-end (click) ="ShowQuestions()">View</button>
+              </ion-item>
+           
+          </ion-list>
           
-        </form>
-    </div>
-   
-    
-    
-</ion-content>
+
+     </div>
+     
+        
+  
+  </ion-content>
+  
