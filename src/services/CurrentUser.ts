@@ -2,9 +2,10 @@ import { User } from "../Models/user";
 import { Tours } from "../Models/Tours";
 import { Review } from "../Models/Review";
 import { Items } from "../Models/Items";
+import { Storage } from "@ionic/storage";
 
 export class CurrentUser {
-    constructor( private storage: Storage) {
+    constructor( ) {
 
     }
    private  currentUser :User =new User ('','','') ;
@@ -15,10 +16,9 @@ export class CurrentUser {
     }
     setUser(user :User) {
      this.currentUser = user ;
-     this.storage.set('uid', user.uid);
-     this.storage.set('profilePic' , user.profilePic) ;
-     this.storage.set('name' , user.name) ;
+     
 
     }
+  
 
 }

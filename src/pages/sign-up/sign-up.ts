@@ -19,7 +19,7 @@ export class SignUpPage {
  second=false ;
  third =false ;
  img ='' ;
- constructor (  private currentUser :CurrentUser,private transfer :FileTransfer, private authservice :AuthService, private toastCtrl :ToastController,public camera: Camera  ,private authService :AuthService ,
+ constructor ( private storage :Storage, private currentUser :CurrentUser,private transfer :FileTransfer, private authservice :AuthService, private toastCtrl :ToastController,public camera: Camera  ,private authService :AuthService ,
   private loading :LoadingController ,private alertCtrl :AlertController ,private navCtrl :NavController) {
 
   }
@@ -79,8 +79,10 @@ export class SignUpPage {
     .then(res => {
       let dataFromServer = JSON.parse(res.data) ;
       this.currentUser.setUser( new User(dataFromServer.user_id , dataFromServer.username , dataFromServer.profileImg) ) ;
-      
-    
+      this.storage.set('uid' , dataFromServer.user_id ) ;
+      this.storage.set('name' , dataFromServer.username) ;
+      this.storage.set('profileImg' , dataFromServer.profileImg) ; 
+     
   
     loader.dismiss() ; 
     

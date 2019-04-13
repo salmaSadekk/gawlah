@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { PreviewItemPage } from '../../../test/preview-item/preview-item';
 
 /**
  * Generated class for the GamePreviewItemsPage page.
@@ -15,11 +16,15 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class GamePreviewItemsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  showCard="false" ;
+  constructor(private modalCtrl :ModalController) {
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad GamePreviewItemsPage');
+  }
+  ShowQuestions() {
+    console.log("yala") ;
+     const modal = this.modalCtrl.create(PreviewItemPage) ;
+     modal.present() ;
+
   }
 
 }

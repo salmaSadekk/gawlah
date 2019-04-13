@@ -11,10 +11,12 @@ import { Component, Input } from '@angular/core';
   templateUrl: 'flash-card.html'
 })
 export class FlashCardComponent {
-  flipped: boolean = false;
   @Input('isFlipped') flipCard: boolean;
-  constructor() {
+  text: string;
 
+  constructor() {
+    console.log('Hello FlashCardComponent Component');
+    this.text = 'Hello World';
   }
 
   

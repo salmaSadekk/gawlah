@@ -5,7 +5,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { PayPal} from '@ionic-native/paypal'; 
 import { AuthService } from '../services/auth';
 import {HttpClientModule} from '@angular/common/http' ;
@@ -119,6 +119,7 @@ import { IonicStorageModule } from '@ionic/storage';
   providers: [
     StatusBar,
     PayPal ,
+    SQLite, 
     SplashScreen,
     AuthService, 
     SearchService ,

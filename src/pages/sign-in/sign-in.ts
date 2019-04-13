@@ -10,6 +10,7 @@ import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
 import { CurrentUser } from '../../services/CurrentUser';
 import { User } from '../../Models/user';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-sign-in',
@@ -18,7 +19,7 @@ import { User } from '../../Models/user';
 export class SignInPage {
 
  
-  constructor( private currentUser :CurrentUser,public navCtrl: NavController, public navParams: NavParams ,private loading :LoadingController,
+  constructor(private storage : Storage ,private currentUser :CurrentUser,public navCtrl: NavController, public navParams: NavParams ,private loading :LoadingController,
     private authService :AuthService, private alertCtrl:AlertController ,public toastCtrl: ToastController) {
    
   }
@@ -52,7 +53,13 @@ export class SignInPage {
       let dataFromServer = JSON.parse(res.data) ;
       console.log('from signIn :'+ dataFromServer ) ;
       this.currentUser.setUser( new User(dataFromServer.user_id , dataFromServer.username , dataFromServer.profileImg) ) ;
-      
+      this.storage.set('uid' , dataFromServer.user_id ).then().catch(
+        error=>{
+          console.log( "an error occured while storing uid" + error) ;
+        }
+      ) ;
+      this.storage.set('name' , dataFromServer.username) ;
+      this.storage.set('profileImg' , dataFromServer.profileImg) ;
     
    
     loader.dismiss() ; 
