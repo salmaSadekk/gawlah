@@ -83,7 +83,7 @@
   <div class="card-background-page" *ngIf="GameView">
 
     <ion-card *ngFor="let game of tours " (click) =" onGameDetails(game)">
-      <img [src] ="game.mainImage "/>
+      <img [src] ="game.mainImage " height="200"/>
       <div class="card-title">{{game.TourName}}</div>
       <div class="card-subtitle">{{ game.name }}</div>
     </ion-card>

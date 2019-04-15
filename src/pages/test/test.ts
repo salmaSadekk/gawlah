@@ -4,7 +4,7 @@ import { PusherServiceProvider } from '../../providers/push-service/push-service
 import { AuthService } from '../../services/auth';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal';
 import { AudioPage } from '../tour-creation/items-add/audio/audio';
-import { PreviewItemPage } from './preview-item/preview-item';
+import { PreviewItemPage } from '../home/tour-detail/game-preview-items/preview-item/preview-item';
 
 /**
  * Generated class for the TestPage page.

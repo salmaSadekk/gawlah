@@ -21,6 +21,7 @@ export class AuthService{
    set_Review  = this.httpPart +'/Gawlah/backup/set_Review.php' ;
    get_Reviews = this.httpPart +'/Gawlah/backup/get_Reviews.php' ;
    get_games  = this.httpPart +'/Gawlah/backup/get_games.php' ;
+   get_game_questions = this.httpPart + '/Gawlah/backup/get_game_questions.php' ;
     constructor(private http: HTTP){}
     signIn(data ){
       this.http.setRequestTimeout(120000) ;

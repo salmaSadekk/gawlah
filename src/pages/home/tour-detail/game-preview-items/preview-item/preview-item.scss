@@ -1,0 +1,53 @@
+page-preview-item {
+    .scroll-zoom-wrapper {
+        white-space: nowrap;
+    }
+    
+    ion-card {
+        border-radius:30px !important;
+        display: inline-block;
+    }
+    
+    ion-scroll {
+       // min-height: 90%; 
+        height: 100% !important;
+    
+            .scroll-content {
+            padding: 0px !important;
+        } 
+        ion-slide {
+            align-items: flex-start;
+        }
+    
+        ion-item {
+            margin-bottom: 5px;
+            font-size: 1.2em;
+            background-color: map-get($colors, primary);
+        }
+    
+        flash-card {
+            color: #000;
+    
+            img {
+                width: 70%;
+                height: auto;
+            }
+        }
+    
+        .start-slide {
+            justify-content: center;
+            align-items: center;
+    
+            button {
+                font-size: 1.3em;
+                font-weight: bold;
+            }
+        }
+        
+    
+       
+    
+    }
+   
+    
+}

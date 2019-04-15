@@ -11,6 +11,8 @@ import { SearchService } from '../../../services/search';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { User } from '../../../Models/user';
 import { ProfilePage } from '../../profile/profile';
+import { game_Items } from '../../../Models/game_items';
+import { GamePreviewItemsPage } from './game-preview-items/game-preview-items';
 
 
 @IonicPage()
@@ -47,51 +49,114 @@ export class TourDetailPage implements OnInit {
     console.log('ionViewDidLoad TourDetailPage');
   }
   ngOnInit(){
+    var  data  ;
     if( this.navParams.data.Game!== undefined && this.navParams.data.Game ==true ){
       this.Game = true ;
-    }
-    this.tour = this.navParams.data.item ;
-   /* if (this.tour.CreatorImg!==''){
-this.flag=true ;
-    } */
-    var  data = {
-      tour_id:this.tour.uid
-    }
-    let url = this.authService.get_tour_items ;
-    this.authService.SendData(data ,url).then(
-      res=>{
-        console.log('data :'+ res.data) ;
-     let dataFromServer = JSON.parse(res.data) ; 
-     
-      for(var i =0 ;i<dataFromServer.length ;i++) {
-       // var   base64Data= dataFromServer[i].image;
-       // var converted_image= "data:image/jpeg;base64,"+base64Data;
-       // console.log('the image :'+ converted_image) ;
-
-        this.tour.items.push(new Items('' , dataFromServer[i].name , dataFromServer[i].image , dataFromServer[i].basic_info ,
-        dataFromServer[i].added_info ,dataFromServer[i].audio,dataFromServer[i].video , dataFromServer[i].sequence ,-1 , '')) ;
-        console.log(this.tour.items[i].name ) ;
-      }
-     // console.log(this.tour.items[0].name ) ;
-     let url = this.authService.get_Reviews ;
-    this.authService.SendData({getReviews:'true' , tour_id : this.tour.uid } , url).then(
-      res=>{
-        let dataFromServer = JSON.parse(res.data) ;
-        for(var i=0 ;i<dataFromServer.length ; i++) {
-          this.tour.review.push(new Review (new User(dataFromServer[i].creator_id , dataFromServer[i].creator_name , dataFromServer[i].creator_image) ,'' , dataFromServer[i].review , dataFromServer[i].rating , dataFromServer[i].review_id)) ;
+      this.tour = this.navParams.data.item ;
+      /* if (this.tour.CreatorImg!==''){
+   this.flag=true ;
+       } */
+         data = {
+         game_id:this.tour.uid
+       }
+       let url = this.authService.get_game_questions ;
+       this.authService.SendData(data ,url).then(
+         res=>{
+           console.log('data :'+ res.data) ;
+        let dataFromServer = JSON.parse(res.data) ; 
+       var questions : game_Items []=[] ;
+         for(var i =0 ;i<dataFromServer.length ;i++) {
+          // var   base64Data= dataFromServer[i].image;
+          // var converted_image= "data:image/jpeg;base64,"+base64Data;
+          // console.log('the image :'+ converted_image) ;
+   
+           questions.push(new game_Items(dataFromServer[i].name,dataFromServer[i].image,'' ,dataFromServer[i].question , dataFromServer[i].choices ,
+            dataFromServer[i].correct_answer , dataFromServer[i].did_you_know )) ;
+         }
+         if(questions.length>0){
+              var item =questions.splice(0 ,1) ;
+         console.log('the length' + questions.length) ;
+         this.tour.items.push({name:item[0].name , arr :[item]}) ;
+         console.log("www" +JSON.stringify(this.tour.items[0]))
+        for(var i =0 ;i<questions.length;){
+          var itemval =questions.splice(i,1) ;
+          var val =this.tour.items.findIndex(
+            item=>{
+              
+              return item.name ==itemval[0].name
+            }
+          )
+          if(val ==-1){
+         
+            var x = this.tour.items.push({name:itemval[0].name , arr :[itemval]}) ;
+            console.log('val=-1 ::' + x) ;
+           }
+           else{
+             console.log('the else I am a loser' + JSON.stringify(this.tour.items[val])) ;
+             this.tour.items[val].arr.push(itemval) ;
+             console.log('the else I am a loser 2' + JSON.stringify(this.tour.items[val])) ;
+           }
         }
-      }
-    ) ;
+        console.log("I know it's an error " + JSON.stringify(this.tour.items)) ;
+       
+      
+           
+         } 
+        });
+      
+      
 
-      }
-    )
+    }
+    else{
+      
+    this.tour = this.navParams.data.item ;
+    /* if (this.tour.CreatorImg!==''){
+ this.flag=true ;
+     } */
+     data = {
+       tour_id:this.tour.uid
+     }
+     let url = this.authService.get_tour_items ;
+     this.authService.SendData(data ,url).then(
+       res=>{
+         console.log('data :'+ res.data) ;
+      let dataFromServer = JSON.parse(res.data) ; 
+      
+       for(var i =0 ;i<dataFromServer.length ;i++) {
+        // var   base64Data= dataFromServer[i].image;
+        // var converted_image= "data:image/jpeg;base64,"+base64Data;
+        // console.log('the image :'+ converted_image) ;
+ 
+         this.tour.items.push(new Items('' , dataFromServer[i].name , dataFromServer[i].image , dataFromServer[i].basic_info ,
+         dataFromServer[i].added_info ,dataFromServer[i].audio,dataFromServer[i].video , dataFromServer[i].sequence ,-1 , '')) ;
+         console.log(this.tour.items[i].name ) ;
+       }
+      // console.log(this.tour.items[0].name ) ;
+      let url = this.authService.get_Reviews ;
+     this.authService.SendData({getReviews:'true' , tour_id : this.tour.uid } , url).then(
+       res=>{
+         let dataFromServer = JSON.parse(res.data) ;
+         for(var i=0 ;i<dataFromServer.length ; i++) {
+           this.tour.review.push(new Review (new User(dataFromServer[i].creator_id , dataFromServer[i].creator_name , dataFromServer[i].creator_image) ,'' , dataFromServer[i].review , dataFromServer[i].rating , dataFromServer[i].review_id)) ;
+         }
+       }
+     ) ;
+ 
+       }
+     )
+    }
     
    
   }
   onItemClick(){
-    this.sort() ;
+    if(this.Game) {
+     this.navCtrl.push(GamePreviewItemsPage , {'items':this.tour.items}) ;
+    }else{
+      this.sort() ;
    
-   this.navCtrl.push(DetailItemsPage ,{'items':this.tour.items , 'index':0  }) ;
+      this.navCtrl.push(DetailItemsPage ,{'items':this.tour.items , 'index':0  }) ;
+    }
+    
   }
   sort() {
     

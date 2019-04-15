@@ -1,19 +1,15 @@
-<!-- Generated template for the FlashCardComponent component -->
 <div class="flip-container" [class.flipped]="flipCard">
 
     <div class="flipper">
 
-        <div class="front">
-            <ng-content select=".flash-card-front"></ng-content>
+        <div class="front" >
+            <ng-content [style.background-color] ="'#c2cfd8'" select=".flash-card-front"></ng-content>
         </div>
 
-        <div class="back">
+        <div class="back" [style.background-color]="correct ? '#BCED91' : '#E9967A'" >
             <ng-content select=".flash-card-back"></ng-content>
         </div>
-       
-        <div class="backw">
-          <ng-content select=". flash-card-backw"></ng-content>
-      </div>
+
     </div>
 
 </div>

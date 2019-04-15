@@ -11,7 +11,7 @@ export class CurrentUser {
    private  currentUser :User =new User ('','','') ;
     getUser() {
         //C:\Users\m\Desktop\angularIonic\gawlah\src\assets\imgs\UserProfile.png
-        console.log('from CurrentUserService'+ {...this.currentUser})
+        //console.log('from CurrentUserService'+ {...this.currentUser})
         return {...this.currentUser} ;
     }
     setUser(user :User) {

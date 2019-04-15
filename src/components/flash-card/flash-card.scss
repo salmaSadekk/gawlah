@@ -15,7 +15,7 @@
                 transform: rotateY(180deg);
             }
 
-        .flip-container, .front, .back , .backw {
+        .flip-container, .front, .back {
             width: 90vw;
             height: 40vh;
             margin: 20px auto;
@@ -29,13 +29,12 @@
             position: relative;
         }
 
-
         /* hide back of pane during swap */
-        .front, .back , .backw{
+        .front, .back {
             display: flex;
             align-items: center;
             justify-content: center;
-            //background-color: #ecf0f1;
+            background-color: #ecf0f1;
             backface-visibility: hidden;
             -webkit-box-shadow: 0px 8px 4px -4px rgba(163,163,163,0.25);
             -moz-box-shadow: 0px 8px 4px -4px rgba(163,163,163,0.25);
@@ -52,16 +51,12 @@
             z-index: 2;
             /* for firefox 31 */
             transform: rotateY(0deg);
-            background-color : blue ;
         }
 
         /* back, initially hidden pane */
         .back {
             transform: rotateY(180deg);
         }
-  .backw{
-    transform: rotateY(180deg);
-    background-color : red ;
-  }
+
     }
 

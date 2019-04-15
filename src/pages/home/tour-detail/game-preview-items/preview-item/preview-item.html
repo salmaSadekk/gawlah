@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-navbar color="primary">
+      <ion-title>Questions</ion-title>
+    </ion-navbar>
+  </ion-header>
+<ion-content>
+
+    <ion-slides>
+  
+        <ion-slide *ngFor="let question of ShowQuestions; let  i= index">
+  
+            <h3>Question {{i+1}}</h3>
+            <p>Answer is {{question.correct}}</p>
+  
+            <flash-card [correct]="question.flag" [isFlipped]="question.flipped">
+                <div class="flash-card-front">
+                  <h1>{{question.Qu}}</h1>
+                </div>
+                
+                <div  class=" flash-card-back"> <img height ="10%" width="10%" [src]="question.flag ? '../../../../../assets/imgs/correct.png' :'../../../../../assets/imgs/wrong.png'" ></div>
+            </flash-card>
+  
+           
+  
+            <ion-list no-lines radio-group>
+  
+                <ion-item *ngFor="let choice of question.choices">
+  
+                    <ion-label>{{choice}}</ion-label>
+                    <ion-radio (click)="selectAnswer(i , choice)"></ion-radio>
+  
+                </ion-item>
+  
+              
+  
+            </ion-list>
+  
+        </ion-slide>
+  
+    </ion-slides>
+  
+  </ion-content>

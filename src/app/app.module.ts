@@ -46,7 +46,7 @@ import { LottieAnimationViewModule } from 'ng-lottie';
 import { TestPage } from '../pages/test/test';
 import { PusherServiceProvider } from '../providers/push-service/push-service';
 import { GamePreviewItemsPage } from '../pages/home/tour-detail/game-preview-items/game-preview-items';
-import { PreviewItemPage } from '../pages/test/preview-item/preview-item';
+import { PreviewItemPage } from '../pages/home/tour-detail/game-preview-items/preview-item/preview-item';
 import { FlashCardComponent } from '../components/flash-card/flash-card';
 import { IonicStorageModule } from '@ionic/storage';
 
