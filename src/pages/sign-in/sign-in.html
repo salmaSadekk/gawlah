@@ -1,22 +1,24 @@
 
 
-<ion-content padding text-center  >
+<ion-content padding text-center  class="form" >
  
   <form #f="ngForm" (ngSubmit)="onSubmit(f)" >
     
-  <ion-list>
-    <ion-item class="in"  style="border-color: rgb(224, 117, 210);" >
-     <ion-label fixed>email</ion-label>
-     <ion-input type="email" name="email" ngModel required></ion-input>
+  <ion-list class="form">
+    <ion-item  >
+     
+     <ion-input type="email" placeholder="email" name="email" ngModel required></ion-input>
     </ion-item>
-    <ion-item class="inx">
-        <ion-label fixed>password</ion-label>
-        <ion-input type="password" name="password" ngModel required></ion-input>
+    <ion-item>
+       
+        <ion-input type="password" placeholder ="password"name="password" ngModel required></ion-input>
        </ion-item>
-  </ion-list>
+ 
   <button  type="submit" round ion-button [disabled]="!f.valid">Sign In</button>
-  </form>
+
   <button ion-button clear type="button" (click)="SignUp()">Not a member?Create Account</button>
+      </ion-list>
+  </form>
   <!--
     <ion-grid text-center>
       <ion-row>
