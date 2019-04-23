@@ -33,13 +33,31 @@ export class TourCreationPage {
   }
   ionViewWillEnter() {
    // this.ItemsRetrieve() ;
-   this.museums = this.MuseumService.getMuseum()  ;
+   //this.museums = this.MuseumService.getMuseum()  ;
+   let url = this.authservice.get_museums ;
+   this.authservice.SendData({museum_items:'s'} ,url).then(
+     res=>{
+      let dataFromServer = JSON.parse(res.data) ; 
+      
+      for(var i=0 ;i<dataFromServer.length ; i++) {
+        
+this.museums.push(new Museum(dataFromServer[i].museum_name , dataFromServer[i].museum_id,[])) ;
+      }
+
+     }
+   );
    
   }
 
   onSubmit(f :NgForm) {
-    let name = f.value.name ;
-  this.tour.name= f.value.name ;
+    
+  
+  var museum= f.value.name ; //museum name
+  this.tour.name =this.museums.find(
+    Museum=>{
+      return museum == Museum.name ;
+    }
+  ).description ;
   this.tour.TourName   =f.value.TourName ;
   this.tour.theme = f.value.theme ;
   //this.tour.duration =f.value.dur;
@@ -48,7 +66,7 @@ export class TourCreationPage {
   this.tour.mainImage= this.img ;
   this.tour.TicketPrice= f.value.TicketPrice ;
   var data ={
-    museum : this.tour.name ,
+    museum : museum,
     tourname : this.tour.TourName  ,
     ticketprice :this.tour.TicketPrice ,
     theme:this.tour.theme  ,
@@ -56,6 +74,7 @@ export class TourCreationPage {
     tour_info :f.value.txt
 
   }
+  
      // 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php'
      let url = this.authservice.tourCreationUrl ;
   this.authservice.SendData( data ,url).then(res=>

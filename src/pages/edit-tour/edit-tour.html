@@ -1,0 +1,61 @@
+<!--
+  Generated template for the EditTourPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>EditTour</ion-title>
+    <ion-buttons end>
+      <button ion-button (click) ="navCtrl.pop()">Done</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+  <ion-card box-shadow *ngFor="let item of items ; let i= index ;">
+    <ion-card-content>
+      <ion-item>
+        <b>Image</b>
+        <button icon-only ion-button clear (click)="presentActionSheet(item.uid , i)">
+          <ion-icon name="brush"></ion-icon>
+        </button>
+      </ion-item>
+        <img [src]="item.imgUrl"  height="200"  (press) ="pressed()">
+      <ion-item>
+        <b>Basic Info</b> 
+       <br>
+        {{item.BasicInfo}}
+      </ion-item>
+     
+        <ion-item  >
+           <b>Added Information</b>
+           <button icon-only ion-button clear (click)="editAddedInfo(i)">
+            <ion-icon name="brush"></ion-icon>
+          </button><br>
+           {{item.addedInfo}}</ion-item>
+         
+           <ion-item >
+              <b>Audio</b>    <button icon-only ion-button clear (click)="read(currentItem.addedInfo)">
+                  <ion-icon name="brush"></ion-icon>
+                </button><br>
+            <p>audio file</p>
+            <button ion-button clear item-end large (click)="onListen(item.audio)"><ion-icon name="play"></ion-icon></button>
+          
+          </ion-item>
+         <ion-item>
+            <b>Video</b>    <button icon-only ion-button clear (click)="videoCapture(item.uid)">
+                <ion-icon name="brush"></ion-icon>
+              </button><br>
+            <video  width="320" height="240" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" class="videoPlayer"><source src="http://192.168.1.10/Gawlah/backup/gawlah_uploaded_files/videos/testX" type="video/mp4"/></video>
+            
+        </ion-item>
+      
+  
+     
+  
+ 
+    </ion-card-content>
+  </ion-card>
+</ion-content>

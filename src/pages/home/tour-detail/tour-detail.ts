@@ -13,6 +13,7 @@ import { User } from '../../../Models/user';
 import { ProfilePage } from '../../profile/profile';
 import { game_Items } from '../../../Models/game_items';
 import { GamePreviewItemsPage } from './game-preview-items/game-preview-items';
+import { SearchPage } from '../../search/search';
 
 
 @IonicPage()
@@ -41,9 +42,12 @@ export class TourDetailPage implements OnInit {
     events.subscribe('star-rating:changed', (starRating) => {this.starRating=starRating ;console.log("star Rating is :"+starRating + typeof(starRating))});
   }
   SearchTheme(theme){
+    /*
     var t: Tabs = this.navCtrl.parent;
  this.searchSer.item =theme ;
- t.select(1);
+ t.select(1); */
+ this.searchSer.item =theme ;
+ this.navCtrl.push(SearchPage) ;
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad TourDetailPage');
@@ -92,12 +96,12 @@ export class TourDetailPage implements OnInit {
             console.log('val=-1 ::' + x) ;
            }
            else{
-             console.log('the else I am a loser' + JSON.stringify(this.tour.items[val])) ;
+            
              this.tour.items[val].arr.push(itemval) ;
-             console.log('the else I am a loser 2' + JSON.stringify(this.tour.items[val])) ;
+            
            }
         }
-        console.log("I know it's an error " + JSON.stringify(this.tour.items)) ;
+        
        
       
            

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { CurrentUser } from '../../services/CurrentUser';
 import { Tours } from '../../Models/Tours';
 import { User } from '../../Models/user';
 import { AuthService } from '../../services/auth';
 import { TourDetailPage } from '../home/tour-detail/tour-detail';
+import { EditTourPage } from '../edit-tour/edit-tour';
 
 /**
  * Generated class for the ProfilePage page.
@@ -29,7 +30,8 @@ img = '' ;
 name = '' ;
 
  
-  constructor( private currentUser:CurrentUser,private authService :AuthService,public navCtrl: NavController, public navParams: NavParams , private UserService :CurrentUser) {
+  constructor( private currentUser:CurrentUser,private authService :AuthService,public navCtrl: NavController, public navParams: NavParams , private UserService :CurrentUser
+    , private alertCtrl :AlertController) {
   
   }
   gotoTour(tour){
@@ -110,5 +112,33 @@ name = '' ;
   
 
   }
+  edit(tour:Tours){
+   this.navCtrl.push(EditTourPage , {tour:tour}) ;
+  }
+  ondelete(i) {
+    const confirm = this.alertCtrl.create({
+      title: 'delete the Tour',
+      message: 'Are you sure you want to delete the tour',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Canceled clicked');
+          }
+        } ,
+        {
+          text: 'Yes',
+          handler: () => {
+            this.ownTours.splice(i ,1) ;
+          }
+        }
+        
+      ]
+    });
+    confirm.present();
+  }
+  
+   
+  }
 
-}
+

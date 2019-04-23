@@ -26,7 +26,7 @@ import { MediaCapture, CaptureImageOptions, MediaFile, CaptureError, CaptureVide
   templateUrl: 'items-add.html',
 })
 export class ItemsAddPage {
-   Monum:Items[] ;
+   Monum:Items[]=[] ;
    tour:Tours ;
    addBut=false ;
    finishBut=false ;
@@ -50,17 +50,25 @@ add() {
 }
   ionViewWillEnter() {
     //this.Monum = this.avMon.getItems() ;
-    
-    this.Monum =(this.MuseumService.getMuseum().find(museum=>{
-    return museum.name ==(<Tours>this.navParams.get('tour')).name; ;
-    }
+    this.tour =this.navParams.get('tour');
+      let url = this.authservice.get_items ;
+console.log('the museum id from game items add' + this.tour.name) ;
+     this.authservice.SendData({item:this.tour.name} , url).then(
+       res=>{
+         console.log(res.data) ;
+         console.log(res.error) ;
+         console.log(res.headers) ;
+         console.log(res.status) ;
+         console.log(res.url) ;
+        let dataFromServer = JSON.parse(res.data) ; 
       
-    )).items ;
-    console.log(this.Monum.length)
-    this.Monum.forEach( item =>
-      {
-        console.log(item.name) ;
-      })
+        for(var i=0 ;i<dataFromServer.length ; i++) {
+          this.Monum.push(new Items(dataFromServer[i].item_id ,dataFromServer[i].item_name ,
+            '',dataFromServer[i].basic_info,'','','',-1 ,-1 ,'') ) ;
+        }
+
+       }
+     ) ;
     
    
   }
@@ -89,7 +97,7 @@ add() {
   }
  
   onSubmit(f:NgForm) {
-    this.tour =this.navParams.get('tour');
+    
     this.index=this.navParams.get('index') ;
    
      
@@ -101,6 +109,7 @@ add() {
     this.tour.items[this.index].addedInfo =f.value.txt ;
     this.tour.items[this.index].imgUrl =this.img ;
     this.tour.items[this.index].video = this.video ;
+    console.log('the video X' +  this.video) ;
     this.tour.items[this.index].audio =this.audio ;
     this.tour.items[this.index].sequenceNum =f.value.seqNum ;
     this.tour.items[this.index].Time =f.value.dur ;

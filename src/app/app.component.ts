@@ -51,7 +51,7 @@ export class MyApp {
               , ProfilePic)) ;
               this.rootPage = TabsPage ;
             } else{
-              this.rootPage = SignInPage ;
+              this.rootPage = SignInPage;
             }
             console.log("value uid" + uid) ;
             console.log("value Profile" + ProfilePic) ;

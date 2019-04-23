@@ -1,4 +1,8 @@
-
+<ion-header>
+  <ion-toolbar>
+    
+  </ion-toolbar>
+</ion-header>
 <ion-content fullscreen  >
   <img src="../../assets/imgs/ProfileBack.jpg" style="width: 100%;height:30%"/>
   
@@ -57,7 +61,7 @@
             <ion-item text-center *ngIf="!hasTours" >
                 <h4>No Tours Created yet</h4>
               </ion-item>
-              <ion-item-sliding *ngFor ="let tour of ownTours">
+              <ion-item-sliding *ngFor ="let tour of ownTours ; let i=index ;">
                   <ion-item (click)="gotoTour(tour)" >
                       <ion-thumbnail item-start>
                         <img  [src]="tour.mainImage">
@@ -67,11 +71,11 @@
                       <button ion-button clear item-end>View</button>
                     </ion-item>
                     <ion-item-options side="right">
-                        <button ion-button color="secondary">
+                        <button ion-button color="light" (click) ="edit(tour)">
                           <ion-icon name="text"></ion-icon>
                           Edit
                         </button>
-                        <button ion-button color="danger">
+                        <button ion-button color="#FA8072" (click)="ondelete(i)">
                           <ion-icon name="trash"></ion-icon>
                           delete
                         </button>

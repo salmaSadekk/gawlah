@@ -49,6 +49,7 @@ import { GamePreviewItemsPage } from '../pages/home/tour-detail/game-preview-ite
 import { PreviewItemPage } from '../pages/home/tour-detail/game-preview-items/preview-item/preview-item';
 import { FlashCardComponent } from '../components/flash-card/flash-card';
 import { IonicStorageModule } from '@ionic/storage';
+import { EditTourPage } from '../pages/edit-tour/edit-tour';
 
 
 
@@ -75,7 +76,8 @@ import { IonicStorageModule } from '@ionic/storage';
     TestPage ,
     GamePreviewItemsPage ,
     PreviewItemPage ,
-    FlashCardComponent
+    FlashCardComponent ,
+    EditTourPage
 
 
 
@@ -89,7 +91,9 @@ import { IonicStorageModule } from '@ionic/storage';
     HttpClientModule,
     StarRatingModule ,
     LottieAnimationViewModule.forRoot(),
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp , {
+      tabsHideOnSubPages: true,
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -112,7 +116,8 @@ import { IonicStorageModule } from '@ionic/storage';
     OptionsPage ,
     TestPage ,
     GamePreviewItemsPage  ,
-    PreviewItemPage
+    PreviewItemPage ,
+    EditTourPage
 
  
   ],

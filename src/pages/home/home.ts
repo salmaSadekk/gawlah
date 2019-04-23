@@ -124,7 +124,8 @@ UserProfile(User_id){
 
 }
 onGameCreate() {
-  this.app.getRootNav().setRoot(GamecreationPage);
+ // this.app.getRootNav().setRoot(GamecreationPage);
+ this.navCtrl.push(GamecreationPage) ;
 
 }
 onGameDetails(item){
@@ -141,7 +142,8 @@ search(theme){
   }
   onTourCreate(){
     console.log('it enters here') ;
-    this.app.getRootNav().setRoot(TourCreationPage);
+    //this.app.getRootNav().setRoot(TourCreationPage);
+    this.navCtrl.push(TourCreationPage) ;
   }
   Video(){
    // this.file.checkDir(this.file.dataDirectory, 'mydir').then(_ => console.log('Directory exists')).catch(err => console.log('Directory doesn\'t exist'));
