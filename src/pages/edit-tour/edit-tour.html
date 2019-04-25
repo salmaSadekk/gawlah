@@ -8,7 +8,7 @@
   <ion-navbar>
     <ion-title>EditTour</ion-title>
     <ion-buttons end>
-      <button ion-button (click) ="navCtrl.pop()">Done</button>
+      <button ion-button (click) ="onDone()">Done</button>
     </ion-buttons>
   </ion-navbar>
 </ion-header>
@@ -22,7 +22,7 @@
           <ion-icon name="brush"></ion-icon>
         </button>
       </ion-item>
-        <img [src]="item.imgUrl"  height="200"  (press) ="pressed()">
+        <img [src]="item.imgUrl"  height="200"  >
       <ion-item>
         <b>Basic Info</b> 
        <br>
@@ -31,28 +31,30 @@
      
         <ion-item  >
            <b>Added Information</b>
-           <button icon-only ion-button clear (click)="editAddedInfo(i)">
+           <button icon-only ion-button clear (click)="editAddedInfo(item.uid , i)">
             <ion-icon name="brush"></ion-icon>
           </button><br>
            {{item.addedInfo}}</ion-item>
          
-           <ion-item >
-              <b>Audio</b>    <button icon-only ion-button clear (click)="read(currentItem.addedInfo)">
+           <ion-item  *ngIf="item.audio!=null">
+              <b>Audio</b>    <button icon-only ion-button clear (click)="Record(item.uid , i)">
                   <ion-icon name="brush"></ion-icon>
                 </button><br>
             <p>audio file</p>
             <button ion-button clear item-end large (click)="onListen(item.audio)"><ion-icon name="play"></ion-icon></button>
           
           </ion-item>
-         <ion-item>
-            <b>Video</b>    <button icon-only ion-button clear (click)="videoCapture(item.uid)">
+         <ion-item *ngIf="item.video!=null">
+            <b>Video</b>    <button icon-only ion-button clear (click)="videoCapture(item.uid , i)">
                 <ion-icon name="brush"></ion-icon>
               </button><br>
-            <video  width="320" height="240" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" class="videoPlayer"><source src="http://192.168.1.10/Gawlah/backup/gawlah_uploaded_files/videos/testX" type="video/mp4"/></video>
+            <video  width="320" height="240" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" class="videoPlayer">
+              <source [src]="item.video!=null?item.video.substring(0, item.video.length-4):''" type="video/mp4"/></video>
+             
             
         </ion-item>
       
-  
+        
      
   
  

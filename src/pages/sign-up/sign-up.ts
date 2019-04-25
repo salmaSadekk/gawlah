@@ -9,6 +9,7 @@ import { CameraOptions, Camera } from '@ionic-native/camera';
 import { FileTransferObject, FileUploadOptions, FileTransfer } from '@ionic-native/file-transfer';
 import { User } from '../../Models/user';
 import { CurrentUser } from '../../services/CurrentUser';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'page-sign-up',

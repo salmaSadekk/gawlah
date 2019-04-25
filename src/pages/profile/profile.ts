@@ -47,17 +47,7 @@ name = '' ;
   
   
   console.log("user from profilr" + user) ;
-    //this.favTours =user.favoriteTours;
-   // this.ownTours =user.ownTours ;
-   // this.languages =user.languages ;
-    //this.score =user.score ;
-    /*this.authService.SendData({profileData : 's'} , '') .then(
-      res=>{
-        let dataFromServer = JSON.parse(res.data) ;
-
-
-      }
-    ) */
+  
     let url = this.authService.Profile_data ;
     
     if(this.navParams.get('user_id')!= undefined) {
@@ -115,7 +105,7 @@ name = '' ;
   edit(tour:Tours){
    this.navCtrl.push(EditTourPage , {tour:tour}) ;
   }
-  ondelete(i) {
+  ondelete(i , uid) {
     const confirm = this.alertCtrl.create({
       title: 'delete the Tour',
       message: 'Are you sure you want to delete the tour',
@@ -129,7 +119,16 @@ name = '' ;
         {
           text: 'Yes',
           handler: () => {
-            this.ownTours.splice(i ,1) ;
+           
+            let url = this.authService.deleteTour ;
+            this.authService.SendData({tour_id:uid} , url) .then(
+              res=>{
+                console.log(res.error) ;
+                console.log(res.status) ;
+                console.log(res.data) ;
+                this.ownTours.splice(i ,1) ;
+              }
+            )
           }
         }
         

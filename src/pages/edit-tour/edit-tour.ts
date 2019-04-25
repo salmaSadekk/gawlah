@@ -7,6 +7,7 @@ import { CameraOptions, Camera } from '@ionic-native/camera';
 import { CaptureVideoOptions, MediaFile, CaptureError, MediaCapture } from '@ionic-native/media-capture';
 import { AudioPage } from '../tour-creation/items-add/audio/audio';
 import { Media } from '@ionic-native/media';
+import { FileTransferObject, FileTransfer, FileUploadOptions } from '@ionic-native/file-transfer';
 
 /**
  * Generated class for the EditTourPage page.
@@ -21,12 +22,13 @@ import { Media } from '@ionic-native/media';
   templateUrl: 'edit-tour.html',
 })
 export class EditTourPage implements OnInit {
+ 
   items : Items[] =[] ;
-  video: {item_id : string , videoUrl: string}[] =[] ;
-  audio: {item_id : string , audioUrl: string}[] =[] ;
-  image : {item_id : string , ImageUrl: string}[] =[] ; 
+  video: {item_id : string , Url: string}[] =[] ;
+  audio: {item_id : string , Url: string}[] =[] ;
+  image : {item_id : string , Url: string}[] =[] ; 
   addedInfo :   {item_id : string , addedInfo: string}[] =[] ; 
-  constructor( private media: Media ,private mediaCapture: MediaCapture , public alertCtrl :AlertController,public actionSheetCtrl :  ActionSheetController,public toastCtrl :ToastController ,public camera: Camera ,public navCtrl: NavController, public navParams: NavParams , private authService :AuthService  ,public modalCtrl :ModalController) {
+  constructor( private media: Media,private transfer: FileTransfer ,private mediaCapture: MediaCapture , public alertCtrl :AlertController,public actionSheetCtrl :  ActionSheetController,public toastCtrl :ToastController ,public camera: Camera ,public navCtrl: NavController, public navParams: NavParams , private authService :AuthService  ,public modalCtrl :ModalController) {
   }
   ngOnInit() {
    var tour = this.navParams.get('tour') ;
@@ -102,7 +104,7 @@ export class EditTourPage implements OnInit {
      // imageData is either a base64 encoded string or a file URI
      // If it's base64 (DATA_URL):
     var img= 'data:image/jpeg;base64,' + imageData;
-     this.image.push({item_id:uid ,ImageUrl : img }) ;
+     this.image.push({item_id:uid ,Url : img }) ;
      this.items[i].imgUrl = img ;
      let base64Image = 'data:image/jpeg;base64,' + imageData;
   
@@ -114,7 +116,7 @@ export class EditTourPage implements OnInit {
       toast.present();
     });
   }
-  editAddedInfo(i) {
+  editAddedInfo(uid ,i) {
     
       const prompt = this.alertCtrl.create({
         title: 'Added Info',
@@ -146,26 +148,123 @@ export class EditTourPage implements OnInit {
       console.log('daata from prompt' +prompt.data) ;
     
   }
-  videoCapture(uid) {
+  videoCapture(uid , i) {
   
     let options: CaptureVideoOptions = { limit: 1 };
     this.mediaCapture.captureVideo(options)
       .then(
         (data: MediaFile[]) => {console.log(data[0].fullPath) ;
         //this.video= data[0].fullPath ; 
-      this.video.push({item_id : uid ,videoUrl : data[0].fullPath })},
+      this.video.push({item_id : uid ,Url : data[0].fullPath } ) ;
+      this.items[i].audio=  data[0].fullPath ; },
         (err: CaptureError) => console.error(err)
       );
+     
+
   }
-  Record(uid){
+  onDone() {
+    
+   
+    
+    console.log('the length of the images array' + this.image) ;
+    if(this.image.length >0  ) {
+      this.fileTransfer(this.image[0] , 'image') ;
+    }else if (this.audio.length >0 ) {
+      this.fileTransfer(this.audio[0] , 'audio') ;
+    }else if(this.video.length >0) {
+      this.fileTransfer(this.video[0] , 'video') ;
+    }
+    
+    
+  }
+  Record(uid , i){
 const modal = this.modalCtrl.create(AudioPage) ;
  modal.present();
  modal.onDidDismiss((audio:string)=>{
-  this.audio.push({item_id : uid ,audioUrl : audio})
+  this.audio.push({item_id : uid ,Url : audio}) ;
+  this.items[i].audio= audio;
+  
   
  }
 
  )
   }
+  fileTransfer(imageData ,type) {
+    console.log('in File Transfer 2')
+    const fileTransfer: FileTransferObject = this.transfer.create();
+
+    let options1: FileUploadOptions = {
+      
+       fileKey: type,
+       fileName: 'name',
+       headers: {}
+    
+    }
+    var uid= this.navParams.get('tour').uid ;
+    var params = {
+      Tour_id : uid , 
+      item_id : imageData.item_id 
+    };
+   
+    
+
+	options1.params = params;
+    let url = this.authService.edit_tour ;
+    
+
+
+fileTransfer.upload(imageData.Url, url, options1)
+ .then((data) => {
+console.log('after the attempt LOL') ;
+console.log(data.bytesSent) ;
+console.log(data.headers) ;
+console.log(data.response) ;
+console.log(data.responseCode) ;
+ if(type=='image') {
+   this.image.splice(0,1) ;
+   if(this.image.length>0 ) {
+     this.fileTransfer(this.image[0] , 'image') ;
+   }
+ } else  if(type=='audio'||type=='image') {
+   if(type== 'audio')
+  this.audio.splice(0,1) ;
+  if(this.audio.length>0 ) {
+    this.fileTransfer(this.audio[0] , 'audio') ;
+  }
+}
+else {
+  if(type== 'video')
+  this.video.splice(0,1) ;
+  if(this.video.length>0 ) {
+    this.fileTransfer(this.video[0] , 'video') ;
+  }
+}
+  
+
+   alert("success");
+ /*  if(this.audio!='' && this.flag) {
+    this.flag = false ;
+   
+    this.fileTransfer(this.audio ,'audio') ;
+  
+   }
+   if(this.video!='' && this.flagVideo) {
+    this.flagVideo = false ;
+   this.fileTransfer(this.video ,'video') ;
+   
+   }*/
+  
+   
+ }, (err) => {
+   // error
+   alert("error"+JSON.stringify(err));
+ });
+
+
+ 
+
+
+  }  
+ 
 
 }
