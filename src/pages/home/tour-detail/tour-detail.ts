@@ -229,7 +229,7 @@ export class TourDetailPage implements OnInit {
              }
            ); */
            let url = this.authService.set_Review ;
-           this.authService.SendData( {user_id :this.currentUser.getUser().uid , tour_id: this.tour.uid , review :data.title ,rating : this.starRating} ,url) ;
+           this.authService.SendData( {user_id :this.currentUser.getUser().uid ,username :this.currentUser.getUser().name  , tour_id: this.tour.uid, tourname: this.tour.TourName,creator_id:this.tour.creator_id , review :data.title ,rating : this.starRating} ,url) ;
           } 
         }
       ]

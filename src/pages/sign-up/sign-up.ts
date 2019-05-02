@@ -10,6 +10,7 @@ import { FileTransferObject, FileUploadOptions, FileTransfer } from '@ionic-nati
 import { User } from '../../Models/user';
 import { CurrentUser } from '../../services/CurrentUser';
 import { Storage } from '@ionic/storage';
+import { OneSignal } from '@ionic-native/onesignal';
 
 @Component({
   selector: 'page-sign-up',
@@ -20,7 +21,7 @@ export class SignUpPage {
  second=false ;
  third =false ;
  img ='' ;
- constructor ( private storage :Storage, private currentUser :CurrentUser,private transfer :FileTransfer, private authservice :AuthService, private toastCtrl :ToastController,public camera: Camera  ,private authService :AuthService ,
+ constructor (private oneSignal: OneSignal , private storage :Storage, private currentUser :CurrentUser,private transfer :FileTransfer, private authservice :AuthService, private toastCtrl :ToastController,public camera: Camera  ,private authService :AuthService ,
   private loading :LoadingController ,private alertCtrl :AlertController ,private navCtrl :NavController) {
 
   }
@@ -83,7 +84,9 @@ export class SignUpPage {
       this.storage.set('uid' , dataFromServer.user_id ) ;
       this.storage.set('name' , dataFromServer.username) ;
       this.storage.set('profileImg' , dataFromServer.profileImg) ; 
-     
+      this.oneSignal.startInit('e2d3c118-911c-4403-851d-4ae46680b74f', '122286071455');
+      this.oneSignal.sendTag("user_id", dataFromServer.user_id) ;
+      this.oneSignal.endInit();
   
     loader.dismiss() ; 
     

@@ -11,6 +11,7 @@ import { TabsPage } from '../tabs/tabs';
 import { CurrentUser } from '../../services/CurrentUser';
 import { User } from '../../Models/user';
 import { Storage } from '@ionic/storage';
+import { OneSignal } from '@ionic-native/onesignal';
 
 @Component({
   selector: 'page-sign-in',
@@ -19,7 +20,7 @@ import { Storage } from '@ionic/storage';
 export class SignInPage {
 
  
-  constructor(private storage : Storage ,private currentUser :CurrentUser,public navCtrl: NavController, public navParams: NavParams ,private loading :LoadingController,
+  constructor(private oneSignal :OneSignal,private storage : Storage ,private currentUser :CurrentUser,public navCtrl: NavController, public navParams: NavParams ,private loading :LoadingController,
     private authService :AuthService, private alertCtrl:AlertController ,public toastCtrl: ToastController) {
    
   }
@@ -60,6 +61,10 @@ export class SignInPage {
       ) ;
       this.storage.set('name' , dataFromServer.username) ;
       this.storage.set('profileImg' , dataFromServer.profileImg) ;
+      this.oneSignal.startInit('e2d3c118-911c-4403-851d-4ae46680b74f', '122286071455');
+      this.oneSignal.sendTag("user_id",dataFromServer.user_id) ;
+      
+      this.oneSignal.endInit();
     
    
     loader.dismiss() ; 

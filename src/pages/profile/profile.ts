@@ -28,6 +28,7 @@ hasFav = false ;
 hasTours = false ;
 img = '' ;
 name = '' ;
+Profile_uid =''
 
  
   constructor( private currentUser:CurrentUser,private authService :AuthService,public navCtrl: NavController, public navParams: NavParams , private UserService :CurrentUser
@@ -136,7 +137,23 @@ name = '' ;
     });
     confirm.present();
   }
-  
+  follow() {
+    let url = this.authService.follow_user ;
+    
+  this.authService.SendData({follow :'yes', follower_id : this.currentUser.getUser().uid , following_id :this.Profile_uid} ,url ).then(
+    res=>{
+      let alert = this.alertCtrl.create({
+    
+        title:'Follow',
+        subTitle:'User added to your following list',
+        buttons: ['OK']
+        
+        });
+        
+        alert.present(); 
+    }
+  )
+  } 
    
   }
 

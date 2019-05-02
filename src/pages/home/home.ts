@@ -17,6 +17,7 @@ import { sponsorService } from '../../services/sponsored';
 import { ProfilePage } from '../profile/profile';
 import { CurrentUser } from '../../services/CurrentUser';
 import { ItemsAddPageModule } from '../tour-creation/items-add/items-add.module';
+import { MessagesPage } from '../messages/messages';
 
 
 
@@ -33,6 +34,9 @@ export class HomePage {
    constructor(   private currentUser :CurrentUser ,private sponsorService : sponsorService ,private popoverCtrl :PopoverController,private navParams :NavParams,private searchSer :SearchService,private transfer: FileTransfer ,private file: File ,private navCtrl :NavController ,private toursService :ToursService,private app:App ,private authser:AuthService , private toastCtrl :ToastController ) {
   
    } 
+   Chat(){
+     this.navCtrl.push(MessagesPage) ;
+   }
    presentPopover(event ,item) {
     const popover = this.popoverCtrl.create(OptionsPage);
     popover.present({ev:event});
@@ -43,13 +47,14 @@ export class HomePage {
       }
     )
   }
+  
   presentPopover2(event ,item) {
     const popover = this.popoverCtrl.create(OptionsPage , {fav :true});
     popover.present({ev:event  });
     popover.onDidDismiss(
       data=>{
         let url = this.authser.fav_tours ;
-       this.authser.SendData( {user_id :this.currentUser.getUser().uid , tour_id :item.uid } ,url).then(
+       this.authser.SendData( {user_id :this.currentUser.getUser().uid , tour_id :item.uid , username :this.currentUser.getUser().name ,creator_id :item.creator_id, tourname :item.TourName} ,url).then(
          res=>
          {
            console.log(res.data) ;

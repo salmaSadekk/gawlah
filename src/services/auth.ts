@@ -24,6 +24,8 @@ export class AuthService{
    get_game_questions = this.httpPart + '/Gawlah/backup/get_game_questions.php' ;
    deleteTour = this.httpPart + '/Gawlah/backup/deleteTour.php' ;
    edit_tour = this.httpPart +  '/Gawlah/backup/edit_tour.php' 
+   ChatTest = this.httpPart + '/Gawlah/backup/ChatTest.php'  ;
+   follow_user = this.httpPart + '/Gawlah/backup/follow_user.php'  ;
     constructor(private http: HTTP){}
     signIn(data ){
       this.http.setRequestTimeout(120000) ;

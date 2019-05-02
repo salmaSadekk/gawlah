@@ -50,8 +50,10 @@ import { PreviewItemPage } from '../pages/home/tour-detail/game-preview-items/pr
 import { FlashCardComponent } from '../components/flash-card/flash-card';
 import { IonicStorageModule } from '@ionic/storage';
 import { EditTourPage } from '../pages/edit-tour/edit-tour';
+import { PusherProvider } from '../providers/pusher/pusher';
+import { MessagesPage } from '../pages/messages/messages';
 
-
+import { OneSignal } from '@ionic-native/onesignal';
 
 @NgModule({
   declarations: [
@@ -77,8 +79,8 @@ import { EditTourPage } from '../pages/edit-tour/edit-tour';
     GamePreviewItemsPage ,
     PreviewItemPage ,
     FlashCardComponent ,
-    EditTourPage
-
+    EditTourPage ,
+    MessagesPage
 
 
 
@@ -117,7 +119,8 @@ import { EditTourPage } from '../pages/edit-tour/edit-tour';
     TestPage ,
     GamePreviewItemsPage  ,
     PreviewItemPage ,
-    EditTourPage
+    EditTourPage ,
+    MessagesPage
 
  
   ],
@@ -145,7 +148,9 @@ import { EditTourPage } from '../pages/edit-tour/edit-tour';
     TextToSpeech ,
     sponsorService ,
     PusherServiceProvider ,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    OneSignal ,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PusherProvider
     
   ]
 })

@@ -12,6 +12,7 @@ import { CurrentUser } from '../services/CurrentUser';
 import { TestPage } from '../pages/test/test';
 import { User } from '../Models/user';
 import { Storage } from '@ionic/storage';
+import { OneSignal, OSNotificationPayload } from '@ionic-native/onesignal';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class MyApp {
   ionViewWillEnter() {
 
   }
-  constructor( private storage :Storage,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+  constructor( private oneSignal :OneSignal, private storage :Storage,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private menuCtrl :MenuController , private app :App , private currentUser :CurrentUser) {
       var uid ;
       var name ;
@@ -49,6 +50,9 @@ export class MyApp {
               this.currentUser.setUser(new User(uid
               , name
               , ProfilePic)) ;
+              this.oneSignal.startInit('e2d3c118-911c-4403-851d-4ae46680b74f', '122286071455');
+      this.oneSignal.sendTag("user_id",uid) ;
+      this.oneSignal.endInit();
               this.rootPage = TabsPage ;
             } else{
               this.rootPage = SignInPage;
@@ -58,6 +62,11 @@ export class MyApp {
             platform.ready().then(() => {
               // Okay, so the platform is ready and our plugins are available.
               // Here you can do any higher level native things you might need.
+             /* this.oneSignal.startInit("e2d3c118-911c-4403-851d-4ae46680b74f", "122286071455");
+              this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
+              this.oneSignal.handleNotificationReceived().subscribe(data => this.onPushReceived(data.payload));
+              this.oneSignal.handleNotificationOpened().subscribe(data => this.onPushOpened(data.notification.payload));
+              this.oneSignal.endInit(); */
               
               statusBar.styleDefault();
               splashScreen.hide();
@@ -72,6 +81,13 @@ export class MyApp {
     
    
   
+  }
+  private onPushReceived(payload: OSNotificationPayload) {
+    alert('Push recevied:' + payload.body);
+  }
+  
+  private onPushOpened(payload: OSNotificationPayload) {
+    alert('Push opened: ' + payload.body);
   }
   GameView(){
     this.nav.push(HomePage , {GameView : true}) ;
