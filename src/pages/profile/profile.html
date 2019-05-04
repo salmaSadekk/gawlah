@@ -1,140 +1,147 @@
 <ion-header>
-  <ion-toolbar>
-    
-  </ion-toolbar>
+  <ion-navbar>
+      <ion-buttons   end>
+          <button ion-button *ngIf="user!= UserService.getUser().uid && followed ==false "  (click)="followButton()">
+            follow
+          </button>
+          <button ion-button *ngIf="user!= UserService.getUser().uid && followed ==true"  (click)="unfollowButton()">
+            unfollow
+          </button>
+        </ion-buttons>
+  </ion-navbar>
 </ion-header>
 <ion-content fullscreen  >
-  <button ion-button (click)="follow()"> follow User</button>
-  <button ion-button (click)="getfollowers()">followers</button>
-  <button ion-button (click)="getfollowing()">following</button>
-  <img src="../../assets/imgs/ProfileBack.jpg" style="width: 100%;height:30%"/>
+    <img src="../../assets/imgs/ProfileBack.jpg" style="width: 100%;height:30%"/>
+<div class="list card" >
+  <ion-item class="profile-item">
+    <div class="profile-picture big-profile-picture">
+      <img [src]="img">
+    </div>
+    <h2 class="profile-name dark">{{name}}</h2>
+    <div class="profile-info">info</div>
+  </ion-item>
   
- <!--  <ion-card >
-      <img src="../../assets/imgs/ProfileBack.jpg"/>
-      
-    </ion-card> --> 
-   
-      <div class="list card" >
-        <ion-item class="profile-item">
-          <div class="profile-picture big-profile-picture">
-            <img [src]="img">
-          </div>
-          <h2 class="profile-name dark">{{name}}</h2>
-          <div class="profile-info">info</div>
-        </ion-item>
+</div>
+
+<div  class="d1"padding>
+  <ion-segment [(ngModel)]="icons" >
+    <ion-segment-button   value="Users" >
+      User
+    </ion-segment-button>
+    <ion-segment-button  value="Tours">
+      Tours
+    </ion-segment-button>
+    <ion-segment-button  value="Favs">
+       Favorites
+      </ion-segment-button>
+  </ion-segment>
+</div>
+
+<div [ngSwitch]="icons">
+  <ion-list *ngSwitchCase="'Users'"   no-lines>
+ 
+      <ion-item-group >
         
-      </div>
-    
-    <div  class="d1"padding>
-        <ion-segment [(ngModel)]="icons" >
-          <ion-segment-button   value="Users" >
-            User
-          </ion-segment-button>
-          <ion-segment-button  value="Tours">
-            Tours
-          </ion-segment-button>
-          <ion-segment-button  value="Favs">
-             Favorites
-            </ion-segment-button>
-        </ion-segment>
-      </div>
-      
-      <div [ngSwitch]="icons">
-        <ion-list *ngSwitchCase="'Users'"   no-lines>
-       
-            <ion-item-group >
-              
-                <ion-item-divider >
-                  LANGUAGES</ion-item-divider>
-                <ion-item *ngFor="let lang of languages">
-                  <ion-icon name="flag"></ion-icon>
-                  {{lang}}</ion-item>
-                
-                <ion-item-divider >POINTS</ion-item-divider>
-                <ion-item icon-left>
-                  <ion-icon name="cash"></ion-icon>
-                  {{score}}</ion-item>
-                
-              </ion-item-group>
-        </ion-list>
-      
-      
-        <ion-list *ngSwitchCase="'Tours'" >
-              
-            <ion-item text-center *ngIf="!hasTours" >
-                <h4>No Tours Created yet</h4>
-              </ion-item>
-              <ion-item-sliding *ngFor ="let tour of ownTours ; let i=index ;">
-                  <ion-item (click)="gotoTour(tour)" >
-                      <ion-thumbnail item-start>
-                        <img  [src]="tour.mainImage">
-                      </ion-thumbnail>
-                      <h2>  {{tour.name}}</h2>
-                      <p>{{tour.rating}}</p>
-                      <button ion-button clear item-end>View</button>
-                    </ion-item>
-                    <ion-item-options side="right">
-                        <button ion-button color="light" (click) ="edit(tour)">
-                          <ion-icon name="text"></ion-icon>
-                          Edit
-                        </button>
-                        <button ion-button color="#FA8072" (click)="ondelete(i , tour.uid)">
-                          <ion-icon name="trash"></ion-icon>
-                          delete
-                        </button>
-                      </ion-item-options>
-              </ion-item-sliding>
-            
-               
+          <ion-item-divider >
+            LANGUAGES</ion-item-divider>
+          <ion-item *ngFor="let lang of languages">
+            <ion-icon name="flag"></ion-icon>
+            {{lang}}</ion-item>
           
-         
-        </ion-list>
-       <ion-list  *ngSwitchDefault no-lines>
-          <ion-item-group >
-            <ion-item-divider >LANGUAGES</ion-item-divider>
-            <ion-item *ngFor="let lang of languages">
-              <ion-icon name="flag"></ion-icon>
-              {{lang}}</ion-item>
-            
-            <ion-item-divider >POINTS</ion-item-divider>
-            <ion-item icon-left>
-              <ion-icon name="cash"></ion-icon>
-              {{score}}</ion-item>
-            
-          </ion-item-group>
-      </ion-list>
+          <ion-item-divider >POINTS</ion-item-divider>
+          <ion-item icon-left>
+            <ion-icon name="cash"></ion-icon>
+            {{score}}</ion-item>
+          
+        </ion-item-group>
+  </ion-list>
 
 
-
-        <ion-list *ngSwitchCase="'Favs'" no-lines>
-            <ion-item text-center *ngIf="!hasFav">
-                <h4>No favorite Tours yet</h4>
+  <ion-list *ngSwitchCase="'Tours'" >
+        
+      <ion-item text-center *ngIf="!hasTours" >
+          <h4>No Tours Created yet</h4>
+        </ion-item>
+        <ion-item-sliding *ngFor ="let tour of ownTours ; let i=index ;">
+            <ion-item (click)="gotoTour(tour)" >
+                <ion-thumbnail item-start>
+                  <img  [src]="tour.mainImage">
+                </ion-thumbnail>
+                <h2>  {{tour.name}}</h2>
+                <p>{{tour.rating}}</p>
+                <button ion-button clear item-end>View</button>
               </ion-item>
-            <ion-item *ngFor ="let tour of favTours" >
-                <ion-card>
-                    <img [src]="tour.mainImage"/>
-                    <ion-card-content>
-                      <ion-grid>
-                        <ion-row>
-                          <ion-col col-2>
-                             <ion-avatar item-start>
-                                 <img [src]="tour.CreatorImg">
-                               </ion-avatar>
-                          </ion-col>
-                          <ion-col>
-                             <ion-card-title>
-                                {{tour.name}}
-                                 </ion-card-title>
-                                
-                                 {{ tour.theme}}
-                          </ion-col>
-                        </ion-row>
-                      </ion-grid>
-                    
-                    </ion-card-content>
-                  </ion-card>
-             </ion-item>
-          </ion-list>
-      </div>
+              <ion-item-options side="right">
+                  <button ion-button color="light" (click) ="edit(tour)">
+                    <ion-icon name="text"></ion-icon>
+                    Edit
+                  </button>
+                  <button ion-button color="#FA8072" (click)="ondelete(i , tour.uid)">
+                    <ion-icon name="trash"></ion-icon>
+                    delete
+                  </button>
+                </ion-item-options>
+        </ion-item-sliding>
+      
+         
+    
+   
+  </ion-list>
+ <ion-list  *ngSwitchDefault no-lines>
+    <ion-item-group >
+        <ion-item-divider  >
+            COMMUNITY</ion-item-divider>
+            <ion-item  (click)="getfollowers()">
+            followers
+            </ion-item>
+            <ion-item (click)="getfollowing()">
+             following
+            </ion-item>
+      <ion-item-divider >LANGUAGES</ion-item-divider>
+      <ion-item *ngFor="let lang of languages">
+        <ion-icon name="flag"></ion-icon>
+        {{lang}}</ion-item>
+      
+      <ion-item-divider >POINTS</ion-item-divider>
+      <ion-item icon-left>
+        <ion-icon name="cash"></ion-icon>
+        {{score}}</ion-item>
+      
+    </ion-item-group>
+</ion-list>
+
+
+
+  <ion-list *ngSwitchCase="'Favs'" no-lines>
+      <ion-item text-center *ngIf="!hasFav">
+          <h4>No favorite Tours yet</h4>
+        </ion-item>
+      <ion-item *ngFor ="let tour of favTours" >
+          <ion-card>
+              <img [src]="tour.mainImage"/>
+              <ion-card-content>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-2>
+                       <ion-avatar item-start>
+                           <img [src]="tour.CreatorImg">
+                         </ion-avatar>
+                    </ion-col>
+                    <ion-col>
+                       <ion-card-title>
+                          {{tour.name}}
+                           </ion-card-title>
+                          
+                           {{ tour.theme}}
+                    </ion-col>
+                  </ion-row>
+                </ion-grid>
+              
+              </ion-card-content>
+            </ion-card>
+       </ion-item>
+    </ion-list>
+</div>
 
 </ion-content>
+

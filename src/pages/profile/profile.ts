@@ -6,6 +6,8 @@ import { User } from '../../Models/user';
 import { AuthService } from '../../services/auth';
 import { TourDetailPage } from '../home/tour-detail/tour-detail';
 import { EditTourPage } from '../edit-tour/edit-tour';
+import { FollowPage } from './follow/follow';
+
 
 /**
  * Generated class for the ProfilePage page.
@@ -28,7 +30,10 @@ hasFav = false ;
 hasTours = false ;
 img = '' ;
 name = '' ;
-Profile_uid =''
+Profile_uid ='' ;
+user = '' ;
+followed =false ;
+followed_id = '' ;
 
  
   constructor( private currentUser:CurrentUser,private authService :AuthService,public navCtrl: NavController, public navParams: NavParams , private UserService :CurrentUser
@@ -44,17 +49,19 @@ Profile_uid =''
   }
   
   ngOnInit() {
-  var user = this.UserService.getUser().uid ; 
+  this.user = this.UserService.getUser().uid ; 
+  console.log('from service ' +this.UserService.getUser().uid) ;
+  console.log('from user ' + this.user) ;
   
   
-  console.log("user from profilr" + user) ;
+  console.log("user from profilr" + this.user) ;
   
     let url = this.authService.Profile_data ;
     
     if(this.navParams.get('user_id')!= undefined) {
-    user = this.navParams.get('user_id') ;
+    this.user = this.navParams.get('user_id') ;
     }
-  this.authService.SendData({profile :'profile' , user_id :user} ,url ).then(
+  this.authService.SendData({profile :'profile' , user_id :this.user , current_user : this.UserService.getUser().uid} ,url ).then(
     res=>{
       console.log(res.data) ;
       console.log(res.error) ;
@@ -66,6 +73,9 @@ Profile_uid =''
       this.score = dataFromServer.data.score ;
       this.img = dataFromServer.data.ProfileImg ;
       this.name =dataFromServer.data.name ;
+      this.followed = dataFromServer.data.followed ;
+      this.followed_id = dataFromServer.data.followed_id ;
+      
 
       
       let toursOfUser =  dataFromServer.own_tours ;
@@ -137,7 +147,7 @@ Profile_uid =''
     });
     confirm.present();
   }
-  follow() {
+  followButton() {
     let url = this.authService.follow_user ;
     
   this.authService.SendData({follow :'yes', follower_id : this.currentUser.getUser().uid , following_id :this.Profile_uid} ,url ).then(
@@ -154,6 +164,37 @@ Profile_uid =''
     }
   )
   } 
+  unfollowButton() {
+    let url = this.authService.follow_user ;
+    
+    this.authService.SendData({unfollow :'yes', follow_id : this.followed_id} ,url ).then(
+      res=>{
+        let alert = this.alertCtrl.create({
+      
+          title:'unFollow',
+          subTitle:'User removed from your following list',
+          buttons: ['OK']
+          
+          });
+          
+          alert.present(); 
+      }
+    )
+  }
+  getfollowers() {
+   this.navCtrl.push(FollowPage , {
+     type : 'followers' ,
+     user_id :this.user
+   })
+  
+
+  } 
+  getfollowing(){
+    this.navCtrl.push(FollowPage , {
+      type : 'following' ,
+      user_id :this.user
+    })
+  }
    
   }
 

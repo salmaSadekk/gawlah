@@ -24,14 +24,25 @@ import { FileTransferObject, FileTransfer, FileUploadOptions } from '@ionic-nati
 export class EditTourPage implements OnInit {
  
   items : Items[] =[] ;
+  info_tour: {
+    name : string ,
+    tour_info :string ,
+    image :string ,
+    price :string ,
+    theme :string 
+  }
   video: {item_id : string , Url: string}[] =[] ;
   audio: {item_id : string , Url: string}[] =[] ;
   image : {item_id : string , Url: string}[] =[] ; 
   addedInfo :   {item_id : string , addedInfo: string}[] =[] ; 
+  x:Tours ;
   constructor( private media: Media,private transfer: FileTransfer ,private mediaCapture: MediaCapture , public alertCtrl :AlertController,public actionSheetCtrl :  ActionSheetController,public toastCtrl :ToastController ,public camera: Camera ,public navCtrl: NavController, public navParams: NavParams , private authService :AuthService  ,public modalCtrl :ModalController) {
   }
   ngOnInit() {
+    
    var tour = this.navParams.get('tour') ;
+   this.info_tour.name = tour.TourName ;
+
    var data = {
     tour_id:tour.uid
   }
@@ -104,9 +115,12 @@ export class EditTourPage implements OnInit {
      // imageData is either a base64 encoded string or a file URI
      // If it's base64 (DATA_URL):
     var img= 'data:image/jpeg;base64,' + imageData;
-     this.image.push({item_id:uid ,Url : img }) ;
-     this.items[i].imgUrl = img ;
-     let base64Image = 'data:image/jpeg;base64,' + imageData;
+    
+      this.image.push({item_id:uid ,Url : img }) ;
+      this.items[i].imgUrl = img ;
+    
+    
+     //let base64Image = 'data:image/jpeg;base64,' + imageData;
   
     }, (err) => {
       const toast = this.toastCtrl.create({

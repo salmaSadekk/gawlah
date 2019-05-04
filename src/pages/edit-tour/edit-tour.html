@@ -14,6 +14,54 @@
 </ion-header>
 
 <ion-content >
+  <ion-card box-shadow>
+    
+      <ion-card-content>
+          <ion-item>
+            <b>Image</b>
+            <button icon-only ion-button clear (click)="presentActionSheet(-1 , -1)">
+              <ion-icon name="brush"></ion-icon>
+            </button>
+          </ion-item>
+            <img [src]="item.imgUrl"  height="200"  >
+          <ion-item>
+            <b>Basic Info</b> 
+           <br>
+            {{item.BasicInfo}}
+          </ion-item>
+         
+            <ion-item  >
+               <b>Added Information</b>
+               <button icon-only ion-button clear (click)="editAddedInfo(item.uid , i)">
+                <ion-icon name="brush"></ion-icon>
+              </button><br>
+               {{item.addedInfo}}</ion-item>
+             
+               <ion-item  *ngIf="item.audio!=null">
+                  <b>Audio</b>    <button icon-only ion-button clear (click)="Record(item.uid , i)">
+                      <ion-icon name="brush"></ion-icon>
+                    </button><br>
+                <p>audio file</p>
+                <button ion-button clear item-end large (click)="onListen(item.audio)"><ion-icon name="play"></ion-icon></button>
+              
+              </ion-item>
+             <ion-item *ngIf="item.video!=null">
+                <b>Video</b>    <button icon-only ion-button clear (click)="videoCapture(item.uid , i)">
+                    <ion-icon name="brush"></ion-icon>
+                  </button><br>
+                <video  width="320" height="240" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" class="videoPlayer">
+                  <source [src]="item.video!=null?item.video.substring(0, item.video.length-4):''" type="video/mp4"/></video>
+                 
+                
+            </ion-item>
+          
+            
+         
+      
+     
+        </ion-card-content>
+     
+  </ion-card>
   <ion-card box-shadow *ngFor="let item of items ; let i= index ;">
     <ion-card-content>
       <ion-item>

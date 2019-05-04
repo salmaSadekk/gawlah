@@ -54,6 +54,7 @@ import { PusherProvider } from '../providers/pusher/pusher';
 import { MessagesPage } from '../pages/messages/messages';
 
 import { OneSignal } from '@ionic-native/onesignal';
+import { FollowPage } from '../pages/profile/follow/follow';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { OneSignal } from '@ionic-native/onesignal';
     PreviewItemPage ,
     FlashCardComponent ,
     EditTourPage ,
-    MessagesPage
+    MessagesPage ,
+    FollowPage
 
 
 
@@ -120,7 +122,8 @@ import { OneSignal } from '@ionic-native/onesignal';
     GamePreviewItemsPage  ,
     PreviewItemPage ,
     EditTourPage ,
-    MessagesPage
+    MessagesPage ,
+    FollowPage
 
  
   ],
