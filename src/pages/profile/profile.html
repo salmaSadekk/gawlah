@@ -1,10 +1,10 @@
 <ion-header>
   <ion-navbar>
       <ion-buttons   end>
-          <button ion-button *ngIf="user!= UserService.getUser().uid && followed ==false "  (click)="followButton()">
+          <button ion-button *ngIf="user!= UserService.getUser().uid && followed ==false "  (click)="followButton();followed =true;">
             follow
           </button>
-          <button ion-button *ngIf="user!= UserService.getUser().uid && followed ==true"  (click)="unfollowButton()">
+          <button ion-button *ngIf="user!= UserService.getUser().uid && followed ==true"  (click)="unfollowButton();followed =false;">
             unfollow
           </button>
         </ion-buttons>
@@ -18,7 +18,10 @@
       <img [src]="img">
     </div>
     <h2 class="profile-name dark">{{name}}</h2>
-    <div class="profile-info">info</div>
+    <!--
+      <div class="profile-info">info</div>
+    -->
+    
   </ion-item>
   
 </div>
@@ -41,37 +44,48 @@
   <ion-list *ngSwitchCase="'Users'"   no-lines>
  
       <ion-item-group >
+          <ion-item-divider  >
+              COMMUNITY</ion-item-divider>
+              <ion-item  (click)="getfollowers()">
+              followers
+              </ion-item>
+              <ion-item (click)="getfollowing()">
+               following
+              </ion-item>
+        <ion-item-divider >LANGUAGES</ion-item-divider>
+        <ion-item *ngFor="let lang of languages">
+          <ion-icon name="flag"></ion-icon>
+          {{lang}}</ion-item>
         
-          <ion-item-divider >
-            LANGUAGES</ion-item-divider>
-          <ion-item *ngFor="let lang of languages">
-            <ion-icon name="flag"></ion-icon>
-            {{lang}}</ion-item>
-          
-          <ion-item-divider >POINTS</ion-item-divider>
-          <ion-item icon-left>
-            <ion-icon name="cash"></ion-icon>
-            {{score}}</ion-item>
-          
-        </ion-item-group>
+        <ion-item-divider >POINTS</ion-item-divider>
+        <ion-item icon-left>
+          <ion-icon name="cash"></ion-icon>
+          {{score}}</ion-item>
+        
+      </ion-item-group>
   </ion-list>
 
 
   <ion-list *ngSwitchCase="'Tours'" >
+
+   
         
-      <ion-item text-center *ngIf="!hasTours" >
+      <ion-item text-center *ngIf="!hasTours && !hasGames" >
           <h4>No Tours Created yet</h4>
         </ion-item>
+        <ion-item-group >
+        <ion-item-divider *ngIf="hasTours" >
+            TOURS</ion-item-divider>
         <ion-item-sliding *ngFor ="let tour of ownTours ; let i=index ;">
             <ion-item (click)="gotoTour(tour)" >
                 <ion-thumbnail item-start>
                   <img  [src]="tour.mainImage">
                 </ion-thumbnail>
                 <h2>  {{tour.name}}</h2>
-                <p>{{tour.rating}}</p>
+                <p>{{tour.Rating}}</p>
                 <button ion-button clear item-end>View</button>
               </ion-item>
-              <ion-item-options side="right">
+              <ion-item-options side="right" *ngIf="UserService.getUser().uid == user">
                   <button ion-button color="light" (click) ="edit(tour)">
                     <ion-icon name="text"></ion-icon>
                     Edit
@@ -82,8 +96,39 @@
                   </button>
                 </ion-item-options>
         </ion-item-sliding>
+        <ion-item-divider *ngIf="hasGames" >
+            GAMES</ion-item-divider>
+            <ion-item-sliding *ngFor ="let tour of games ; let i=index ;">
+                <ion-item (click)="gotoTour(tour)" >
+                    <ion-thumbnail item-start>
+                      <img  [src]="tour.mainImage">
+                    </ion-thumbnail>
+                    <h2>  {{tour.TourName}}</h2>
+                    <button ion-button icon-left clear small color="light"  >
+                        <ion-icon  name="star"></ion-icon>
+                        <div>{{tour.Rating}}</div>
+                    </button>
+                    <br>
+                    <button ion-button icon-left clear small color="light">
+                        <ion-icon name="md-pin"></ion-icon>
+                        <div> {{tour.name.split(',')[1]}}</div>
+                     </button>
+                
+                    <button ion-button clear item-end>View</button>
+                  </ion-item>
+                  <ion-item-options side="right" *ngIf="UserService.getUser().uid == user">
+                      <button ion-button color="light" (click) =" editgame(tour)">
+                        <ion-icon name="text"></ion-icon>
+                        Edit
+                      </button>
+                      <button ion-button color="#FA8072" (click)="ondelete(i , tour.uid)">
+                        <ion-icon name="trash"></ion-icon>
+                        delete
+                      </button>
+                    </ion-item-options>
+            </ion-item-sliding>
       
-         
+      </ion-item-group>
     
    
   </ion-list>

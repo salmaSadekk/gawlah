@@ -9,6 +9,7 @@ export class CurrentUser {
 
     }
    private  currentUser :User =new User ('','','') ;
+   followingOnly =false ;
     getUser() {
         //C:\Users\m\Desktop\angularIonic\gawlah\src\assets\imgs\UserProfile.png
         //console.log('from CurrentUserService'+ {...this.currentUser})

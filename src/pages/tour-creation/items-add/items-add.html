@@ -56,7 +56,7 @@
           </ion-col>
           <ion-col col-4>
             <button ion-button [disabled]="!f.valid" type="submit" clear (click)="add()"
-              [disabled]="!f.valid || img == ''">Add another</button>
+              [disabled]="!f.valid || img == ''" *ngIf="!Edit">Add another</button>
           </ion-col>
         </ion-row>
         <ion-row>

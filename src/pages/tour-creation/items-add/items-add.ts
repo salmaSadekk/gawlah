@@ -36,6 +36,7 @@ export class ItemsAddPage {
    video='' ;
    flagVideo =true ;
    flag=true ;
+   Edit=false ;
  
    
   constructor(private mediaCapture: MediaCapture , private authservice: AuthService, private alertCtrl :AlertController,private MuseumService :MuseumsService,public toastCtrl :ToastController ,public camera: Camera  ,public navCtrl: NavController, public navParams: NavParams , public avMon:availableMonuments ,public TourSer :
@@ -49,11 +50,19 @@ add() {
   this.addBut=true ;
 }
   ionViewWillEnter() {
-    //this.Monum = this.avMon.getItems() ;
-    this.tour =this.navParams.get('tour');
+    //this.Monum = this.avMon.getItems() ; 
+    var item ;
+    if( this.navParams.get('tour') != undefined || this.navParams.get('tour') != null){
+      this.tour =this.navParams.get('tour');
+      item = this.tour.name ;
+    } else{
+     item = this.navParams.get('museum')  ;
+     this.Edit =true ;
+    }
+   
       let url = this.authservice.get_items ;
-console.log('the museum id from game items add' + this.tour.name) ;
-     this.authservice.SendData({item:this.tour.name} , url).then(
+//console.log('the museum id from game items add' + this.tour.name) ;
+     this.authservice.SendData({item:item} , url).then(
        res=>{
          console.log(res.data) ;
          console.log(res.error) ;
@@ -95,8 +104,48 @@ console.log('the museum id from game items add' + this.tour.name) ;
       toast.present();
     });
   }
+  onSubmit2(f:NgForm) {
+  
+   
+    var index =this.Monum .find(
+      val=>{
+        return val.name == f.value.selected ;
+      }
+    ) ;
+    var data ={
+      addedInfo : f.value.txt,
+      sequenceNum : f.value.seqNum ,
+      duration :f.value.dur    ,
+      item_id: index.uid 
+      
+   
+  
+    }
+       // 'http://192.168.43.87:8000/Gawlah/backup/Tour_creation.php'
+       let url = this.authservice.tour_items ;
+    this.authservice.SendData( data , url).then(res=>
+     { 
+     
+     let dataFromServer = JSON.parse(res.data) ;
+    
+     this.fileTransfer(this.img ,'image' ) ;
+     }
+    ).catch(error=>
+      console.log(error))  ;
+    
+    
+   console.log("onSubmit 2") ;
+    this.navCtrl.pop() ;
+     
+   
+  }
  
   onSubmit(f:NgForm) {
+    if(this.navParams.get('museum') !=null || this.navParams.get('museum')!=undefined){
+     this. onSubmit2(f) ;
+     return ;
+
+    }
     
     this.index=this.navParams.get('index') ;
    
@@ -237,6 +286,9 @@ const modal = this.modalCtrl.create(AudioPage) ;
         {
           text: 'Ok',
           handler: () => {
+            if(this.Edit) {
+              this.navCtrl.pop() ;
+            } else
             this.navCtrl.setRoot(TabsPage) ;
           }
         }

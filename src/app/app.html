@@ -46,6 +46,10 @@
               <ion-icon name="log-out"></ion-icon>
               Logout 
              </button>
+             <ion-item>
+              <ion-label>Show followers tours only</ion-label>
+              <ion-toggle [(ngModel)]="followers" (ionChange)="changeState()"></ion-toggle>
+            </ion-item>
       </ion-list>
     </ion-content>
   

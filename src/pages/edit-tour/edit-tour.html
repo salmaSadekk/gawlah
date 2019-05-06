@@ -14,6 +14,10 @@
 </ion-header>
 
 <ion-content >
+    <ion-fab bottom right >
+        <button ion-fab mini (click) ="editMonument()"><ion-icon name="add"></ion-icon></button>
+       
+      </ion-fab>
   <ion-card box-shadow>
     
       <ion-card-content>
@@ -23,37 +27,37 @@
               <ion-icon name="brush"></ion-icon>
             </button>
           </ion-item>
-            <img [src]="item.imgUrl"  height="200"  >
+            <img [src]="tour.mainImage"  height="200"  >
           <ion-item>
-            <b>Basic Info</b> 
+            <b>tour name</b> 
+            <button icon-only ion-button clear (click)="edit('TourName')">
+                <ion-icon name="brush"></ion-icon>
+              </button>
            <br>
-            {{item.BasicInfo}}
+            {{tour.TourName}}
           </ion-item>
          
             <ion-item  >
-               <b>Added Information</b>
-               <button icon-only ion-button clear (click)="editAddedInfo(item.uid , i)">
+               <b>tour info</b>
+               <button icon-only ion-button clear (click)="edit('tour_info')">
                 <ion-icon name="brush"></ion-icon>
               </button><br>
-               {{item.addedInfo}}</ion-item>
+              {{tour.tour_info}}</ion-item>
+               <ion-item  >
+                  <b>price</b>
+                  <button icon-only ion-button clear (click)="edit('TicketPrice')">
+                   <ion-icon name="brush"></ion-icon>
+                 </button><br>
+                  {{tour.TicketPrice}}</ion-item>
+                  <ion-item>
+                     <b>theme</b>
+                  <button icon-only ion-button clear (click)="edit('theme')">
+                   <ion-icon name="brush"></ion-icon>
+                 </button><br>
+                  {{tour.theme}}</ion-item>
+                  
              
-               <ion-item  *ngIf="item.audio!=null">
-                  <b>Audio</b>    <button icon-only ion-button clear (click)="Record(item.uid , i)">
-                      <ion-icon name="brush"></ion-icon>
-                    </button><br>
-                <p>audio file</p>
-                <button ion-button clear item-end large (click)="onListen(item.audio)"><ion-icon name="play"></ion-icon></button>
               
-              </ion-item>
-             <ion-item *ngIf="item.video!=null">
-                <b>Video</b>    <button icon-only ion-button clear (click)="videoCapture(item.uid , i)">
-                    <ion-icon name="brush"></ion-icon>
-                  </button><br>
-                <video  width="320" height="240" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" class="videoPlayer">
-                  <source [src]="item.video!=null?item.video.substring(0, item.video.length-4):''" type="video/mp4"/></video>
-                 
-                
-            </ion-item>
           
             
          
@@ -84,19 +88,19 @@
           </button><br>
            {{item.addedInfo}}</ion-item>
          
-           <ion-item  *ngIf="item.audio!=null">
+           <ion-item  >
               <b>Audio</b>    <button icon-only ion-button clear (click)="Record(item.uid , i)">
                   <ion-icon name="brush"></ion-icon>
                 </button><br>
-            <p>audio file</p>
-            <button ion-button clear item-end large (click)="onListen(item.audio)"><ion-icon name="play"></ion-icon></button>
+            <p *ngIf="item.audio!=null">audio file</p>
+            <button *ngIf="item.audio!=null" ion-button clear item-end large (click)="onListen(item.audio)"><ion-icon name="play"></ion-icon></button>
           
           </ion-item>
-         <ion-item *ngIf="item.video!=null">
+         <ion-item >
             <b>Video</b>    <button icon-only ion-button clear (click)="videoCapture(item.uid , i)">
                 <ion-icon name="brush"></ion-icon>
               </button><br>
-            <video  width="320" height="240" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" class="videoPlayer">
+            <video *ngIf="item.video!=null"  width="320" height="240" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" class="videoPlayer">
               <source [src]="item.video!=null?item.video.substring(0, item.video.length-4):''" type="video/mp4"/></video>
              
             

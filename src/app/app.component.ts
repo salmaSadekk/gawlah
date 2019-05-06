@@ -26,6 +26,7 @@ export class MyApp {
  
   sponsorPage =SponsorPage ;
   Img  = '' ;
+  followers =false;
  
   @ViewChild('content') nav:NavController ;
   ionViewWillEnter() {
@@ -37,6 +38,8 @@ export class MyApp {
       var name ;
       var ProfilePic ;
       
+    
+     
       this.storage .get('uid').then(res=>{
         uid=res ;
         console.log('uid came' +res) ;
@@ -57,8 +60,7 @@ export class MyApp {
             } else{
               this.rootPage = SignInPage;
             }
-            console.log("value uid" + uid) ;
-            console.log("value Profile" + ProfilePic) ;
+          
             platform.ready().then(() => {
               // Okay, so the platform is ready and our plugins are available.
               // Here you can do any higher level native things you might need.
@@ -67,6 +69,10 @@ export class MyApp {
               this.oneSignal.handleNotificationReceived().subscribe(data => this.onPushReceived(data.payload));
               this.oneSignal.handleNotificationOpened().subscribe(data => this.onPushOpened(data.notification.payload));
               this.oneSignal.endInit(); */
+              this.storage.get('followingOnly').then(res=>{
+                this.currentUser.followingOnly=res ; }
+        
+                )
               
               statusBar.styleDefault();
               splashScreen.hide();
@@ -81,6 +87,11 @@ export class MyApp {
     
    
   
+  }
+  changeState() {
+    this.currentUser.followingOnly =this.followers ;
+    console.log('ionChangeTest ..from current user ' +  this.currentUser.followingOnly  ) ;
+
   }
   private onPushReceived(payload: OSNotificationPayload) {
     alert('Push recevied:' + payload.body);

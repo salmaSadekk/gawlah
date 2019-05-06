@@ -61,6 +61,8 @@ export class SignInPage {
       ) ;
       this.storage.set('name' , dataFromServer.username) ;
       this.storage.set('profileImg' , dataFromServer.profileImg) ;
+      this.storage.set('followingOnly', false) ;
+      
       this.oneSignal.startInit('e2d3c118-911c-4403-851d-4ae46680b74f', '122286071455');
       this.oneSignal.sendTag("user_id",dataFromServer.user_id) ;
       

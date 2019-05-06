@@ -24,10 +24,13 @@ import { FollowPage } from './follow/follow';
 export class ProfilePage implements OnInit {
  favTours :Tours[] =[] ;
  ownTours:Tours[] =[] ;
+ games:Tours[] =[] ;
  languages :string[] =[] ;
+
  score:number = 0 ;
 hasFav = false ;
 hasTours = false ;
+hasGames=false ;
 img = '' ;
 name = '' ;
 Profile_uid ='' ;
@@ -106,12 +109,29 @@ followed_id = '' ;
               )) ;
              }
          }
+         let games = dataFromServer.games ;
+         if(games != undefined) {
+          this.hasGames=true ;
+          
+         for(var i =0 ; i< games.length ;i++) {
+           console.log(games[i].rating) ;
+      
+              this.games.push(new Tours(games[i].name ,games[i].game_id  ,games[i].theme ,"" +games[i].museum +"," +games[i].museum_name,
+               "" ,games[i].image,'',games[i].rating,[],[],0 ,games[i].game_info ,
+              ""
+             )) ;
+            }
+        }
+
         
       
     }
   )
   
 
+  }
+  editgame(game:Tours) {
+    this.navCtrl.push(EditTourPage , {game:game}) ;
   }
   edit(tour:Tours){
    this.navCtrl.push(EditTourPage , {tour:tour}) ;
@@ -150,8 +170,13 @@ followed_id = '' ;
   followButton() {
     let url = this.authService.follow_user ;
     
-  this.authService.SendData({follow :'yes', follower_id : this.currentUser.getUser().uid , following_id :this.Profile_uid} ,url ).then(
+  this.authService.SendData({follow :'yes', follower_id : this.currentUser.getUser().uid , followed_id :this.user} ,url ).then(
     res=>{
+      console.log(res.data) ;
+      console.log(res.error) ;
+      console.log(res.headers) ;
+      console.log(res.status) ;
+      console.log(res.url)
       let alert = this.alertCtrl.create({
     
         title:'Follow',

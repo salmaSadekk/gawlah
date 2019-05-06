@@ -8,6 +8,7 @@ import { CaptureVideoOptions, MediaFile, CaptureError, MediaCapture } from '@ion
 import { AudioPage } from '../tour-creation/items-add/audio/audio';
 import { Media } from '@ionic-native/media';
 import { FileTransferObject, FileTransfer, FileUploadOptions } from '@ionic-native/file-transfer';
+import { ItemsAddPage } from '../tour-creation/items-add/items-add';
 
 /**
  * Generated class for the EditTourPage page.
@@ -24,27 +25,19 @@ import { FileTransferObject, FileTransfer, FileUploadOptions } from '@ionic-nati
 export class EditTourPage implements OnInit {
  
   items : Items[] =[] ;
-  info_tour: {
-    name : string ,
-    tour_info :string ,
-    image :string ,
-    price :string ,
-    theme :string 
-  }
+ tour:Tours ;
+ museum_id ='' ;
+
   video: {item_id : string , Url: string}[] =[] ;
   audio: {item_id : string , Url: string}[] =[] ;
   image : {item_id : string , Url: string}[] =[] ; 
   addedInfo :   {item_id : string , addedInfo: string}[] =[] ; 
-  x:Tours ;
   constructor( private media: Media,private transfer: FileTransfer ,private mediaCapture: MediaCapture , public alertCtrl :AlertController,public actionSheetCtrl :  ActionSheetController,public toastCtrl :ToastController ,public camera: Camera ,public navCtrl: NavController, public navParams: NavParams , private authService :AuthService  ,public modalCtrl :ModalController) {
   }
   ngOnInit() {
-    
-   var tour = this.navParams.get('tour') ;
-   this.info_tour.name = tour.TourName ;
-
+    this.tour = this.navParams.get('tour') ;
    var data = {
-    tour_id:tour.uid
+    tour_id:this.tour.uid
   }
   let url = this.authService.get_tour_items ;
   this.authService.SendData(data ,url).then(
@@ -59,7 +52,7 @@ export class EditTourPage implements OnInit {
 
       this.items.push(new Items(dataFromServer[i].item_id, dataFromServer[i].name , dataFromServer[i].image , dataFromServer[i].basic_info ,
       dataFromServer[i].added_info ,dataFromServer[i].audio,dataFromServer[i].video , dataFromServer[i].sequence ,-1 , '')) ;
-      
+    this.museum_id = dataFromServer[i].museum_id ;
     }
   }) }
 
@@ -116,11 +109,14 @@ export class EditTourPage implements OnInit {
      // If it's base64 (DATA_URL):
     var img= 'data:image/jpeg;base64,' + imageData;
     
-      this.image.push({item_id:uid ,Url : img }) ;
+     this.image.push({item_id:uid ,Url : img }) ;
+     if(i=! -1) {
       this.items[i].imgUrl = img ;
+     } else{
+       this.tour.mainImage = img ;
+     }
     
-    
-     //let base64Image = 'data:image/jpeg;base64,' + imageData;
+     let base64Image = 'data:image/jpeg;base64,' + imageData;
   
     }, (err) => {
       const toast = this.toastCtrl.create({
@@ -153,7 +149,8 @@ export class EditTourPage implements OnInit {
             handler: data => {
             
              this.items[i].addedInfo = data.Info ;
-             console.log('choice' +data.Choice) ;
+             this.addedInfo.push({item_id :uid , addedInfo:  data.Info})
+             console.log('choice' +data.Info) ;
             }
           }
         ]
@@ -181,6 +178,30 @@ export class EditTourPage implements OnInit {
    
     
     console.log('the length of the images array' + this.image) ;
+     let url = this.authService.edit_tour ;
+     this.authService.SendData({
+       tour_id :this.tour. uid ,
+       name : this.tour.TourName ,
+       theme :this.tour.theme ,
+       price:this.tour.TicketPrice ,
+       tour_info : this.tour.tour_info , 
+       addedInfo : this.addedInfo
+     } , url).then(res=>
+      {
+        console.log(res.data) ;
+        console.log(res.error) ;
+        console.log(res.headers) ;
+        console.log(res.status) ;
+        console.log(res.url) ;
+      }) ;
+    var obj ={
+      tour_id :this.tour. uid ,
+      name : this.tour.TourName ,
+      theme :this.tour.theme ,
+      price:this.tour.TicketPrice ,
+      tour_info : this.tour.tour_info , 
+      addedInfo : this.addedInfo
+    } ; console.log(JSON.stringify(obj)) ;
     if(this.image.length >0  ) {
       this.fileTransfer(this.image[0] , 'image') ;
     }else if (this.audio.length >0 ) {
@@ -279,6 +300,45 @@ else {
 
 
   }  
+  edit(type) {
+    const prompt = this.alertCtrl.create({
+      title: 'Added Info',
+      message: "Edit the added Information",
+      inputs: [
+        {
+          name: '' +type,
+          placeholder: '' +type
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+
+          text: 'Save',
+          handler: data => {
+           
+            switch(type) {
+              case 'TourName' : this.tour.TourName = data.TourName  ;break ;
+              case 'theme' : this.tour.theme =data.theme ;break ;
+              case 'tour_info' : this.tour.tour_info =data.tour_info ; break ;
+              case 'TicketPrice' : this.tour.TicketPrice =data.TicketPrice ;break ;
+            }
+       
+          }
+        }
+      ]
+    });
+    prompt.present();
+    
  
+  }
+  editMonument() {
+    this.navCtrl.push(ItemsAddPage , {museum:this.museum_id}) ;
+  }
 
 }

@@ -92,10 +92,21 @@ ionViewWillEnter() {
      var url = this.authser.get_games ;
   }
   else{
+    if(this.currentUser.followingOnly ==true ){
+      data={
+        getFavTours : 's' ,
+        user_id : this.currentUser.getUser().uid ,
+        
+      }
+    }
+    else{
+      data ={
+        getTours:'s'
+       } 
+    }
   
-   data ={
-    getTours:'s'
-   } 
+   
+ 
    var url = this.authser.get_tours ;
   }
   this.authser.SendData(data, url).then(
@@ -166,10 +177,19 @@ search(theme){
 
       
     } else{
-      data ={
-        getTours:'s' ,
-        last_tour_id: this.tours[this.tours.length -1].uid
-       }
+      if(this.currentUser.followingOnly ==true ){
+        data={
+          getFavTours : 's' ,
+          user_id : this.currentUser.getUser().uid ,
+          last_tour_id: this.tours[this.tours.length -1].uid
+        }
+      } else{
+        data ={
+          getTours:'s' ,
+          last_tour_id: this.tours[this.tours.length -1].uid
+         }
+      }
+      
       var url = this.authser.get_tours ;
     }
     
