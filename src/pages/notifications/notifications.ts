@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Notif } from '../../services/notif';
 
 /**
  * Generated class for the NotificationsPage page.
@@ -15,7 +16,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class NotificationsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+  constructor(private notif : Notif,public navCtrl: NavController, public navParams: NavParams) {
+   
   }
 
   ionViewDidLoad() {

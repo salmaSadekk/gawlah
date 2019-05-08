@@ -55,6 +55,8 @@ import { MessagesPage } from '../pages/messages/messages';
 
 import { OneSignal } from '@ionic-native/onesignal';
 import { FollowPage } from '../pages/profile/follow/follow';
+import { NotificationsPage } from '../pages/notifications/notifications';
+import { Notif } from '../services/notif';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,8 @@ import { FollowPage } from '../pages/profile/follow/follow';
     FlashCardComponent ,
     EditTourPage ,
     MessagesPage ,
-    FollowPage
+    FollowPage ,
+    NotificationsPage
 
 
 
@@ -123,7 +126,8 @@ import { FollowPage } from '../pages/profile/follow/follow';
     PreviewItemPage ,
     EditTourPage ,
     MessagesPage ,
-    FollowPage
+    FollowPage ,
+    NotificationsPage 
 
  
   ],
@@ -153,7 +157,8 @@ import { FollowPage } from '../pages/profile/follow/follow';
     PusherServiceProvider ,
     OneSignal ,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    PusherProvider
+    PusherProvider ,
+    Notif
     
   ]
 })

@@ -29,7 +29,7 @@
             </ion-item>
               <img [src]="tour.mainImage"  height="200"  >
             <ion-item>
-              <b>tour name</b> 
+              <b>Game name</b> 
               <button icon-only ion-button clear (click)="edit('TourName')">
                   <ion-icon name="brush"></ion-icon>
                 </button>
@@ -38,17 +38,12 @@
             </ion-item>
            
               <ion-item  >
-                 <b>tour info</b>
+                 <b>Game info</b>
                  <button icon-only ion-button clear (click)="edit('tour_info')">
                   <ion-icon name="brush"></ion-icon>
                 </button><br>
                 {{tour.tour_info}}</ion-item>
-                 <ion-item  >
-                    <b>price</b>
-                    <button icon-only ion-button clear (click)="edit('TicketPrice')">
-                     <ion-icon name="brush"></ion-icon>
-                   </button><br>
-                    {{tour.TicketPrice}}</ion-item>
+               
                     <ion-item>
                        <b>theme</b>
                     <button icon-only ion-button clear (click)="edit('theme')">
