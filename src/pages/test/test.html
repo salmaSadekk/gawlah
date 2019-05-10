@@ -1,141 +1,105 @@
-<!--<ion-content padding>
-    <form name="paymentForm">
-        <ion-item>
-          <ion-label floating>Amount</ion-label>
-          <ion-input type="text" name="amount" [(ngModel)]="payment.amount"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label floating>Currency</ion-label>
-          <ion-select [(ngModel)]="payment.currency" name="currency">
-            <ion-option value="{{currency}}" *ngFor="let currency of currencies">{{currency}}</ion-option>
-          </ion-select>
-        </ion-item>
-        <ion-item>
-          <ion-label floating>Description</ion-label>
-          <ion-input type="text" name="description" [(ngModel)]="payment.shortDescription"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label floating>Intent</ion-label>
-          <ion-input type="text" name="intent" [(ngModel)]="payment.intent"></ion-input>
-        </ion-item>
-        <p>
-          <button ion-button block color="secondary" (click)="makePayment()">MAKE PAYMENT</button>
-        </p>
-    </form>
-</ion-content>
--->
 <!--
-  Generated template for the GamePreviewItemsPage page.
+  Generated template for the EditTourPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar>
-      <ion-title>GamePreviewItems</ion-title>
-    </ion-navbar>
-  </ion-header>
-  <ion-content>
-  <ion-card box-shadow>
-    <ion-card-content>
-   
-        <img src="https://www.w3schools.com/w3css/img_lights.jpg"  height="200" >
+  <ion-navbar>
+    <ion-title>EditGame</ion-title>
+    <ion-buttons end>
+      <button ion-button (click) ="onDone()">Done</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+    <ion-fab bottom right >
+        <button ion-fab mini (click) ="editMonument()"><ion-icon name="add"></ion-icon></button>
        
-        <ion-item text-center> 
-         <b>Basic Information</b> 
-         <button icon-only ion-button clear (click)="read(currentItem.BasicInfo)">
-           <ion-icon name ="mic"></ion-icon>
-         </button>
-         <br>
-          slmlsndlndls</ion-item>
-        <ion-item text-center  >
-           <b>Added Information</b>
-           <button icon-only ion-button clear (click)="read(currentItem.addedInfo)">
-               <ion-icon name ="mic"></ion-icon>
-             </button><br>
-           sklkdkldld</ion-item>
-        
-        <ion-item>
-         <button ion-button clear icon-left (click)="onListen()">
-           <ion-icon name="musical-notes" ></ion-icon>
-           Listen
-          </button>
-         </ion-item>
-         <ion-item>
-          <button ion-button clear icon-left (click)="onWatch()">
-           <ion-icon name="videocam"  ></ion-icon>
-           Watch video
-          </button>
-        </ion-item>
-       <ion-grid>
-         <ion-row>
-           
-           
-           
-           
-           <ion-col text-end *ngIf="flag" (click)="onNextItem()">
-             <button ion-button clear >Next Item</button>
-           </ion-col>
-           <ion-col text-end *ngIf="!flag" (click)="onFinish()">
-               <button ion-button clear >Finish</button>
-             </ion-col>
-           <ion-col text-start *ngIf="hasPrevious" (click)="onPrevItem()">
-               <button ion-button clear >Previous Item</button>
-             </ion-col>
-           
-         </ion-row>
-       
-       </ion-grid>
-  
-     
-  
- 
-    </ion-card-content>
-  </ion-card>
+      </ion-fab>
   <ion-card box-shadow>
-    <ion-card-content>
-      <ion-item>
-        <b>Image</b>
-        <button icon-only ion-button clear (click)="read(currentItem.addedInfo)">
-          <ion-icon name="brush"></ion-icon>
-        </button>
-      </ion-item>
-        <img src="https://www.w3schools.com/w3css/img_lights.jpg"  height="200"  (press) ="pressed()">
-      <ion-item>
-        <b>Basic Info</b> 
-       <br>
-        sklkdkldld
-      </ion-item>
-     
-        <ion-item  >
-           <b>Added Information</b>
-           <button icon-only ion-button clear (click)="read(currentItem.addedInfo)">
-            <ion-icon name="brush"></ion-icon>
-          </button><br>
-           sklkdkldld</ion-item>
-         
-           <ion-item >
-              <b>Audio</b>    <button icon-only ion-button clear (click)="read(currentItem.addedInfo)">
-                  <ion-icon name="brush"></ion-icon>
-                </button><br>
-            <p>fileNmae</p>
-            <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button>
-          
+    
+      <ion-card-content>
+          <ion-item>
+            <b>Image</b>
+            <button icon-only ion-button clear (click)="presentActionSheet(-1 , -1)">
+              <ion-icon name="brush"></ion-icon>
+            </button>
           </ion-item>
-         <ion-item>
-            <b>Video</b>    <button icon-only ion-button clear (click)="read(currentItem.addedInfo)">
+            <img src="https://www.picmonkey.com/_/static/images/wall/evergreen/samples/default.947e7aff0713.jpg" height="200"  >
+          <ion-item>
+            <b>Game name</b> 
+            <button icon-only ion-button clear (click)="edit('TourName')">
+                <ion-icon name="brush"></ion-icon>
+              </button>
+           <br>
+           Test Name 
+          </ion-item>
+         
+            <ion-item  >
+               <b>Game info</b>
+               <button icon-only ion-button clear (click)="edit('tour_info')">
                 <ion-icon name="brush"></ion-icon>
               </button><br>
-            <video  width="320" height="240" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" class="videoPlayer"><source src="http://192.168.1.10/Gawlah/backup/gawlah_uploaded_files/videos/testX" type="video/mp4"/></video>
-            
-        </ion-item>
-      
-  
+              Test info</ion-item>
+             
+                  <ion-item>
+                     <b>theme</b>
+                  <button icon-only ion-button clear (click)="edit('theme')">
+                   <ion-icon name="brush"></ion-icon>
+                 </button><br>
+                  Test theme</ion-item>
+ </ion-card-content>
      
-  
- 
-    </ion-card-content>
   </ion-card>
+<ion-card>
+    <ion-card-header>
+       Item #1
+      </ion-card-header>
+ 
+  <ion-card-content>
+      <ion-list>
+          <ion-item>
+              Qu. Why is Anch amoun amazing ?
+               </ion-item>
+               <ion-item >
+                 <ion-item color="primary">
+           Because it was build by egyptians 
+                 </ion-item>
+                 <ion-item color="primary">
+                     Because it's just cool
+                           </ion-item>
+                           <ion-item color="secondary">
+                               Dunno
+                                     </ion-item>
+               </ion-item>
+               <button ion-button  float-right clear (click) ="addOption()">
+                   <ion-icon name="add"></ion-icon>
+                   Add option
+               </button>
+      </ion-list>
+      <ion-list>
+          <ion-item>
+              Qu. Why is Anch amoun amazing ?
+               </ion-item>
+               <ion-item >
+                 <ion-item color="primary">
+           Because it was build by egyptians 
+                 </ion-item>
+                 <ion-item color="primary">
+                     Because it's just cool
+                           </ion-item>
+                           <ion-item color="secondary">
+                               Dunno
+                                     </ion-item>
+               </ion-item>
+               <button ion-button  float-right clear (click) ="addOption()">
+                   <ion-icon name="add"></ion-icon>
+                   Add option
+               </button>
+      </ion-list>
   
-  </ion-content>
-  
+  </ion-card-content>
+</ion-card>
+</ion-content>

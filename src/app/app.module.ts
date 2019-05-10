@@ -57,6 +57,7 @@ import { OneSignal } from '@ionic-native/onesignal';
 import { FollowPage } from '../pages/profile/follow/follow';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { Notif } from '../services/notif';
+import { EditGamePage } from '../pages/edit-game/edit-game';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { Notif } from '../services/notif';
     EditTourPage ,
     MessagesPage ,
     FollowPage ,
-    NotificationsPage
+    NotificationsPage ,
+    EditGamePage
 
 
 
@@ -127,7 +129,8 @@ import { Notif } from '../services/notif';
     EditTourPage ,
     MessagesPage ,
     FollowPage ,
-    NotificationsPage 
+    NotificationsPage ,
+    EditGamePage
 
  
   ],

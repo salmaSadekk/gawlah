@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth';
 import { TourDetailPage } from '../home/tour-detail/tour-detail';
 import { EditTourPage } from '../edit-tour/edit-tour';
 import { FollowPage } from './follow/follow';
+import { EditGamePage } from '../edit-game/edit-game';
 
 
 /**
@@ -131,7 +132,7 @@ followed_id = '' ;
 
   }
   editgame(game:Tours) {
-    this.navCtrl.push(EditTourPage , {game:game}) ;
+    this.navCtrl.push(EditGamePage , {game:game}) ;
   }
   edit(tour:Tours){
    this.navCtrl.push(EditTourPage , {tour:tour}) ;

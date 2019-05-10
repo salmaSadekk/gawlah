@@ -75,7 +75,7 @@ export class TourDetailPage implements OnInit {
           // console.log('the image :'+ converted_image) ;
    
            questions.push(new game_Items(dataFromServer[i].name,dataFromServer[i].image,'' ,dataFromServer[i].question , dataFromServer[i].choices ,
-            dataFromServer[i].correct_answer , dataFromServer[i].did_you_know )) ;
+            dataFromServer[i].correct_answer , dataFromServer[i].did_you_know , dataFromServer[i].question_id )) ;
          }
          if(questions.length>0){
               var item =questions.splice(0 ,1) ;

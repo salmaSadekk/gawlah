@@ -59,7 +59,7 @@ export class SearchPage implements OnInit {
   }
   onClickItem(item){
     console.log(item.name) ;
-    this.navCtrl.push(TourDetailPage ,item) ;
+    this.navCtrl.push(TourDetailPage ,{item : item}) ;
   }
   search(item:string){
     this.tours=[] ;

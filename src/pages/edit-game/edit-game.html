@@ -23,18 +23,18 @@
         <ion-card-content>
             <ion-item>
               <b>Image</b>
-              <button icon-only ion-button clear (click)="presentActionSheet(-1 , -1)">
+              <button icon-only ion-button clear (click)="presentActionSheet()">
                 <ion-icon name="brush"></ion-icon>
               </button>
             </ion-item>
-              <img [src]="tour.mainImage"  height="200"  >
+              <img [src]="tour.image " height="200"  >
             <ion-item>
               <b>Game name</b> 
               <button icon-only ion-button clear (click)="edit('TourName')">
                   <ion-icon name="brush"></ion-icon>
                 </button>
              <br>
-              {{tour.TourName}}
+             Test Name 
             </ion-item>
            
               <ion-item  >
@@ -45,67 +45,77 @@
                 {{tour.tour_info}}</ion-item>
                
                     <ion-item>
-                       <b>theme</b>
+                    <b>{{tour.theme }}</b>
                     <button icon-only ion-button clear (click)="edit('theme')">
                      <ion-icon name="brush"></ion-icon>
                    </button><br>
-                    {{tour.theme}}</ion-item>
-                    
-               
-                
-            
-              
-           
-        
-       
-          </ion-card-content>
+                    Test theme</ion-item>
+   </ion-card-content>
        
     </ion-card>
-    <ion-card box-shadow *ngFor="let item of items ; let i= index ;">
-      <ion-card-content>
-        <ion-item>
-          <b>Image</b>
-          <button icon-only ion-button clear (click)="presentActionSheet(item.uid , i)">
-            <ion-icon name="brush"></ion-icon>
-          </button>
-        </ion-item>
-          <img [src]="item.imgUrl"  height="200"  >
-        <ion-item>
-          <b>Basic Info</b> 
-         <br>
-          {{item.BasicInfo}}
-        </ion-item>
-       
-          <ion-item  >
-             <b>Added Information</b>
-             <button icon-only ion-button clear (click)="editAddedInfo(item.uid , i)">
-              <ion-icon name="brush"></ion-icon>
-            </button><br>
-             {{item.addedInfo}}</ion-item>
-           
-             <ion-item  >
-                <b>Audio</b>    <button icon-only ion-button clear (click)="Record(item.uid , i)">
-                    <ion-icon name="brush"></ion-icon>
-                  </button><br>
-              <p *ngIf="item.audio!=null">audio file</p>
-              <button *ngIf="item.audio!=null" ion-button clear item-end large (click)="onListen(item.audio)"><ion-icon name="play"></ion-icon></button>
-            
-            </ion-item>
-           <ion-item >
-              <b>Video</b>    <button icon-only ion-button clear (click)="videoCapture(item.uid , i)">
-                  <ion-icon name="brush"></ion-icon>
-                </button><br>
-              <video *ngIf="item.video!=null"  width="320" height="240" controls="controls" preload="metadata"  webkit-playsinline="webkit-playsinline" class="videoPlayer">
-                <source [src]="item.video!=null?item.video.substring(0, item.video.length-4):''" type="video/mp4"/></video>
-               
-              
-          </ion-item>
-        
-          
-       
-    
+  <ion-card *ngFor="let item of this.tour.items; let ItemIndex=index ;">
+      <ion-card-header>
+          <h3 color="primary">{{item.name}}</h3>
+        </ion-card-header>
    
-      </ion-card-content>
-    </ion-card>
+    <ion-card-content>
+        <ion-list *ngFor="let question of item.arr ; let QuestionIndex=index">
+          
+            <ion-item >
+               Qu.{{question.question}}
+                 </ion-item>
+                 <ion-item-sliding *ngFor="let choice of question.choices ;let choiceIndex=index ;">
+                 {{choice}} choice
+                 <ion-item-options>
+                   <!--delete-->
+                  
+                    <!--edit-->
+                   <button ion-button icon-only color="light" (click)="EditAnswer(ItemIndex , QuestionIndex , choiceIndex)">
+                      <ion-icon name="brush"></ion-icon>
+                   </button>
+                    <!--change this to answer-->
+                   <button ion-button icon-only color ="green"(click)="changeAnswer(ItemIndex , QuestionIndex , choiceIndex)">
+                      <ion-icon name="checkmark"></ion-icon>
+                   </button>
+                   <button ion-button icon-only color="red"(click)="delete(ItemIndex , QuestionIndex , choiceIndex)">
+                      <ion-icon name="trash"></ion-icon>
+                   </button>
+                 </ion-item-options>
+                 </ion-item-sliding>
+                 <ion-item-sliding color="green">{{question.correctAns}} 
+                    <ion-item-options>
+                        <!--delete-->
+                       
+                         <!--edit-->
+                        <button ion-button icon-only (click)="EditAnswer(ItemIndex , QuestionIndex ,-1)">
+                           <ion-icon name="brush"></ion-icon>
+                        </button>
+                        <button ion-button icon-only (click)="delete(ItemIndex , QuestionIndex , -1)">
+                           <ion-icon name="trash"></ion-icon>
+                        </button>
+                      </ion-item-options>
+                 </ion-item-sliding>
+                 <ion-item-sliding>
+                    <ion-icon name="trash"></ion-icon> 
+                    <b>Did you know :</b> {{question.didYouKnow}}
+                    <ion-item-options>
+                        <button ion-button icon-only (click)="EditAnswer(ItemIndex , QuestionIndex ,-2)">
+                            <ion-icon name="information-circle"></ion-icon>
+                         </button>
+                    </ion-item-options>
+                 </ion-item-sliding>
+                 <button ion-button  float-right clear (click) ="addOption(ItemIndex ,QuestionIndex)">
+                     <ion-icon name="add"></ion-icon>
+                     Add option
+                 </button>
+                 <button ion-button  float-right clear (click) ="Removequestion(ItemIndex ,QuestionIndex)">
+                    <ion-icon name="add"></ion-icon>
+                   Remove Question
+                </button>
+                 
+        </ion-list>
+        
+    </ion-card-content>
+  </ion-card>
   </ion-content>
   
