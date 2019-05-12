@@ -78,9 +78,10 @@ this.authService.SendData({SearchKey:item} , url).then(
     for(var i =0 ; i< dataFromServer.length ;i++) {
      
 
-      this.tours.push(new Tours('' ,dataFromServer[i].tour_id  ,dataFromServer[i].theme ,dataFromServer[i].name ,
-      '' ,dataFromServer[i].image,'','',[],[],7 ,'',''
-       )) ;
+      this.tours.push(new Tours(dataFromServer[i].name ,dataFromServer[i].tour_id  ,dataFromServer[i].theme , dataFromServer[i].museum ,
+        dataFromServer[i].creator,dataFromServer[i].image,'',dataFromServer[i].rating,[],[],dataFromServer[i].price ,
+         dataFromServer[i].tour_info , dataFromServer[i].creator_id
+         )) ;
     }
 
 

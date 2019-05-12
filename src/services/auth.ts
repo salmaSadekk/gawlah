@@ -5,6 +5,7 @@ import { HTTP } from "@ionic-native/http";
 @Injectable ()
 export class AuthService{
    private isAuth =false ;
+   tabs = false ;
    httpPart = 'http://192.168.1.8' ;
    tourCreationUrl =  this.httpPart +'/Gawlah/backup/Tour_creation.php' ;
    tour_items =this.httpPart +'/Gawlah/backup/tour_items.php' ;

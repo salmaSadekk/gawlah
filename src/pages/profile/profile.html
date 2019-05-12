@@ -1,5 +1,6 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
+    <ion-title>Profile</ion-title>
       <ion-buttons   end>
           <button ion-button *ngIf="user!= UserService.getUser().uid && followed ==false "  (click)="followButton();followed =true;">
             follow
@@ -46,11 +47,11 @@
       <ion-item-group >
           <ion-item-divider  >
               COMMUNITY</ion-item-divider>
-              <ion-item  (click)="getfollowers()">
-              followers
+              <ion-item   (click)="getfollowers()">
+              <p style="color:#3c6894;">followers</p>
               </ion-item>
               <ion-item (click)="getfollowing()">
-               following
+                  <p style="color:#3c6894;">following</p>
               </ion-item>
         <ion-item-divider >LANGUAGES</ion-item-divider>
         <ion-item *ngFor="let lang of languages">
@@ -77,13 +78,21 @@
         <ion-item-divider *ngIf="hasTours" >
             TOURS</ion-item-divider>
         <ion-item-sliding *ngFor ="let tour of ownTours ; let i=index ;">
-            <ion-item (click)="gotoTour(tour)" >
+            <ion-item >
                 <ion-thumbnail item-start>
                   <img  [src]="tour.mainImage">
                 </ion-thumbnail>
-                <h2>  {{tour.name}}</h2>
-                <p>{{tour.Rating}}</p>
-                <button ion-button clear item-end>View</button>
+                <h2>  {{tour.TourName}}</h2>
+                
+                <button ion-button icon-left clear small color="light">
+                    <ion-icon name="md-pin"></ion-icon>
+                    <div> {{tour.name}}</div>
+                 </button><br>
+                <button ion-button icon-left clear small color="light"  >
+                    <ion-icon  name="star"></ion-icon>
+                    <div>{{tour.Rating}}</div>
+                </button>
+                <button ion-button clear item-end  (click)="gotoTour(tour)">View</button>
               </ion-item>
               <ion-item-options side="right" *ngIf="UserService.getUser().uid == user">
                   <button ion-button color="light" (click) ="edit(tour)">
@@ -99,22 +108,23 @@
         <ion-item-divider *ngIf="hasGames" >
             GAMES</ion-item-divider>
             <ion-item-sliding *ngFor ="let tour of games ; let i=index ;">
-                <ion-item (click)="gotoTour(tour)" >
+                <ion-item  >
                     <ion-thumbnail item-start>
                       <img  [src]="tour.mainImage">
                     </ion-thumbnail>
                     <h2>  {{tour.TourName}}</h2>
+                    <button ion-button icon-left clear small color="light">
+                        <ion-icon name="md-pin"></ion-icon>
+                        <div> {{tour.name.split(',')[1]}}</div>
+                     </button><br>
                     <button ion-button icon-left clear small color="light"  >
                         <ion-icon  name="star"></ion-icon>
                         <div>{{tour.Rating}}</div>
                     </button>
-                    <br>
-                    <button ion-button icon-left clear small color="light">
-                        <ion-icon name="md-pin"></ion-icon>
-                        <div> {{tour.name.split(',')[1]}}</div>
-                     </button>
+                    
+                    
                 
-                    <button ion-button clear item-end>View</button>
+                    <button ion-button clear item-end (click)="gotoTour(tour)">View</button>
                   </ion-item>
                   <ion-item-options side="right" *ngIf="UserService.getUser().uid == user">
                       <button ion-button color="light" (click) =" editgame(tour)">
@@ -161,29 +171,57 @@
       <ion-item text-center *ngIf="!hasFav">
           <h4>No favorite Tours yet</h4>
         </ion-item>
-      <ion-item *ngFor ="let tour of favTours" >
-          <ion-card>
-              <img [src]="tour.mainImage"/>
-              <ion-card-content>
-                <ion-grid>
-                  <ion-row>
-                    <ion-col col-2>
-                       <ion-avatar item-start>
-                           <img [src]="tour.CreatorImg">
-                         </ion-avatar>
-                    </ion-col>
-                    <ion-col>
-                       <ion-card-title>
-                          {{tour.name}}
-                           </ion-card-title>
-                          
-                           {{ tour.theme}}
-                    </ion-col>
-                  </ion-row>
-                </ion-grid>
+      <ion-item *ngFor ="let item of favTours" >
+            <ion-card >
+          <ion-row>
+              <ion-col col-2>
+                 <ion-avatar item-start (click)="UserProfile(item.creator_id)">
+                     <img [src]="item.CreatorImg">
+                   </ion-avatar>
+              </ion-col>
+              <ion-col  *ngIf="!flag">
+                <button  float-right ion-button  icon-only clear  (click)=" presentPopover2($event ,item)">
+                  <ion-icon name="more"></ion-icon>
+                </button>
+             </ion-col>
+              </ion-row>
+             
+        <img [src]="item.mainImage" height="300" (click)="onClickItem(item)" />
+          <ion-card-content text-center>
+               <h1> {{item.TourName}}</h1> 
+          
+             
+              <ionic3-star-rating 
+              activeIcon = "ios-star"
+              defaultIcon = "ios-star-outline"
+              activeColor = "#3c6894" 
+              defaultColor = "#c2cfd8"
+              readonly="true"
+              [rating]="item.Rating">
+             </ionic3-star-rating>
+             <ion-item *ngIf="flag">
+              <button ion-button icon-only clear item-end (click)=" presentPopover($event ,item)">
+                <ion-icon name="more"></ion-icon>
+              </button>
+            </ion-item>
+          </ion-card-content>
+          <ion-row>
+              <ion-col>
+                  <button ion-button icon-left clear small color="light"  >
+                      <ion-icon name="thumbs-up"></ion-icon>
+                      <div>30</div>
+                  </button>
+              </ion-col>
+             
+              <ion-col center text-center>
+                  <button ion-button icon-left clear small color="light">
+                      <ion-icon name="md-pin"></ion-icon>
+                      <div> {{item.name}}</div>
+                   </button>
+              </ion-col>
               
-              </ion-card-content>
-            </ion-card>
+          </ion-row>
+      </ion-card>
        </ion-item>
     </ion-list>
 </div>

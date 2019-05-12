@@ -42,14 +42,15 @@
               <ion-icon name="game-controller-a"></ion-icon>
               Switch to Game View
              </button>
-           <button menuClose ion-item  (click)="onLogout()">
-              <ion-icon name="log-out"></ion-icon>
-              Logout 
-             </button>
              <ion-item>
               <ion-label>Show followers tours only</ion-label>
               <ion-toggle [(ngModel)]="followers" (ionChange)="changeState()"></ion-toggle>
             </ion-item>
+           <button menuClose ion-item  (click)="onLogout()">
+              <ion-icon name="log-out"></ion-icon>
+              Logout 
+             </button>
+             
       </ion-list>
     </ion-content>
   

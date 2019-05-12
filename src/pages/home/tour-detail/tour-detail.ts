@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Events, AlertController, Tabs } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Events, AlertController, Tabs, PopoverController } from 'ionic-angular';
 import { Tours } from '../../../Models/Tours';
 import { DetailItemsPage } from './detail-items/detail-items';
 import { ToursService } from '../../../services/Tours';
@@ -14,6 +14,7 @@ import { ProfilePage } from '../../profile/profile';
 import { game_Items } from '../../../Models/game_items';
 import { GamePreviewItemsPage } from './game-preview-items/game-preview-items';
 import { SearchPage } from '../../search/search';
+import { reviewdetail } from './popover';
 
 
 @IonicPage()
@@ -32,7 +33,7 @@ export class TourDetailPage implements OnInit {
     this.anim = anim;
     }
   
-  constructor(private searchSer:SearchService,private authService :AuthService ,private currentUser : CurrentUser,private tourService :ToursService ,private alertCtrl :AlertController, private events:Events ,public navCtrl: NavController, public navParams: NavParams ) {
+  constructor(private popoverCtrl: PopoverController,private searchSer:SearchService,private authService :AuthService ,private currentUser : CurrentUser,private tourService :ToursService ,private alertCtrl :AlertController, private events:Events ,public navCtrl: NavController, public navParams: NavParams ) {
     this.lottieConfig = {
       path: 'assets/animations/coins2.json',
       renderer: 'canvas',
@@ -70,11 +71,7 @@ export class TourDetailPage implements OnInit {
         let dataFromServer = JSON.parse(res.data) ; 
        var questions : game_Items []=[] ;
          for(var i =0 ;i<dataFromServer.length ;i++) {
-          // var   base64Data= dataFromServer[i].image;
-          // var converted_image= "data:image/jpeg;base64,"+base64Data;
-          // console.log('the image :'+ converted_image) ;
-   
-           questions.push(new game_Items(dataFromServer[i].name,dataFromServer[i].image,'' ,dataFromServer[i].question , dataFromServer[i].choices ,
+       questions.push(new game_Items(dataFromServer[i].name,dataFromServer[i].image,'' ,dataFromServer[i].question , dataFromServer[i].choices ,
             dataFromServer[i].correct_answer , dataFromServer[i].did_you_know , dataFromServer[i].question_id )) ;
          }
          if(questions.length>0){
@@ -161,6 +158,10 @@ export class TourDetailPage implements OnInit {
       this.navCtrl.push(DetailItemsPage ,{'items':this.tour.items , 'index':0  }) ;
     }
     
+  }
+  reviewdetail(review:Review){
+    const popover = this.popoverCtrl.create(reviewdetail , {rev :review});
+    popover.present({ev:event  });
   }
   sort() {
     

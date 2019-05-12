@@ -12,7 +12,7 @@ import { NotificationsPage } from "../notifications/notifications";
     <ion-tabs #tabParent> 
     <ion-tab [root]="homePage" tabTitle="Home" tabIcon="home" [rootParams]="{parent : tabParent }" ></ion-tab>
     <ion-tab [root]="searchPage"  tabTitle="search" tabIcon="search" [rootParams]="{parent : tabParent}" ></ion-tab>
-    <ion-tab [root]="notification"  tabTitle="profile" tabIcon="notifications"  [rootParams]="{parent : tabParent}"></ion-tab>
+    <ion-tab [root]="notification"  tabTitle="notifications" tabIcon="notifications"  [rootParams]="{parent : tabParent}"></ion-tab>
     </ion-tabs>
     `
 

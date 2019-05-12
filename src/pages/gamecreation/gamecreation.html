@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Game creation</ion-title>
   </ion-navbar>
 </ion-header>
@@ -19,7 +19,10 @@
     [height]="300"
     (animCreated)="handleAnimation($event)">
 </lottie-animation-view>
-<h2>Create amazing games for <br>treasure Hunt app</h2>
+
+<ion-item text-center>
+    Create amazing games for treasure Hunt app
+  </ion-item>
 
 <ion-item text-center>
     <button clear ion-button (click)="first=false">Continue</button>

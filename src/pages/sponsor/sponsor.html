@@ -28,7 +28,7 @@
 
 <ion-header>
   <ion-navbar>
-    <ion-title>Slides</ion-title>
+    <ion-title>Sponsor</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -139,9 +139,10 @@
 
   </div>
   <div *ngIf ="Sponsored.length >0">
+    <h2 text-center>Sponsor Tours</h2>
     <ion-list>
       <ion-item *ngFor="let item of Sponsored ">
-{{item.name}}
+{{item.TourName}}
       </ion-item>
     </ion-list>
     <button ion-button outline block (click)="pay()">pay for tours</button>

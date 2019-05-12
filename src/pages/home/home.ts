@@ -72,9 +72,11 @@ export class HomePage {
   }
   ionViewWillLeave() {
     this.GameView =false ;
+    this.authser.tabs = false ;
   }
  
 ionViewWillEnter() {
+  this.authser.tabs = true ;
 
   if(this.navParams.get('flag')!=null && this.navParams.get('flag')==true)
   this.flag = this.navParams.get('flag') ;

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar color="primary">
-      <title>Home</title> 
+    <ion-title>Home</ion-title>
       <button ion-button menuToggle>
           <ion-icon name="menu"></ion-icon>
         </button>
@@ -47,7 +47,7 @@
         <img [src]="item.mainImage" height="300" (click)="onClickItem(item)" />
           <ion-card-content text-center>
                <h1> {{item.TourName}}</h1> 
-              <div >{{item.tour_info}}</div>
+          
              
               <ionic3-star-rating 
               activeIcon = "ios-star"

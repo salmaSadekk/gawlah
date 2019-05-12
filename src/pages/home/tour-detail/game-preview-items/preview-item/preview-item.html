@@ -10,7 +10,7 @@
         <ion-slide *ngFor="let question of ShowQuestions; let  i= index">
   
             <h3>Question {{i+1}}</h3>
-            <p>Answer is {{question.correct}}</p>
+            
   
             <flash-card [correct]="question.flag" [isFlipped]="question.flipped">
                 <div class="flash-card-front">
