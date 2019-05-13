@@ -11,7 +11,7 @@ import { TabsPage } from '../tabs/tabs';
 import { CurrentUser } from '../../services/CurrentUser';
 import { User } from '../../Models/user';
 import { Storage } from '@ionic/storage';
-import { OneSignal } from '@ionic-native/onesignal';
+
 import { Notif } from '../../services/notif';
 
 @Component({
@@ -21,7 +21,7 @@ import { Notif } from '../../services/notif';
 export class SignInPage {
 
  
-  constructor( private notification :Notif   ,private oneSignal :OneSignal,private storage : Storage ,private currentUser :CurrentUser,public navCtrl: NavController, public navParams: NavParams ,private loading :LoadingController,
+  constructor( private notification :Notif  , private storage : Storage ,private currentUser :CurrentUser,public navCtrl: NavController, public navParams: NavParams ,private loading :LoadingController,
     private authService :AuthService, private alertCtrl:AlertController ,public toastCtrl: ToastController) {
    
   }
@@ -64,15 +64,7 @@ export class SignInPage {
       this.storage.set('profileImg' , dataFromServer.profileImg) ;
       this.storage.set('followingOnly', false) ;
       
-      this.oneSignal.startInit('e2d3c118-911c-4403-851d-4ae46680b74f', '122286071455');
-      this.oneSignal.sendTag("user_id",dataFromServer.user_id) ;
-      this.oneSignal.handleNotificationReceived().subscribe(data =>
-        {  console.log("test Notifications " +data.payload) ;
-        console.log("test from Notifications" +data.payload.body +" " +data.payload.title) ;
-        this.notification.notifications.push( data.payload.body ) ;
-      }
-        );
-      this.oneSignal.endInit();
+     
     
    
     loader.dismiss() ; 

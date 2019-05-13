@@ -12,7 +12,7 @@ import { CurrentUser } from '../services/CurrentUser';
 import { TestPage } from '../pages/test/test';
 import { User } from '../Models/user';
 import { Storage } from '@ionic/storage';
-import { OneSignal, OSNotificationPayload } from '@ionic-native/onesignal';
+
 
 
 @Component({
@@ -32,7 +32,7 @@ export class MyApp {
   ionViewWillEnter() {
 
   }
-  constructor( private oneSignal :OneSignal, private storage :Storage,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+  constructor( private storage :Storage,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private menuCtrl :MenuController , private app :App , private currentUser :CurrentUser) {
       var uid ;
       var name ;
@@ -53,9 +53,7 @@ export class MyApp {
               this.currentUser.setUser(new User(uid
               , name
               , ProfilePic)) ;
-              this.oneSignal.startInit('e2d3c118-911c-4403-851d-4ae46680b74f', '122286071455');
-      this.oneSignal.sendTag("user_id",uid) ;
-      this.oneSignal.endInit();
+              
               this.rootPage = TabsPage ;
             } else{
               this.rootPage = SignInPage;
@@ -93,13 +91,7 @@ export class MyApp {
     console.log('ionChangeTest ..from current user ' +  this.currentUser.followingOnly  ) ;
 
   }
-  private onPushReceived(payload: OSNotificationPayload) {
-    alert('Push recevied:' + payload.body);
-  }
   
-  private onPushOpened(payload: OSNotificationPayload) {
-    alert('Push opened: ' + payload.body);
-  }
   GameView(){
     this.nav.push(HomePage , {GameView : true}) ;
   }

@@ -53,7 +53,6 @@ import { EditTourPage } from '../pages/edit-tour/edit-tour';
 import { PusherProvider } from '../providers/pusher/pusher';
 import { MessagesPage } from '../pages/messages/messages';
 
-import { OneSignal } from '@ionic-native/onesignal';
 import { FollowPage } from '../pages/profile/follow/follow';
 import { NotificationsPage } from '../pages/notifications/notifications';
 import { Notif } from '../services/notif';
@@ -161,7 +160,7 @@ import { reviewdetail } from '../pages/home/tour-detail/popover';
     TextToSpeech ,
     sponsorService ,
     PusherServiceProvider ,
-    OneSignal ,
+    
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     PusherProvider ,
     Notif
