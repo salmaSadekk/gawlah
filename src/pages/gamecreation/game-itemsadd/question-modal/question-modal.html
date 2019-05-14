@@ -56,6 +56,15 @@
 {{ correctAns}}
 </ion-item>
 </ion-list>
-<button class="down" ion-button (click) ="onFinish()" clear>Submit Question</button>
+<ion-grid class="down">
+  <ion-row>
+      <button  ion-button (click) ="onFinish()" clear>Submit Question</button>
+  </ion-row>
+  <ion-row>
+      <button  ion-button color="danger" (click)="cancel()" clear>Cancel</button>
+  </ion-row>
+
+</ion-grid>
+
 
 </ion-content>

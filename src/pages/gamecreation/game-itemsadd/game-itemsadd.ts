@@ -156,11 +156,14 @@ console.log('the museum id from game items add' + this.tour.name) ;
       let modal = this.modalCtrl.create(QuestionModalPage) ;
         modal.present();
         modal.onDidDismiss((data)=>{
+          if(data.Qu != undefined) {
+            this.Questions.push({
+              Qu:data.Qu , choices :data.choices , hint :data.hint , correct_answer :data.answer 
+             }) ;
+           console.log('game-itemadd' + data.qu ) ;
+          }
           
-         this.Questions.push({
-          Qu:data.Qu , choices :data.choices , hint :data.hint , correct_answer :data.answer 
-         }) ;
-       console.log('game-itemadd' + data.qu ) ;
+       
         }
        
         )

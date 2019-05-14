@@ -74,6 +74,8 @@ flag:boolean = false ;
     ) ,1
    )  ;
    console.log('pop2' +JSON.stringify(this.Choices)) ;
+   if(this.correctAns!="")
+   this.Choices.push(this.correctAns) ;
     this. correctAns  = choice ;
   }
   onSubmit(f:NgForm) {
@@ -82,9 +84,31 @@ this.hint = f.value.hint ;
 this.flag=true  ;
   }
   onFinish(){
-    let data ={Qu:this.qu , choices :this.Choices , answer : this. correctAns} ;
-    console.log('from Question modal'+JSON.stringify(data)) ;
-   this.viewCtrl.dismiss(data) ;
+    if(this.Choices.length != 0 && this.correctAns!='') {
+      let data ={Qu:this.qu , choices :this.Choices , answer : this. correctAns} ;
+      console.log('from Question modal'+JSON.stringify(data)) ;
+     this.viewCtrl.dismiss(data) ;
+    }
+    else{
+     const alert = this.alertCtrl.create({
+        title: 'Error',
+        message: "you have to enter choices and correct answer",
+       
+        buttons: [
+          {
+            text: 'OK',
+            handler: data => {
+             
+            }
+          }
+        ]
+      });
+alert.present() ;
+    }
+   
+  }
+  cancel(){
+    this.viewCtrl.dismiss() ;
   }
 
 }

@@ -5,7 +5,7 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-    <ion-navbar>
+    <ion-navbar color="primary">
       <ion-title>EditGame</ion-title>
       <ion-buttons end>
         <button ion-button (click) ="onDone()">Done</button>
@@ -63,9 +63,11 @@
           
             <ion-item >
                Qu.{{question.question}}
+               {{question.choices.toString()}}
                  </ion-item>
                  <ion-item-sliding *ngFor="let choice of question.choices ;let choiceIndex=index ;">
-                 {{choice}} choice
+                   <ion-item color="primary">  {{choiceIndex +1}} . {{choice}} </ion-item>
+               
                  <ion-item-options>
                    <!--delete-->
                   
@@ -74,25 +76,29 @@
                       <ion-icon name="brush"></ion-icon>
                    </button>
                     <!--change this to answer-->
-                   <button ion-button icon-only color ="green"(click)="changeAnswer(ItemIndex , QuestionIndex , choiceIndex)">
+                   <button ion-button icon-only color ="verify"(click)="changeAnswer(ItemIndex , QuestionIndex , choiceIndex)">
                       <ion-icon name="checkmark"></ion-icon>
                    </button>
-                   <button ion-button icon-only color="red"(click)="delete(ItemIndex , QuestionIndex , choiceIndex)">
+                   <button ion-button icon-only color="delete"(click)="delete(ItemIndex , QuestionIndex , choiceIndex)">
                       <ion-icon name="trash"></ion-icon>
                    </button>
                  </ion-item-options>
                  </ion-item-sliding>
-                 <ion-item-sliding color="green">{{question.correctAns}} 
+                 <ion-item-sliding >
+                   <ion-item color="verify"> {{question.correctAns}} </ion-item>
+                  
                     <ion-item-options>
-                        <!--delete-->
-                       
-                         <!--edit-->
-                        <button ion-button icon-only (click)="EditAnswer(ItemIndex , QuestionIndex ,-1)">
-                           <ion-icon name="brush"></ion-icon>
-                        </button>
-                        <button ion-button icon-only (click)="delete(ItemIndex , QuestionIndex , -1)">
+                        <!--
+                          <button ion-button icon-only (click)="delete(ItemIndex , QuestionIndex , -1)">
                            <ion-icon name="trash"></ion-icon>
                         </button>
+                      -->
+                       
+                         <!--edit-->
+                        <button ion-button color="light" icon-only (click)="EditAnswer(ItemIndex , QuestionIndex ,-1)">
+                           <ion-icon name="brush"></ion-icon>
+                        </button>
+                        
                       </ion-item-options>
                  </ion-item-sliding>
                  <ion-item-sliding>
@@ -108,7 +114,7 @@
                      <ion-icon name="add"></ion-icon>
                      Add option
                  </button>
-                 <button ion-button  float-right clear (click) ="Removequestion(ItemIndex ,QuestionIndex)">
+                 <button ion-button  float-right clear color ="danger"(click) ="Removequestion(ItemIndex ,QuestionIndex)">
                     <ion-icon name="add"></ion-icon>
                    Remove Question
                 </button>

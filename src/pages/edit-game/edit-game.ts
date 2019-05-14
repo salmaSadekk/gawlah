@@ -53,6 +53,8 @@ export class EditGamePage  implements OnInit{
         questions.push(new game_Items(dataFromServer[i].name,dataFromServer[i].image,dataFromServer[i].item_id,dataFromServer[i].question , dataFromServer[i].choices.split(',')  ,
          dataFromServer[i].correct_answer , dataFromServer[i].did_you_know ,dataFromServer[i].question_id  )) ;
       }
+     
+      console.log("testX" + questions[0].choices.toString())
       if(questions.length>0){
            var item =questions.splice(0 ,1) ;
     
@@ -109,8 +111,31 @@ export class EditGamePage  implements OnInit{
          this.tour.items[ItemIndex].arr[QuestionIndex].correctAns ="";
          else if(choiceIndex==-2)
          this.tour.items[ItemIndex].arr[QuestionIndex].didYouKnow ="";
-         else 
-         this.tour.items[ItemIndex].arr[QuestionIndex].choices.splice(choiceIndex ,1) ;
+         else  {
+           if(this.tour.items[ItemIndex].arr[QuestionIndex].choices>1)
+          this.tour.items[ItemIndex].arr[QuestionIndex].choices.splice(choiceIndex ,1) ;
+          else
+
+{
+  const prompt = this.alertCtrl.create({
+    title: 'error',
+    message: "options shouldn't be less than 1",
+  
+    buttons: [
+      {
+        text: 'OK',
+        handler: data => {
+          console.log('Cancel clicked');
+        }
+      }
+    ]
+  });
+  prompt.present();
+}
+          
+
+         }
+        
           }
         }
         
@@ -182,7 +207,7 @@ addOption(ItemIndex ,QuestionIndex){
       {
         text: 'Save',
         handler: data => {
-          this.tour.items[ItemIndex].arr[QuestionIndex].choices.push(data.Info) ;
+          this.tour.items[ItemIndex].arr[QuestionIndex].choices.push(data.choice) ;
         
         }
       }

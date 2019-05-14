@@ -105,7 +105,8 @@ this.museums.push(new Museum(dataFromServer[i].museum_name , dataFromServer[i].m
     museum : this.tour.name ,
     image : this.img ,
     theme :this.tour.theme ,
-    rating :0
+    rating :0 ,
+    user_id : this.currentUser.getUser().uid
     
    
 
