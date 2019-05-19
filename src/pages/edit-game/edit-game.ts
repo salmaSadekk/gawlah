@@ -18,7 +18,7 @@ import { game_Items } from '../../Models/game_items';
 })
 export class EditGamePage  implements OnInit{
   tour:Tours;
-  changes : game_Items[]= [] ;
+  
 
 
   constructor(private alertCtrl :AlertController,private authService :AuthService,public navCtrl: NavController, public navParams: NavParams) {
@@ -92,57 +92,62 @@ export class EditGamePage  implements OnInit{
   
   }
   delete(ItemIndex , QuestionIndex , choiceIndex) {
-    const confirm = this.alertCtrl.create({
-      title: 'Are you sure you want to cancel?',
-      message: 'if you cancel all your progress will be dismissed',
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            console.log('Canceled clicked');
-          }
-        } ,
-        {
-          text: 'Ok',
-          handler: () => {
-       
-         
-        if(choiceIndex==-1)
-         this.tour.items[ItemIndex].arr[QuestionIndex].correctAns ="";
-         else if(choiceIndex==-2)
-         this.tour.items[ItemIndex].arr[QuestionIndex].didYouKnow ="";
-         else  {
-           if(this.tour.items[ItemIndex].arr[QuestionIndex].choices>1)
-          this.tour.items[ItemIndex].arr[QuestionIndex].choices.splice(choiceIndex ,1) ;
-          else
-
-{
-  const prompt = this.alertCtrl.create({
-    title: 'error',
-    message: "options shouldn't be less than 1",
-  
-    buttons: [
+    if(this.tour.items[ItemIndex].arr[QuestionIndex].choices.length==1 && choiceIndex!=-2){
       {
-        text: 'OK',
-        handler: data => {
-          console.log('Cancel clicked');
-        }
+        const prompt = this.alertCtrl.create({
+          title: 'error',
+          message: "options shouldn't be less than 1",
+        
+          buttons: [
+            {
+              text: 'OK',
+              handler: data => {
+                console.log('Cancel clicked');
+              }
+            }
+          ]
+        });
+        prompt.present();
       }
-    ]
-  });
-  prompt.present();
-}
+    } else{
+      const confirm = this.alertCtrl.create({
+        title: 'Are you sure you want to cancel?',
+        message: 'if you cancel all your progress will be dismissed',
+        buttons: [
+          {
+            text: 'Cancel',
+            handler: () => {
+              console.log('Canceled clicked');
+            }
+          } ,
+          {
+            text: 'Ok',
+            handler: () => {
+         
+           
+          if(choiceIndex==-1)
+           this.tour.items[ItemIndex].arr[QuestionIndex].correctAns ="";
+           else if(choiceIndex==-2)
+           this.tour.items[ItemIndex].arr[QuestionIndex].didYouKnow ="";
+           else  {
           
-
-         }
-        
+            this.tour.items[ItemIndex].arr[QuestionIndex].choices.splice(choiceIndex ,1) ;
+          
+  
+  
+            
+  
+           }
+          
+            }
           }
-        }
-        
-      ]
-    });
-    confirm.present();
-
+          
+        ]
+      });
+      confirm.present();
+  
+    }
+   
   }
 EditAnswer(ItemIndex ,QuestionIndex ,choiceIndex){
   const prompt = this.alertCtrl.create({
@@ -185,7 +190,13 @@ changeAnswer(ItemIndex ,QuestionIndex ,choiceIndex) {
 
 }
 Removequestion(ItemIndex ,QuestionIndex) {
-  this.tour.items[ItemIndex].arr.splice(QuestionIndex ,1 ) ;
+  
+ 
+  if(this.tour.items[ItemIndex].arr.length==1) {
+    this.tour.items.splice(ItemIndex,1) ;
+  } else{
+    this.tour.items[ItemIndex].arr.splice(QuestionIndex ,1 ) ;
+  }
 }
 addOption(ItemIndex ,QuestionIndex){
   const prompt = this.alertCtrl.create({
@@ -216,4 +227,26 @@ addOption(ItemIndex ,QuestionIndex){
   prompt.present();
 
 }
+onDone() {
+    
+   
+    
+  
+   let url = this.authService.edit_game ;
+   this.authService.SendData({
+     game_id :this.tour. uid ,
+     name : this.tour.TourName ,
+     theme :this.tour.theme ,
+     
+     tour_info : this.tour.tour_info  ,
+     items: this.tour.items
+   } , url).then(res=>
+    {
+      console.log(res.data) ;
+      console.log(res.error) ;
+      console.log(res.headers) ;
+      console.log(res.status) ;
+      console.log(res.url) ;
+    }) ;
+  }
 }

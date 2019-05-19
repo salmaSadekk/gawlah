@@ -54,13 +54,13 @@ export class TourDetailPage implements OnInit {
     console.log('ionViewDidLoad TourDetailPage');
   }
   ngOnInit(){
+    console.log("salmaaaaaaaaaaaaa") ;
     var  data  ;
     if( this.navParams.data.Game!== undefined && this.navParams.data.Game ==true ){
       this.Game = true ;
       this.tour = this.navParams.data.item ;
-      /* if (this.tour.CreatorImg!==''){
-   this.flag=true ;
-       } */
+     console.log(this.Game) ;
+     console.log(JSON.stringify(this.tour))
          data = {
          game_id:this.tour.uid
        }
@@ -109,6 +109,8 @@ export class TourDetailPage implements OnInit {
 
     }
     else{
+      console.log(this.Game) ;
+      console.log(JSON.stringify(this.tour))
       
     this.tour = this.navParams.data.item ;
     /* if (this.tour.CreatorImg!==''){
@@ -133,20 +135,30 @@ export class TourDetailPage implements OnInit {
          console.log(this.tour.items[i].name ) ;
        }
       // console.log(this.tour.items[0].name ) ;
-      let url = this.authService.get_Reviews ;
-     this.authService.SendData({getReviews:'true' , tour_id : this.tour.uid } , url).then(
-       res=>{
-         let dataFromServer = JSON.parse(res.data) ;
-         for(var i=0 ;i<dataFromServer.length ; i++) {
-           this.tour.review.push(new Review (new User(dataFromServer[i].creator_id , dataFromServer[i].creator_name , dataFromServer[i].creator_image) ,'' , dataFromServer[i].review , dataFromServer[i].rating , dataFromServer[i].review_id)) ;
-         }
-       }
-     ) ;
+     
  
        }
      )
     }
-    
+    let url = this.authService.get_Reviews ;
+    var data ;
+    if(this.Game==true){
+      data ={getReviews:'true' , game_id : this.tour.uid }
+    }else{
+      data ={getReviews:'true' , tour_id : this.tour.uid }
+    }
+    this.authService.SendData(data, url).then(
+      res=>{console.log(res.data) ;
+        console.log(res.error) ;
+        console.log(res.headers) ;
+        console.log(res.status) ;
+        console.log(res.url);
+        let dataFromServer = JSON.parse(res.data) ;
+        for(var i=0 ;i<dataFromServer.length ; i++) {
+          this.tour.review.push(new Review (new User(dataFromServer[i].creator_id , dataFromServer[i].creator_name , dataFromServer[i].creator_image) ,'' , dataFromServer[i].review , dataFromServer[i].rating , dataFromServer[i].review_id)) ;
+        }
+      }
+    ) ;
    
   }
   onItemClick(){
@@ -217,20 +229,22 @@ export class TourDetailPage implements OnInit {
         {
           text: 'Save',
           handler: data => {
-            /* console.log('data Read is :' + data.title) ;
-            console.log('Saved clicked');
-            this.tourService.addReviewToTour(this.tour.uid ,new Review ( this.currentUser.getUser(),'' ,data.title,this.starRating) ,this.starRating) ;
-            
-            console.log('Current User ' + this.currentUser.getUser()) ;
-            console.log("CurrentUser from Review:" +this.tour.review[this.tour.review.length -1].user.profilePic) ;
-            
-           this.tour.review.forEach(
-             review =>{
-               console.log('forEach :' +review.content)
-             }
-           ); */
-           let url = this.authService.set_Review ;
-           this.authService.SendData( {user_id :this.currentUser.getUser().uid ,username :this.currentUser.getUser().name  , tour_id: this.tour.uid, tourname: this.tour.TourName,creator_id:this.tour.creator_id , review :data.title ,rating : this.starRating} ,url) ;
+            if(this.Game==true){
+              let url = this.authService.set_Review ;
+              this.authService.SendData( {user_id :this.currentUser.getUser().uid ,username :this.currentUser.getUser().name  , game_id: this.tour.uid, tourname: this.tour.TourName,creator_id:this.tour.creator_id , review :data.title ,rating : this.starRating} ,url) .then(
+                res=>{
+                  console.log(res.data) ;
+                  console.log(res.error) ;
+                  console.log(res.headers) ;
+                  console.log(res.status) ;
+                  console.log(res.url) ;
+                }
+              );
+            }else{
+              let url = this.authService.set_Review ;
+              this.authService.SendData( {user_id :this.currentUser.getUser().uid ,username :this.currentUser.getUser().name  , tour_id: this.tour.uid, tourname: this.tour.TourName,creator_id:this.tour.creator_id , review :data.title ,rating : this.starRating} ,url) ;
+            }
+         
           } 
         }
       ]
@@ -239,12 +253,25 @@ export class TourDetailPage implements OnInit {
    
   }
   doInfinite(e): Promise<any> {
+   var data ;
+    if(this.Game==true) {
+      if(this.tour.review.length==0) {
+        data ={getReviews:'true' , game_id : this.tour.uid }
+      }else
+       data ={
+        getReviews:'true' , game_id : this.tour.uid  ,
+        last_Review_id : this.tour.review[this.tour.review.length -1].review_id
+       }
+    } else{
+      if(this.tour.review.length==0) {
+        data ={getReviews:'true' , tour_id : this.tour.uid }
+      }else
+      data ={
+        getReviews:'true' , tour_id : this.tour.uid  ,
+        last_Review_id : this.tour.review[this.tour.review.length -1].review_id
+       }
+    }
    
-    
-    var data ={
-      getReviews:'true' , tour_id : this.tour.uid  ,
-      last_Review_id : this.tour.review[this.tour.review.length -1].review_id
-     }
      let url = this.authService.get_Reviews;
        return this.authService.SendData( data ,url ).then(result => {
        

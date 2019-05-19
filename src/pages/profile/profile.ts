@@ -171,7 +171,7 @@ followed_id = '' ;
   followButton() {
     let url = this.authService.follow_user ;
     
-  this.authService.SendData({follow :'yes', follower_id : this.currentUser.getUser().uid , followed_id :this.user} ,url ).then(
+  this.authService.SendData({follow :'yes', follower_id : this.currentUser.getUser().uid , followed_id :this.user ,username :this.currentUser.getUser().name} ,url ).then(
     res=>{
       console.log(res.data) ;
       console.log(res.error) ;

@@ -64,11 +64,15 @@ export class MyApp {
             platform.ready().then(() => {
               // Okay, so the platform is ready and our plugins are available.
               // Here you can do any higher level native things you might need.
-             /* this.oneSignal.startInit("e2d3c118-911c-4403-851d-4ae46680b74f", "122286071455");
+              if (this.rootPage==TabsPage) {
+      this.oneSignal.startInit("e2d3c118-911c-4403-851d-4ae46680b74f", "122286071455");
               this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.Notification);
               this.oneSignal.handleNotificationReceived().subscribe(data => this.onPushReceived(data.payload));
               this.oneSignal.handleNotificationOpened().subscribe(data => this.onPushOpened(data.notification.payload));
-              this.oneSignal.endInit(); */
+              this.oneSignal.endInit(); 
+              //testSalma
+              }
+        
               this.storage.get('followingOnly').then(res=>{
                 this.currentUser.followingOnly=res ; }
         

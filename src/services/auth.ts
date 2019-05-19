@@ -24,10 +24,13 @@ export class AuthService{
    get_games  = this.httpPart +'/Gawlah/backup/get_games.php' ;
    get_game_questions = this.httpPart + '/Gawlah/backup/get_game_questions.php' ;
    deleteTour = this.httpPart + '/Gawlah/backup/deleteTour.php' ;
-   edit_tour = this.httpPart +  '/Gawlah/backup/edit_tour.php' 
+   edit_tour = this.httpPart +  '/Gawlah/backup/edit_tour.php'  ;
+   edit_game =this.httpPart + '/Gawlah/backup/edit_game.php' ;
    ChatTest = this.httpPart + '/Gawlah/backup/ChatTest.php'  ;
    follow_user = this.httpPart + '/Gawlah/backup/follow_user.php'  ;
-   get_followers_following  = this.httpPart +'/Gawlah/backup/get_followers_following.php'
+   get_followers_following  = this.httpPart +'/Gawlah/backup/get_followers_following.php' ;
+   get_notif =  this.httpPart +'/Gawlah/backup/get_notif.php' ;
+   get_Tour =  this.httpPart +'/Gawlah/backup/get_Tour.php' ;
     constructor(private http: HTTP){}
     signIn(data ){
       this.http.setRequestTimeout(120000) ;

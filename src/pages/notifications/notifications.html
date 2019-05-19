@@ -11,43 +11,16 @@
 </ion-header>
 
 <ion-content padding>
-  <!-- <ion-list>
+  <ion-item *ngFor="let notif of notifications" >
+    <ion-avatar item-start>
+      <img [src]="notif.user.profilePic"  (click) ="showProfile(notif.user)">
+    </ion-avatar>
+    <div (click)="navigate(notif)">
+        <h5>{{notif.Notification}}</h5>
+       
+    </div>
     
-  <ion-item *ngFor="let notification of  notif.notifications">
-        {{notification}}
-    </ion-item>
     
- 
-  
-    
-  </ion-list>-->
-  <ion-grid>
-   
-    <ion-item>
-        <ion-row>
-            <ion-avatar item-start>
-                <img src="https://2.bp.blogspot.com/-4UGGpJPGwKc/WpWJBUBZIzI/AAAAAAAABX0/wag67yE78dkenkiQCM9z2IOIGjruOxfmwCLcBGAs/s1600/Guide_RGB_SAVINGS_220w.gif"  (click) ="showProfile(review.user)">
-              </ion-avatar>
-              <h3>Farah favorited your tour tour1</h3>
-        </ion-row>
-    </ion-item>
- <ion-item>
-    <ion-row>
-        <ion-avatar item-start>
-            <img src="https://cdn-backlinko.pressidium.com/wp-content/uploads/2019/03/keyword-research-introduction.png"  (click) ="showProfile(review.user)">
-          </ion-avatar>
-          <h3>Reem reviewed on your tour tour1</h3>
-    </ion-row>
- </ion-item>
-<ion-item>
-    <ion-row>
-        <ion-avatar item-start>
-            <img src="https://cdn.dribbble.com/users/6014/screenshots/1889050/guide.png"  (click) ="showProfile(review.user)">
-          </ion-avatar>
-          <h3>Salma started following you</h3>
-    </ion-row>
-</ion-item>
-   
-  </ion-grid>
+  </ion-item>
 
 </ion-content>
