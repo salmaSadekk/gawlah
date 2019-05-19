@@ -48,7 +48,7 @@ export class HomePage {
     )
   }
   
-  presentPopover2(event ,item) {
+  presentPopover2(event ,item , i) {
     const popover = this.popoverCtrl.create(OptionsPage , {fav :true});
     popover.present({ev:event  });
     popover.onDidDismiss(
@@ -58,6 +58,10 @@ export class HomePage {
          res=>
          {
            console.log(res.data) ;
+           console.log(res.error) ;
+           console.log(res.headers)
+           this.tours[i].favNum++ ;
+
          }
        )
       }
@@ -103,7 +107,8 @@ ionViewWillEnter() {
     }
     else{
       data ={
-        getTours:'s'
+        getTours:'s' ,
+        user_id :this.currentUser.getUser().uid
        } 
     }
   
@@ -120,7 +125,7 @@ ionViewWillEnter() {
 
      this.tours.push(new Tours(dataFromServer[i].name ,dataFromServer[i].tour_id  ,dataFromServer[i].theme , dataFromServer[i].museum ,
       dataFromServer[i].creator,dataFromServer[i].image,'',dataFromServer[i].rating,[],[],dataFromServer[i].price ,
-       dataFromServer[i].tour_info , dataFromServer[i].creator_id
+       dataFromServer[i].tour_info , dataFromServer[i].creator_id , dataFromServer[i].favNum , dataFromServer[i].isFav
        )) ;
       }
      // this.tours= this.toursService.getTours() ;
@@ -209,7 +214,7 @@ search(theme){
                 
                  this.tours.push(new Tours(dataFromServer[i].name ,dataFromServer[i].tour_id  ,dataFromServer[i].theme , dataFromServer[i].museum ,
                  dataFromServer[i].creator,dataFromServer[i].image,'',dataFromServer[i].rating,[],[],dataFromServer[i].price ,
-                  dataFromServer[i].tour_info , dataFromServer[i].creator_id
+                  dataFromServer[i].tour_info , dataFromServer[i].creator_id , dataFromServer[i].favNum , dataFromServer[i].isFav
                   )) ;
               }
             // this.tours =  this.toursService.getTours() ;

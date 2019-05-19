@@ -29,7 +29,7 @@
       -->
       
       <ion-list  no-lines *ngIf="!GameView" > 
-          <ion-item *ngFor="let item of tours">
+          <ion-item *ngFor="let item of tours ; let i=index">
       <ion-card >
           <ion-row>
               <ion-col col-2>
@@ -38,7 +38,7 @@
                    </ion-avatar>
               </ion-col>
               <ion-col  *ngIf="!flag">
-                <button  float-right ion-button  icon-only clear  (click)=" presentPopover2($event ,item)">
+                <button  float-right ion-button  icon-only clear  (click)=" presentPopover2($event ,item , i)">
                   <ion-icon name="more"></ion-icon>
                 </button>
              </ion-col>
@@ -67,7 +67,7 @@
               <ion-col>
                   <button ion-button icon-left clear small color="light"  >
                       <ion-icon name="thumbs-up"></ion-icon>
-                      <div>30</div>
+                      <div>{{item.favNum}}</div>
                   </button>
               </ion-col>
              

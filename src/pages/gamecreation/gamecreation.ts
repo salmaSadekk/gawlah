@@ -52,7 +52,7 @@ this.anim.setSpeed(speed);
 
   ///////////////////////////////////////////////////
  first =true ;
-  tour :Tours = new Tours('','','','','','','','',[],[],0,'','') ;
+  tour :Tours = new Tours('','','','','','','','',[],[],0,'','',0,'') ;
   img:string='' ;
   museums:Museum[] =[];
   constructor(public actionSheetCtrl: ActionSheetController ,private currentUser :CurrentUser,private loadingCtrl:LoadingController, private transfer :FileTransfer,private authservice :AuthService,public toastCtrl :ToastController 

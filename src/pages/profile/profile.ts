@@ -90,7 +90,7 @@ followed_id = '' ;
      
              this.ownTours.push(new Tours(toursOfUser[i].name ,toursOfUser[i].tour_id  ,toursOfUser[i].theme ,toursOfUser[i].museum,
              dataFromServer.data.ProfileImg ,toursOfUser[i].image,'',toursOfUser[i].rating,[],[],toursOfUser[i].price ,toursOfUser[i].tour_info ,
-             toursOfUser[i].creator_id
+             toursOfUser[i].creator_id , dataFromServer[i].favNum , dataFromServer[i].isFav
               )) ;
            }
        }
@@ -106,7 +106,7 @@ followed_id = '' ;
        
                this.favTours.push(new Tours(fav_tours[i].name ,fav_tours[i].tour_id  ,fav_tours[i].theme ,fav_tours[i].museum,
                 fav_tours[i].creator ,fav_tours[i].image,'',fav_tours[i].rating,[],[],fav_tours[i].price ,fav_tours[i].tour_info ,
-                fav_tours[i].creator_id
+                fav_tours[i].creator_id ,  dataFromServer[i].favNum , dataFromServer[i].isFav
               )) ;
              }
          }
@@ -119,7 +119,7 @@ followed_id = '' ;
       
               this.games.push(new Tours(games[i].name ,games[i].game_id  ,games[i].theme ,"" +games[i].museum +"," +games[i].museum_name,
                "" ,games[i].image,'',games[i].rating,[],[],0 ,games[i].game_info ,
-              ""
+              "" , dataFromServer[i].favNum , dataFromServer[i].isFav
              )) ;
             }
         }
