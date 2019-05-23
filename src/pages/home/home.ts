@@ -53,14 +53,19 @@ export class HomePage {
     popover.present({ev:event  });
     popover.onDidDismiss(
       data=>{
+        
         let url = this.authser.fav_tours ;
        this.authser.SendData( {user_id :this.currentUser.getUser().uid , tour_id :item.uid , username :this.currentUser.getUser().name ,creator_id :item.creator_id, tourname :item.TourName} ,url).then(
          res=>
          {
            console.log(res.data) ;
            console.log(res.error) ;
-           console.log(res.headers)
+           console.log(res.headers) ;
+           console.log(res.status) ;
+           console.log(res.url) ;
            this.tours[i].favNum++ ;
+           let dataFromServer = JSON.parse(res.data) ;
+           this.tours[i].isFav = dataFromServer.fav_id ;
 
          }
        )

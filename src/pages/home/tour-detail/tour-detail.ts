@@ -163,6 +163,7 @@ export class TourDetailPage implements OnInit {
   }
   onItemClick(){
     if(this.Game) {
+      console.log("testFFF" +JSON.stringify(this.tour.items))
      this.navCtrl.push(GamePreviewItemsPage , {'items':this.tour.items}) ;
     }else{
       this.sort() ;
