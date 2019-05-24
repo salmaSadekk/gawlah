@@ -62,6 +62,7 @@ export class EditTourPage implements OnInit {
     console.log('ionViewDidLoad EditTourPage');
   }
   presentActionSheet(uid , i) {
+    console.log("i value" +i) ;
     const actionSheet = this.actionSheetCtrl.create({
       title: 'Add a picture',
       buttons: [
@@ -97,7 +98,8 @@ export class EditTourPage implements OnInit {
   audio.play();
   audio.setVolume(0.8);
   }
-  Camera(source , uid , i){
+  Camera(source , uid , indx){
+    console.log("testttt" +indx) ;
     const options: CameraOptions = {
       quality: 100,
       destinationType: this.camera.DestinationType.DATA_URL ,
@@ -110,11 +112,14 @@ export class EditTourPage implements OnInit {
      // imageData is either a base64 encoded string or a file URI
      // If it's base64 (DATA_URL):
     var img= 'data:image/jpeg;base64,' + imageData;
+    console.log('wtf'+indx) ;
     
      this.image.push({item_id:uid ,Url : img }) ;
-     if(i=! -1) {
-      this.items[i].imgUrl = img ;
+     if(indx>=0) {
+       console.log('howa fih 2ih1' + indx)
+      this.items[indx].imgUrl = img ;
      } else{
+      console.log('howa fih 2ih2' +indx)
        this.tour.mainImage = img ;
      }
     
@@ -169,7 +174,7 @@ export class EditTourPage implements OnInit {
         (data: MediaFile[]) => {console.log(data[0].fullPath) ;
         //this.video= data[0].fullPath ; 
       this.video.push({item_id : uid ,Url : data[0].fullPath } ) ;
-      this.items[i].audio=  data[0].fullPath ; },
+      this.items[i].video=  data[0].fullPath ; },
         (err: CaptureError) => console.error(err)
       );
      

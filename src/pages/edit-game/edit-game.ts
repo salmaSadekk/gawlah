@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, ToastController } from 'ionic-angular';
 import { AuthService } from '../../services/auth';
 import { Tours } from '../../Models/Tours';
 import { game_Items } from '../../Models/game_items';
+import { CameraOptions, Camera } from '@ionic-native/camera';
+import { FileUploadOptions, FileTransferObject, FileTransfer } from '@ionic-native/file-transfer';
 
 /**
  * Generated class for the EditGamePage page.
@@ -19,11 +21,12 @@ import { game_Items } from '../../Models/game_items';
 export class EditGamePage  implements OnInit{
   tour:Tours;
   removed:string[]=[] ;
+  img ='' ;
 
   
 
 
-  constructor(private alertCtrl :AlertController,private authService :AuthService,public navCtrl: NavController, public navParams: NavParams) {
+  constructor( private transfer: FileTransfer , private toastCtrl :ToastController , private camera :Camera, private actionSheetCtrl :ActionSheetController,private alertCtrl :AlertController,private authService :AuthService,public navCtrl: NavController, public navParams: NavParams) {
    
   }
 
@@ -278,5 +281,137 @@ onDone() {
       console.log(res.status) ;
       console.log(res.url) ;
     }) ;
+    if(this.img!='' ) {
+      this.fileTransfer(this.img) ;
+    }
   }
+  fileTransfer(imageData) {
+    
+    const fileTransfer: FileTransferObject = this.transfer.create();
+
+    let options1: FileUploadOptions= {
+      
+       fileKey: 'image',
+       fileName: 'name',
+       headers: {}
+    
+    }
+    var params = {
+      Tour_id : this.tour.uid
+    };
+   
+    
+
+	options1.params = params;
+    let url = this.authService.edit_game ;
+fileTransfer.upload(imageData, url, options1)
+ .then((data) => {
+console.log(data.bytesSent) ;
+console.log(data.headers) ;
+console.log(data.response) ;
+console.log(data.responseCode) ;
+ }, (err) => {
+   // error
+  // alert("error"+JSON.stringify(err));
+   console.log(JSON.stringify(err)) ;
+ });
+
+
+ 
+
+
+  } 
+  edit(type) {
+    const prompt = this.alertCtrl.create({
+      title: 'Added Info',
+      message: "Edit the added Information",
+      inputs: [
+        {
+          name: '' +type,
+          placeholder: '' +type
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+
+          text: 'Save',
+          handler: data => {
+           
+            switch(type) {
+              case 'TourName' : this.tour.TourName = data.TourName  ;break ;
+              case 'theme' : this.tour.theme =data.theme ;break ;
+              case 'tour_info' : this.tour.tour_info =data.tour_info ; break ;
+              case 'TicketPrice' : this.tour.TicketPrice =data.TicketPrice ;break ;
+            }
+       
+          }
+        }
+      ]
+    });
+    prompt.present();
+    
+ 
+  }
+ 
+  Camera(source){
+    const options: CameraOptions = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.DATA_URL ,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE ,
+      sourceType:source
+    }
+    
+    this.camera.getPicture(options).then((imageData) => {
+     // imageData is either a base64 encoded string or a file URI
+     // If it's base64 (DATA_URL):
+     this.img= 'data:image/jpeg;base64,' + imageData;
+     this.tour.mainImage = this.img ;
+     let base64Image = 'data:image/jpeg;base64,' + imageData;
+  
+    }, (err) => {
+      const toast = this.toastCtrl.create({
+        message: err,
+        duration: 3000
+      });
+      toast.present();
+    });
+  }
+  presentActionSheet() {
+    
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Add a picture',
+      buttons: [
+        {
+          text: 'Camera',
+          
+          handler: () => {
+            console.log('Destructive clicked');
+            this. Camera(1 ) ;
+          }
+        },{
+          text: 'from gallery',
+         
+          handler: () => {
+            this. Camera(0 ) ;
+          } },
+          {
+            text: 'cancel',
+            role :'cancel',
+           
+            handler: () => {
+            console.log('cancelled')
+            }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+  
 }
