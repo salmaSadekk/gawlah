@@ -18,6 +18,8 @@ import { game_Items } from '../../Models/game_items';
 })
 export class EditGamePage  implements OnInit{
   tour:Tours;
+  removed:string[]=[] ;
+
   
 
 
@@ -29,6 +31,7 @@ export class EditGamePage  implements OnInit{
     console.log('ionViewDidLoad EditGamePage');
   }
   ngOnInit() {
+   //console.log('salomIs testing')
     this.tour = this.navParams.get('game') ;
     console.log(this.tour) ;
     console.log(this.tour.TourName) ;
@@ -47,6 +50,7 @@ export class EditGamePage  implements OnInit{
         console.log(res.data) ;
      let dataFromServer = JSON.parse(res.data) ; 
     var questions : game_Items []=[] ;
+    this.tour.items =[] ;
       for(var i =0 ;i<dataFromServer.length ;i++) {
        
 
@@ -190,6 +194,7 @@ changeAnswer(ItemIndex ,QuestionIndex ,choiceIndex) {
 
 }
 Removequestion(ItemIndex ,QuestionIndex) {
+ this.removed.push(this.tour.items[ItemIndex].arr[QuestionIndex].question_id ) ;
   
  
   if(this.tour.items[ItemIndex].arr.length==1) {
@@ -197,6 +202,7 @@ Removequestion(ItemIndex ,QuestionIndex) {
   } else{
     this.tour.items[ItemIndex].arr.splice(QuestionIndex ,1 ) ;
   }
+  
 }
 addOption(ItemIndex ,QuestionIndex){
   const prompt = this.alertCtrl.create({
@@ -228,18 +234,42 @@ addOption(ItemIndex ,QuestionIndex){
 
 }
 onDone() {
+  /* 
+ for(var i=0 ;i<this.tour.items.length ;i++) {
+   for(var j=0 ;j<this.tour.items[i].length ; j++) {
+     var x = this.tour.items[i].arr[j].choices ;
+     console.log('in' +x.toString) ;
     
+    this.tour.items[i].arr[j].choices=(x.toString()).substring(1,x.length-1) ;
+    console.log('insss' +this.tour.items[i].arr[j].choices.toString()) ;
+   }
+ } */
+ var Questions = [] ;
+ for(var i =0 ; i<this.tour.items.length ;i++) {
+   console.log('test1')
+   var item =this.tour.items[i] ;
+ var arr =item.arr;
+     for(var m=0;m<arr.length ;m++) {
+      console.log('test3') ;
+      
+      arr[m].uid =arr[m].choices.toString() ;
+      arr[m].correctAns = arr[m].correctAns.toString()
+      
+      Questions.push(arr[m]) ;
+     }
    
+ }
+ console.log('rrr' + JSON.stringify(Questions)  ) ;
     
-  
+    
    let url = this.authService.edit_game ;
    this.authService.SendData({
      game_id :this.tour. uid ,
      name : this.tour.TourName ,
      theme :this.tour.theme ,
-     
      tour_info : this.tour.tour_info  ,
-     items: this.tour.items
+     items: Questions ,
+     removed :this.removed
    } , url).then(res=>
     {
       console.log(res.data) ;

@@ -57,6 +57,7 @@ add() {
       item = this.tour.name ;
     } else{
      item = this.navParams.get('museum')  ;
+     console.log('from Itrms add ' +item) ;
      this.Edit =true ;
     }
    

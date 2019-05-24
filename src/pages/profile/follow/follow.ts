@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AuthService } from '../../../services/auth';
 import { User } from '../../../Models/user';
+import { ProfilePage } from '../profile';
 
 /**
  * Generated class for the FollowPage page.
@@ -22,8 +23,8 @@ export class FollowPage implements OnInit {
    
   constructor(private authService :AuthService,public navCtrl: NavController, public navParams: NavParams) {
   }
-  ngOnInit(){}
-  ionViewWillEnter() {
+ 
+  ngOnInit(){
     this.user_id = this.navParams.get('user_id') ;
     this.type = this.navParams.get('type') ;
     if(this.type=='following') {
@@ -62,8 +63,8 @@ export class FollowPage implements OnInit {
     }
     
   }
-  profile() {
-    
+  showProfile(user) {
+    this.navCtrl.push(ProfilePage , {user_id : user.uid}) ;
   }
 
 }

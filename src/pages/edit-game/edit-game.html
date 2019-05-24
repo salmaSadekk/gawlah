@@ -14,10 +14,13 @@
   </ion-header>
   
   <ion-content >
-      <ion-fab bottom right >
+    <!--
+       <ion-fab bottom right >
           <button ion-fab mini (click) ="editMonument()"><ion-icon name="add"></ion-icon></button>
          
         </ion-fab>
+    -->
+     
     <ion-card box-shadow>
       
         <ion-card-content>
@@ -27,7 +30,7 @@
                 <ion-icon name="brush"></ion-icon>
               </button>
             </ion-item>
-              <img [src]="tour.image " height="200"  >
+              <img [src]="tour.mainImage " height="200"  >
             <ion-item>
               <b>Game name</b> 
               <button icon-only ion-button clear (click)="edit('TourName')">
@@ -45,11 +48,11 @@
                 {{tour.tour_info}}</ion-item>
                
                     <ion-item>
-                    <b>{{tour.theme }}</b>
+                    <b>Game themes</b>
                     <button icon-only ion-button clear (click)="edit('theme')">
                      <ion-icon name="brush"></ion-icon>
                    </button><br>
-                    Test theme</ion-item>
+                   {{tour.theme }}</ion-item>
    </ion-card-content>
        
     </ion-card>
@@ -63,7 +66,7 @@
           
             <ion-item >
                Qu.{{question.question}}
-               {{question.choices.toString()}}
+          
                  </ion-item>
                  <ion-item-sliding *ngFor="let choice of question.choices ;let choiceIndex=index ;">
                    <ion-item color="primary">  {{choiceIndex +1}} . {{choice}} </ion-item>

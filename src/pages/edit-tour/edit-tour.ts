@@ -43,6 +43,7 @@ export class EditTourPage implements OnInit {
   this.authService.SendData(data ,url).then(
     res=>{
       console.log('data :'+ res.data) ;
+      console.log('hareswid' + res.data)
    let dataFromServer = JSON.parse(res.data) ; 
    
     for(var i =0 ;i<dataFromServer.length ;i++) {
@@ -53,6 +54,7 @@ export class EditTourPage implements OnInit {
       this.items.push(new Items(dataFromServer[i].item_id, dataFromServer[i].name , dataFromServer[i].image , dataFromServer[i].basic_info ,
       dataFromServer[i].added_info ,dataFromServer[i].audio,dataFromServer[i].video , dataFromServer[i].sequence ,-1 , '')) ;
     this.museum_id = dataFromServer[i].museum_id ;
+    console.log("fuckkk " +this.museum_id)
     }
   }) }
 
@@ -338,6 +340,7 @@ else {
  
   }
   editMonument() {
+    console.log('yalaahwi' +this.museum_id) ;
     this.navCtrl.push(ItemsAddPage , {museum:this.museum_id}) ;
   }
 

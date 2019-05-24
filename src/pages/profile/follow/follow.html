@@ -13,7 +13,7 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let user of users " (click)="profile()">
+    <ion-item *ngFor="let user of users " (click)="showProfile(user)">
         
             <ion-avatar item-start>
               <img [src]="user.profilePic">
