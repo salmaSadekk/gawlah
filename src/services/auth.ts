@@ -6,44 +6,44 @@ import { HTTP } from "@ionic-native/http";
 export class AuthService{
    private isAuth =false ;
    tabs = false ;
-   httpPart = 'http://192.168.1.8' ;
-   tourCreationUrl =  this.httpPart +'/Gawlah/backup/Tour_creation.php' ;
-   tour_items =this.httpPart +'/Gawlah/backup/tour_items.php' ;
-   get_items =this.httpPart +'/Gawlah/backup/get_items.php'  ;
-   get_tours =this.httpPart +'/Gawlah/backup/get_tours.php' ;
-   get_tour_items =this.httpPart + '/Gawlah/backup/get_tour_items.php' ;
-   get_museums = this.httpPart +'/Gawlah/backup/get_museums.php'
-   game_creation =this.httpPart +'/Gawlah/backup/game_creation.php' ;
-   game_items = this.httpPart +'/Gawlah/backup/adding_game_items.php' ; 
-   search_by_theme = this.httpPart +'/Gawlah/backup/search_by_theme.php'  ;
-   ProfilePicUpload= this.httpPart + '/Gawlah/backup/ProfilePicUpload.php'  ;
-   Profile_data = this.httpPart + '/Gawlah/backup/Profile_data.php'  ;
-   fav_tours =this.httpPart + '/Gawlah/backup/fav_tours.php' ;
-   set_Review  = this.httpPart +'/Gawlah/backup/set_Review.php' ;
-   get_Reviews = this.httpPart +'/Gawlah/backup/get_Reviews.php' ;
-   get_games  = this.httpPart +'/Gawlah/backup/get_games.php' ;
-   get_game_questions = this.httpPart + '/Gawlah/backup/get_game_questions.php' ;
-   deleteTour = this.httpPart + '/Gawlah/backup/deleteTour.php' ;
-   edit_tour = this.httpPart +  '/Gawlah/backup/edit_tour.php'  ;
-   edit_game =this.httpPart + '/Gawlah/backup/edit_game.php' ;
-   ChatTest = this.httpPart + '/Gawlah/backup/ChatTest.php'  ;
-   follow_user = this.httpPart + '/Gawlah/backup/follow_user.php'  ;
-   get_followers_following  = this.httpPart +'/Gawlah/backup/get_followers_following.php' ;
-   get_notif =  this.httpPart +'/Gawlah/backup/get_notif.php' ;
-   get_Tour =  this.httpPart +'/Gawlah/backup/get_Tour.php' ;
+   httpPart = 'http://ec2-3-209-80-128.compute-1.amazonaws.com' ;
+   tourCreationUrl =  this.httpPart +'/backup/Tour_creation.php' ;
+   tour_items =this.httpPart +'/backup/tour_items.php' ;
+   get_items =this.httpPart +'/backup/get_items.php'  ;
+   get_tours =this.httpPart +'/backup/get_tours.php' ;
+   get_tour_items =this.httpPart + '/backup/get_tour_items.php' ;
+   get_museums = this.httpPart +'/backup/get_museums.php'
+   game_creation =this.httpPart +'/backup/game_creation.php' ;
+   game_items = this.httpPart +'/backup/adding_game_items.php' ; 
+   search_by_theme = this.httpPart +'/backup/search_by_theme.php'  ;
+   ProfilePicUpload= this.httpPart + '/backup/ProfilePicUpload.php'  ;
+   Profile_data = this.httpPart + '/backup/Profile_data.php'  ;
+   fav_tours =this.httpPart + '/backup/fav_tours.php' ;
+   set_Review  = this.httpPart +'/backup/set_Review.php' ;
+   get_Reviews = this.httpPart +'/backup/get_Reviews.php' ;
+   get_games  = this.httpPart +'/backup/get_games.php' ;
+   get_game_questions = this.httpPart + '/backup/get_game_questions.php' ;
+   deleteTour = this.httpPart + '/backup/deleteTour.php' ;
+   edit_tour = this.httpPart +  '/backup/edit_tour.php'  ;
+   edit_game =this.httpPart + '/backup/edit_game.php' ;
+   ChatTest = this.httpPart + '/backup/ChatTest.php'  ;
+   follow_user = this.httpPart + '/backup/follow_user.php'  ;
+   get_followers_following  = this.httpPart +'/backup/get_followers_following.php' ;
+   get_notif =  this.httpPart +'/backup/get_notif.php' ;
+   get_Tour =  this.httpPart +'/backup/get_Tour.php' ;
     constructor(private http: HTTP){}
     signIn(data ){
       this.http.setRequestTimeout(120000) ;
       // const _options = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
-      console.log('req url :' + this.httpPart +'/Gawlah/backup/login.php') ;
- return this.http.post(this.httpPart +'/Gawlah/backup/login.php' ,
+      console.log('req url :' + this.httpPart +'/backup/login.php') ;
+ return this.http.post(this.httpPart +'/backup/login.php' ,
 data,{}
 
  ) ;
     }
     SignUp(data){
        
-  return this.http.post(this.httpPart +'/Gawlah/backup/Sign_up.php' ,
+  return this.http.post(this.httpPart +'/backup/Sign_up.php' ,
  data , {}
  
   ) ;

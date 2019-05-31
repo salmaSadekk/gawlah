@@ -14,21 +14,21 @@
  <ion-card >
    <img [src]="currentItem.imgUrl"  height="200" >
   
-   <ion-item text-center> 
+   <ion-item text-center text-wrap> 
     <b>Basic Information</b> 
     <button icon-only ion-button clear (click)="read(currentItem.BasicInfo)">
       <ion-icon name ="mic"></ion-icon>
     </button>
     <br>
      {{currentItem.BasicInfo}}</ion-item>
-   <ion-item text-center  >
+   <ion-item text-center text-wrap >
       <b>Added Information</b>
       <button icon-only ion-button clear (click)="read(currentItem.addedInfo)">
           <ion-icon name ="mic"></ion-icon>
         </button><br>
       {{currentItem.addedInfo}}</ion-item>
    
-   <ion-item>
+   <ion-item >
     <button ion-button clear icon-left (click)="onListen()">
       <ion-icon name="musical-notes" ></ion-icon>
       Listen
