@@ -289,8 +289,19 @@ const modal = this.modalCtrl.create(AudioPage) ;
           handler: () => {
             if(this.Edit) {
               this.navCtrl.pop() ;
-            } else
-            this.navCtrl.setRoot(TabsPage) ;
+            } else{
+              let url = this.authservice.deleteTour ;
+              this.authservice.SendData({tour_id:this.tour.uid} , url) .then(
+                res=>{
+                  console.log(res.error) ;
+                  console.log(res.status) ;
+                  console.log(res.data) ;
+                  //this.ownTours.splice(i ,1) ;
+                  this.navCtrl.setRoot(TabsPage) ;
+                }
+              )
+            }
+           
           }
         }
         

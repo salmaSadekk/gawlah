@@ -33,6 +33,7 @@ export class AuthService{
    get_followers_following  = this.httpPart +'/backup/get_followers_following.php' ;
    get_notif =  this.httpPart +'/backup/get_notif.php' ;
    get_Tour =  this.httpPart +'/backup/get_Tour.php' ;
+   deletegame  = this.httpPart +'/backup/deletegame.php' ;
     constructor(private http: HTTP){}
     signIn(data ){
       this.http.setRequestTimeout(120000) ;

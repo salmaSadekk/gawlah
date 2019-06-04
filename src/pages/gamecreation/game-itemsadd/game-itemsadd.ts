@@ -143,6 +143,15 @@ console.log('the museum id from game items add' + this.tour.name) ;
             {
               text: 'Ok',
               handler: () => {
+                let url = this.authservice.deleteTour ;
+                this.authservice.SendData({tour_id:this.tour.uid} , url) .then(
+                  res=>{
+                    console.log(res.error) ;
+                    console.log(res.status) ;
+                    console.log(res.data) ;
+                  
+                  }
+                )
                 this.navCtrl.setRoot(TabsPage) ;
               }
             }

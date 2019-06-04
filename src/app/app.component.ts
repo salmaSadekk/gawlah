@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { Platform, NavController, MenuController, App } from 'ionic-angular';
+import { Platform, NavController, MenuController, App, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -32,7 +32,7 @@ export class MyApp {
   ionViewWillEnter() {
 
   }
-  constructor( private oneSignal :OneSignal, private storage :Storage,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
+  constructor( private alertCtrl :AlertController,private oneSignal :OneSignal, private storage :Storage,platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
     private menuCtrl :MenuController , private app :App , private currentUser :CurrentUser) {
       var uid ;
       var name ;
@@ -81,6 +81,42 @@ export class MyApp {
               statusBar.styleDefault();
               splashScreen.hide();
             });
+
+
+            ////////////////////////
+            platform.registerBackButtonAction(() => {
+              // Catches the active view
+              let nav = this.app.getActiveNavs()[0];
+              let activeView = nav.getActive();                
+              // Checks if can go back before show up the alert
+              if(activeView.name === 'TourCreationPage'|| activeView.name ==="ItemsAddPage" ||activeView.name ==="GamecreationPage"||activeView.name === "GameItemsaddPage") {
+               
+                /*  const confirm = this.alertCtrl.create({
+                    title: 'Are you sure you want to cancel?',
+                    message: 'click on cancel button to delete your progress',
+                    buttons: [
+                      {
+                        text: 'Cancel',
+                        handler: () => {
+                          console.log('Canceled clicked');
+                        }
+                      } ,
+                      {
+                        text: 'Ok',
+                        handler: () => {
+                       
+                        }
+                      }
+                      
+                    ]
+                  });
+                  confirm.present(); */
+                  console.log("won't close") ;
+                
+
+               }})
+            ////////////////////////
+            
            }
            )
          })

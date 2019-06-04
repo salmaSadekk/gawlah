@@ -168,6 +168,36 @@ followed_id = '' ;
     });
     confirm.present();
   }
+  ondeleteG(i , uid) {
+    const confirm = this.alertCtrl.create({
+      title: 'delete the Tour',
+      message: 'Are you sure you want to delete the tour',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            console.log('Canceled clicked');
+          }
+        } ,
+        {
+          text: 'Yes',
+          handler: () => {
+           
+            let url = this.authService.deletegame ;
+            this.authService.SendData({tour_id:uid} , url) .then(
+              res=>{
+                console.log(res.error) ;
+                console.log(res.status) ;
+                console.log(res.data) ;
+                this.games.splice(i ,1) ;
+              }
+            )
+          }
+        }
+        
+      ]
+    });
+  }
   followButton() {
     let url = this.authService.follow_user ;
     

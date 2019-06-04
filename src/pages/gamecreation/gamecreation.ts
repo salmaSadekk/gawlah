@@ -191,6 +191,7 @@ console.log(data.responseCode) ;
 
 
   }  
+
  presentActionSheet() {
   const actionSheet = this.actionSheetCtrl.create({
     title: 'Add a picture',
@@ -221,7 +222,9 @@ console.log(data.responseCode) ;
   actionSheet.present();
 }
 
-
+cancel(){
+  this.navCtrl.popToRoot() ;
+}
 
   }
   

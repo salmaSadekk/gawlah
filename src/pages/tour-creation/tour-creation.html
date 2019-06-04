@@ -6,7 +6,7 @@
 -->
 
 <ion-header>
-  <ion-navbar color="primary">
+  <ion-navbar color="primary" hideBackButton>
     <ion-title>TourCreation</ion-title>
   </ion-navbar>
 </ion-header>
@@ -14,7 +14,7 @@
 <ion-content no-lines >
 <img src="../../assets/imgs/backGroundCreate.jpg">
 <form #f="ngForm" (ngSubmit)="onSubmit(f)" enctype="multipart/form-data">
-  <ion-list>
+  <ion-list >
       <ion-item>
           <ion-label>Choose a Museum</ion-label>
           <ion-select  ngModel name ="name" multiple="false" required>
@@ -58,11 +58,15 @@
     </button>
      </ion-item>
      
-<ion-item text-right >
+<ion-item text-right no-lines >
   <button ion-button clear type="submit" [disabled]="!f.valid " >Next</button>
   <!-- the disabled will have a condition if the flag =(this.img!=''&& a certain flag set by true on image click==true) then
   -->
 </ion-item>
+<ion-item no-lines text-right>
+  <button ion-button color="danger" clear type="button" (click)="cancel()">Cancel</button>
+</ion-item>
+
    
   </ion-list>
 </form>

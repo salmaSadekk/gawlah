@@ -11,6 +11,7 @@ import { FileTransferObject } from '@ionic-native/file-transfer';
 import { FileTransfer, FileUploadOptions} from '@ionic-native/file-transfer';
 import { CurrentUser } from '../../services/CurrentUser';
 import { ActionSheetController } from 'ionic-angular';
+import { TabsPage } from '../tabs/tabs';
 
 /**
  * Generated class for the TourCreationPage page.
@@ -199,6 +200,9 @@ fileTransfer.upload(imageData, url, options1)
     ]
   });
   actionSheet.present();
+}
+cancel(){
+  this.navCtrl.setRoot(TabsPage) ;
 }
 
 
