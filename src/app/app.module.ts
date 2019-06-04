@@ -59,6 +59,7 @@ import { NotificationsPage } from '../pages/notifications/notifications';
 import { Notif } from '../services/notif';
 import { EditGamePage } from '../pages/edit-game/edit-game';
 import { reviewdetail } from '../pages/home/tour-detail/popover';
+import { Unfav } from '../pages/home/popover2';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,8 @@ import { reviewdetail } from '../pages/home/tour-detail/popover';
     FollowPage ,
     NotificationsPage ,
     EditGamePage ,
-    reviewdetail
+    reviewdetail ,
+    Unfav
 
 
 
@@ -133,7 +135,8 @@ import { reviewdetail } from '../pages/home/tour-detail/popover';
     FollowPage ,
     NotificationsPage ,
     EditGamePage ,
-    reviewdetail
+    reviewdetail ,
+    Unfav
 
  
   ],

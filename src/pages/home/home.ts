@@ -18,6 +18,7 @@ import { ProfilePage } from '../profile/profile';
 import { CurrentUser } from '../../services/CurrentUser';
 import { ItemsAddPageModule } from '../tour-creation/items-add/items-add.module';
 import { MessagesPage } from '../messages/messages';
+import { Unfav } from './popover2';
 
 
 
@@ -47,28 +48,58 @@ export class HomePage {
       }
     )
   }
+  unFavPOP($event ,item , i){
+    const popover = this.popoverCtrl.create(Unfav);
+    popover.present({ev:event});
+    popover.onDidDismiss(
+      data=>{
+        if(data.action=='unfavorite')
+        {
+          let url = this.authser.fav_tours ;
+          
+          this.authser.SendData( {fav_id :this.tours[i].isFav , unfavorite :true} ,url).then(
+            res=>
+            {
+              console.log(res.data) ;
+              console.log(res.error) ;
+              console.log(res.headers) ;
+              console.log(res.status) ;
+              console.log(res.url) ;
+              this.tours[i].favNum--;
+             // let dataFromServer = JSON.parse(res.data) ;
+              this.tours[i].isFav =null;
+   
+            }
+          )
+        }
+      }
+    )
+  }
   
   presentPopover2(event ,item , i) {
     const popover = this.popoverCtrl.create(OptionsPage , {fav :true});
     popover.present({ev:event  });
     popover.onDidDismiss(
       data=>{
+        if(data.action='favorite') {
+          let url = this.authser.fav_tours ;
+          this.authser.SendData( {user_id :this.currentUser.getUser().uid , tour_id :item.uid , username :this.currentUser.getUser().name ,creator_id :item.creator_id, tourname :item.TourName} ,url).then(
+            res=>
+            { console.log('fav Console') ;
+              console.log(res.data) ;
+              console.log(res.error) ;
+              console.log(res.headers) ;
+              console.log(res.status) ;
+              console.log(res.url) ;
+              this.tours[i].favNum++ ;
+              let dataFromServer = JSON.parse(res.data) ;
+              this.tours[i].isFav = dataFromServer.fav_id ;
+   
+            }
+          )
+        }
         
-        let url = this.authser.fav_tours ;
-       this.authser.SendData( {user_id :this.currentUser.getUser().uid , tour_id :item.uid , username :this.currentUser.getUser().name ,creator_id :item.creator_id, tourname :item.TourName} ,url).then(
-         res=>
-         {
-           console.log(res.data) ;
-           console.log(res.error) ;
-           console.log(res.headers) ;
-           console.log(res.status) ;
-           console.log(res.url) ;
-           this.tours[i].favNum++ ;
-           let dataFromServer = JSON.parse(res.data) ;
-           this.tours[i].isFav = dataFromServer.fav_id ;
-
-         }
-       )
+      
       }
     )
   
@@ -126,7 +157,7 @@ ionViewWillEnter() {
      
       let dataFromServer = JSON.parse(res.data) ;
       for(var i =0 ; i< dataFromServer.length ;i++) {
-     console.log(dataFromServer[i].rating) ;
+     console.log("testing to get likes" +dataFromServer[i].isFav) ;
 
      this.tours.push(new Tours(dataFromServer[i].name ,dataFromServer[i].tour_id  ,dataFromServer[i].theme , dataFromServer[i].museum ,
       dataFromServer[i].creator,dataFromServer[i].image,'',dataFromServer[i].rating,[],[],dataFromServer[i].price ,

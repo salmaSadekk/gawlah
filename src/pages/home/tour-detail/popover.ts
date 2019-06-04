@@ -6,7 +6,7 @@ import { Review } from "../../../Models/Review";
 @Component({
   selector: 'reviewPopover',
   template: `
-  <ion-item>
+  <ion-item text-wrap>
   <ion-avatar item-start>
     <img [src]="review.user.profilePic"  (click) ="showProfile(review.user)">
   </ion-avatar>

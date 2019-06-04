@@ -43,6 +43,10 @@
                   </ion-chip> <br>
 
                  <h2>Rating :</h2>
+                 <button ion-button icon-left clear small color="light"  >
+                  <ion-icon  name="star"></ion-icon>
+                  <div>Value :{{tour.Rating}}</div>
+              </button>
               <ionic3-star-rating 
               activeIcon = "ios-star"
               defaultIcon = "ios-star-outline"
@@ -61,7 +65,7 @@
 
 
     
-        <ion-item text-center>
+        <ion-item text-center *ngIf="currentUser.getUser().uid != tour.creator_id">
           <hr>
           <h4>Rate this Tour</h4>
           <p>Tell others what you think</p>

@@ -6,7 +6,9 @@ import { HTTP } from "@ionic-native/http";
 export class AuthService{
    private isAuth =false ;
    tabs = false ;
-   httpPart = 'http://ec2-3-209-80-128.compute-1.amazonaws.com' ;
+   //httpPart = 'http://ec2-3-209-80-128.compute-1.amazonaws.com' ;
+   httpPart ='http://192.168.1.8/Gawlah' ;
+
    tourCreationUrl =  this.httpPart +'/backup/Tour_creation.php' ;
    tour_items =this.httpPart +'/backup/tour_items.php' ;
    get_items =this.httpPart +'/backup/get_items.php'  ;

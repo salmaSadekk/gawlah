@@ -177,7 +177,8 @@ followed_id = '' ;
       console.log(res.error) ;
       console.log(res.headers) ;
       console.log(res.status) ;
-      console.log(res.url)
+      console.log(res.url) ;
+      this.followed_id =  JSON.parse(res.data).follow_id ;
       let alert = this.alertCtrl.create({
     
         title:'Follow',
@@ -188,6 +189,7 @@ followed_id = '' ;
         
         alert.present(); 
     }
+    
   )
   } 
   unfollowButton() {

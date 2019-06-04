@@ -37,12 +37,26 @@
                      <img [src]="item.CreatorImg">
                    </ion-avatar>
               </ion-col>
-              <ion-col  *ngIf="!flag">
+              <ion-col  *ngIf="!flag && (item.isFav==null)">
                 <button  float-right ion-button  icon-only clear  (click)=" presentPopover2($event ,item , i)">
                   <ion-icon name="more"></ion-icon>
                 </button>
              </ion-col>
+             <ion-col *ngIf="!flag && !(item.isFav==null)">
+             <button float-right ion-button icon-only clear item-end (click)="unFavPOP($event ,item ,i)">
+                  <ion-icon name="more"></ion-icon>
+                </button>
+              
+             </ion-col>
+             <ion-col *ngIf="flag ">
+             
+                <button float-right ion-button icon-only clear item-end (click)=" presentPopover($event ,item)">
+                  <ion-icon name="more"></ion-icon>
+                </button>
+            
+             </ion-col>
               </ion-row>
+              
              
         <img [src]="item.mainImage" height="300" (click)="onClickItem(item)" />
           <ion-card-content text-center>
@@ -57,11 +71,8 @@
               readonly="true"
               [rating]="item.Rating">
              </ionic3-star-rating>
-             <ion-item *ngIf="flag">
-              <button ion-button icon-only clear item-end (click)=" presentPopover($event ,item)">
-                <ion-icon name="more"></ion-icon>
-              </button>
-            </ion-item>
+         
+           
           </ion-card-content>
           <ion-row>
               <ion-col>

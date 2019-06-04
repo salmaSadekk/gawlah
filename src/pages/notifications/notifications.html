@@ -12,7 +12,7 @@
 
 <ion-content padding>
   <h4 *ngIf="notifications.length==0">No Notifications</h4>
-  <ion-item *ngFor="let notif of notifications" >
+  <ion-item text-wrap *ngFor="let notif of notifications" >
     <ion-avatar item-start>
       <img [src]="notif.user.profilePic"  (click) ="showProfile(notif.user)">
     </ion-avatar>

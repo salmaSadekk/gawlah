@@ -62,7 +62,7 @@
                   <ion-input [(ngModel)]="name" ></ion-input>
                     </ion-item>
                     <ion-item text-center>
-                        <button ion-button outline block color="primary" (click)="logoadd()">Add a Logo</button>
+                        <button ion-button outline block color="primary" (click)=" presentActionSheet('logo')">Add a Logo</button>
                         <img [src] ="logo"> 
   
                     </ion-item>
@@ -81,7 +81,7 @@
               
             </ion-list>
             <ion-item no-lines *ngIf="adv=='video'">
-                <button ion-button block icon-left outline > 
+                <button ion-button block icon-left outline (click)="presentActionSheet('adv')" > 
                     <ion-icon name="videocam" ></ion-icon>
     Add a video
                     
