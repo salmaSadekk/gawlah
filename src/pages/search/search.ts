@@ -34,9 +34,7 @@ export class SearchPage implements OnInit {
       this.search(this.searchSer.item) ;
       this.searchSer.item ='' ;
     }
-   
-  }
-  ngOnInit(){
+    this.items =[] ;
     let url =this.authService.search_by_theme ;
     this.authService.SendData({getAllThemes:'all'} , url).then(
          res=>{
@@ -52,6 +50,10 @@ export class SearchPage implements OnInit {
            this.ini = this.items.slice() ;
          }
        )
+   
+  }
+  ngOnInit(){
+
   }
 
   initializeItems() {

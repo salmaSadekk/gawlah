@@ -126,10 +126,20 @@ ionViewWillEnter() {
    this.authser.setAuth(true) ;
    var data :any;
   if(this.GameView !==undefined && this.GameView == true ){
+    if(this.currentUser.followingOnly ==true ){
+      data={
+        getFollowGames : 's' ,
+        user_id : this.currentUser.getUser().uid ,
+        
+      }
+    }
+    else{
+      data ={
+        getGames:'s'
+        //user_id :this.currentUser.getUser().uid
+       } 
+    }
    
-    data ={
-      getGames:'s'
-     } 
      
      var url = this.authser.get_games ;
   }
@@ -209,36 +219,53 @@ search(theme){
   }
   doInfinite(e): Promise<any> {
     var data:any ;
-    if(this.GameView !==undefined && this.GameView == true) {
-      data ={
-        getGames:'s' ,
-        last_game_id: this.tours[this.tours.length -1].uid
-       }
-      var url = this.authser.get_games ;
-      console.log('from spinner' + this.tours[this.tours.length -1].uid) ;
-      console.log("length of tours" + this.tours.length) ;
-
-      
-    } else{
-      if(this.currentUser.followingOnly ==true ){
-        data={
-          getFavTours : 's' ,
-          user_id : this.currentUser.getUser().uid ,
-          last_tour_id: this.tours[this.tours.length -1].uid
+    console.log("testInfiniteScroll1")
+   
+  
+      if(this.GameView !==undefined && this.GameView == true) {
+        console.log("Games") ;
+        if(this.currentUser.followingOnly ==true ){
+          data={
+            getFollowGames : 's' ,
+            user_id : this.currentUser.getUser().uid ,
+            last_game_id: this.tours[this.tours.length -1].uid
+          }
+        } else{
+          data ={
+            getGames:'s' ,
+          last_game_id: this.tours[this.tours.length -1].uid
+           }
         }
-      } else{
-        data ={
-          getTours:'s' ,
-          last_tour_id: this.tours[this.tours.length -1].uid
-         }
-      }
       
-      var url = this.authser.get_tours ;
-    }
+        var url = this.authser.get_games ;
+        console.log('from spinner' + this.tours[this.tours.length -1].uid) ;
+        console.log("length of tours" + this.tours.length) ;
+  
+        
+      } else{
+        if(this.currentUser.followingOnly ==true ){
+          data={
+            getFavTours : 's' ,
+            user_id : this.currentUser.getUser().uid ,
+            last_tour_id: this.tours[this.tours.length -1].uid
+          }
+        } else{
+          data ={
+            getTours:'s' ,
+            last_tour_id: this.tours[this.tours.length -1].uid
+           }
+        }
+        
+        var url = this.authser.get_tours ;
+      }
+    
+    console.log("testInfiniteScroll" + JSON.stringify(data)) ;
+    console.log(url) ;
+ 
     
    
     
-   
+   console.log("data sent for games" + JSON.stringify(data)) ;
        return this.authser.SendData( data ,url ).then(result => {
        
             let dataFromServer = JSON.parse(result.data) ;
