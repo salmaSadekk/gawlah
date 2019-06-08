@@ -60,6 +60,7 @@ import { Notif } from '../services/notif';
 import { EditGamePage } from '../pages/edit-game/edit-game';
 import { reviewdetail } from '../pages/home/tour-detail/popover';
 import { Unfav } from '../pages/home/popover2';
+import { SearchPopover } from '../pages/search/popoverSearch';
 
 @NgModule({
   declarations: [
@@ -91,7 +92,8 @@ import { Unfav } from '../pages/home/popover2';
     NotificationsPage ,
     EditGamePage ,
     reviewdetail ,
-    Unfav
+    Unfav ,
+    SearchPopover
 
 
 
@@ -136,7 +138,8 @@ import { Unfav } from '../pages/home/popover2';
     NotificationsPage ,
     EditGamePage ,
     reviewdetail ,
-    Unfav
+    Unfav ,
+    SearchPopover
 
  
   ],

@@ -92,7 +92,7 @@
                     <ion-icon  name="star"></ion-icon>
                     <div>{{tour.Rating}}</div>
                 </button>
-                <button ion-button clear item-end  (click)="gotoTour(tour)">View</button>
+                <button ion-button clear item-end  (click)="gotoTour(tour ,'tour')">View</button>
               </ion-item>
               <ion-item-options side="right" *ngIf="UserService.getUser().uid == user">
                   <button ion-button color="light" (click) ="edit(tour)">
@@ -124,7 +124,7 @@
                     
                     
                 
-                    <button ion-button clear item-end (click)="gotoTour(tour)">View</button>
+                    <button ion-button clear item-end (click)="gotoTour(tour ,'game')">View</button>
                   </ion-item>
                   <ion-item-options side="right" *ngIf="UserService.getUser().uid == user">
                       <button ion-button color="light" (click) =" editgame(tour)">
@@ -171,7 +171,7 @@
       <ion-item text-center *ngIf="!hasFav">
           <h4>No favorite Tours yet</h4>
         </ion-item>
-      <ion-item *ngFor ="let item of favTours" >
+      <ion-item *ngFor ="let item of favTours; let i= index" >
             <ion-card >
           <ion-row>
               <ion-col col-2>
@@ -179,8 +179,8 @@
                      <img [src]="item.CreatorImg">
                    </ion-avatar>
               </ion-col>
-              <ion-col  *ngIf="!flag">
-                <button  float-right ion-button  icon-only clear  (click)=" presentPopover2($event ,item)">
+              <ion-col >
+                <button float-right ion-button icon-only clear item-end (click)="unFavPOP($event ,item ,i)">
                   <ion-icon name="more"></ion-icon>
                 </button>
              </ion-col>
@@ -205,22 +205,15 @@
               </button>
             </ion-item>
           </ion-card-content>
-          <ion-row>
-              <ion-col>
-                  <button ion-button icon-left clear small color="light"  >
-                      <ion-icon name="thumbs-up"></ion-icon>
-                      <div>30</div>
-                  </button>
-              </ion-col>
-             
-              <ion-col center text-center>
+         
+             <ion-item text-center>
                   <button ion-button icon-left clear small color="light">
                       <ion-icon name="md-pin"></ion-icon>
                       <div> {{item.name}}</div>
                    </button>
-              </ion-col>
+              </ion-item>
               
-          </ion-row>
+         
       </ion-card>
        </ion-item>
     </ion-list>

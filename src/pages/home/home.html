@@ -30,7 +30,7 @@
       
       <ion-list  no-lines *ngIf="!GameView" > 
           <ion-item *ngFor="let item of tours ; let i=index" >
-      <ion-card >
+      <ion-card  >
           <ion-row>
               <ion-col col-2>
                  <ion-avatar item-start (click)="UserProfile(item.creator_id)">
@@ -97,10 +97,17 @@
   </ion-list>
   <div class="card-background-page" *ngIf="GameView">
 
-    <ion-card *ngFor="let game of tours " (click) =" onGameDetails(game)">
-      <img [src] ="game.mainImage " height="200"/>
-      <div class="card-title">{{game.TourName}}</div>
-      <div class="card-subtitle">{{ game.name }}</div>
+    <ion-card *ngFor="let game of tours " >
+      <ion-item *ngIf="flag ">
+        <button float-right ion-button icon-only clear item-end (click)=" presentPopover($event ,game)">
+                <ion-icon name="more"></ion-icon>
+              </button>
+          
+          
+      </ion-item>
+      <img [src] ="game.mainImage " (click) =" onGameDetails(game)" height="200"/>
+      <div class="card-title" (click) =" onGameDetails(game)" >{{game.TourName}}</div>
+      <div class="card-subtitle" (click) =" onGameDetails(game)" >{{ game.name }}</div>
     </ion-card>
   
   

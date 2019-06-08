@@ -43,8 +43,11 @@ export class HomePage {
     popover.present({ev:event});
     popover.onDidDismiss(
       data=>{
-        if(data.action=='sponsor')
-        this.sponsorService.tours.push(item) ;
+        if(data.action=='sponsor'){
+          console.log('pushed') ;
+          this.sponsorService.tours.push(item) ;
+        }
+        
       }
     )
   }
@@ -117,10 +120,15 @@ export class HomePage {
  
 ionViewWillEnter() {
   this.authser.tabs = true ;
+  this.GameView = this.navParams.data.GameView;
+  if(this.navParams.get('flag')!=null && this.navParams.get('flag')==true){
+    this.flag = this.navParams.get('flag') ;
+    if(this.navParams.get('type')=='Games')
+    this.GameView =true ;
 
-  if(this.navParams.get('flag')!=null && this.navParams.get('flag')==true)
-  this.flag = this.navParams.get('flag') ;
-   this.GameView = this.navParams.data.GameView;
+  }
+
+  
    console.log('Game View value' + this.GameView) ;
    this.tours =[] ;
    this.authser.setAuth(true) ;
@@ -265,7 +273,7 @@ search(theme){
     
    
     
-   console.log("data sent for games" + JSON.stringify(data)) ;
+   //console.log("data sent for games" + JSON.stringify(data)) ;
        return this.authser.SendData( data ,url ).then(result => {
        
             let dataFromServer = JSON.parse(result.data) ;

@@ -6,6 +6,8 @@ import { TabsPage } from '../../tabs/tabs';
 import { AuthService } from '../../../services/auth';
 import { Items } from '../../../Models/Items';
 import { Tours } from '../../../Models/Tours';
+import { TourDetailPage } from '../../home/tour-detail/tour-detail';
+import { CurrentUser } from '../../../services/CurrentUser';
 
 /**
  * Generated class for the GameItemsaddPage page.
@@ -33,7 +35,7 @@ export class GameItemsaddPage implements OnInit {
    flag=true ;
    /*-------------------------------------------------------------------------------*/
    Questions =[] ;
-  constructor(private alertCtrl :AlertController,private authservice:AuthService ,private modalCtrl  : ModalController,public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private currentUser :CurrentUser,private alertCtrl :AlertController,private authservice:AuthService ,private modalCtrl  : ModalController,public navCtrl: NavController, public navParams: NavParams) {
   }
   openModal(){
    const modal = this.modalCtrl.create(QuestionModalPage) ;
@@ -43,6 +45,7 @@ modal.present() ;
   
     this.finishBut=true ;
     this. onSubmit() ;
+
     
     }
     add() {
@@ -107,16 +110,20 @@ console.log('the museum id from game items add' + this.tour.name) ;
         
        
         if(this.addBut){ 
-          this.navCtrl.push(GameItemsaddPage ,{'tour':this.tour ,'index':++this.index})
+          this.navCtrl.push(GameItemsaddPage ,{'tour':this.tour ,'index':++this.index , 'museum':this.navParams.get('museum')})
     
         }
        
         if(this.finishBut){
           console.log('submit finish button') ;
+          this.navCtrl.setRoot(TourDetailPage , {Game :true ,TourDisplay : new Tours(
+            this.tour.TourName, this.tour.uid,
+            this.tour.theme , this.navParams.get('museum') , this.tour.CreatorImg ,this.tour.mainImage,this.tour.duration,this.tour.Rating,[],[],this.tour.TicketPrice , this.tour.tour_info,this.currentUser.getUser().uid, this.tour.favNum , this.tour.isFav
+          )})
         
           
          // this.TourSer.addTour(this.tour) ;
-          this.navCtrl.setRoot(TabsPage) ;
+          //this.navCtrl.setRoot(TabsPage) ;
         }
          
        
@@ -143,7 +150,7 @@ console.log('the museum id from game items add' + this.tour.name) ;
             {
               text: 'Ok',
               handler: () => {
-                let url = this.authservice.deleteTour ;
+                let url = this.authservice.deletegame ;
                 this.authservice.SendData({tour_id:this.tour.uid} , url) .then(
                   res=>{
                     console.log(res.error) ;
@@ -152,6 +159,7 @@ console.log('the museum id from game items add' + this.tour.name) ;
                   
                   }
                 )
+               
                 this.navCtrl.setRoot(TabsPage) ;
               }
             }

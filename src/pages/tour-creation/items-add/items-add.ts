@@ -13,6 +13,8 @@ import { File } from '@ionic-native/file';
 import { MuseumsService } from '../../../services/AvailableMuseums';
 import { AuthService } from '../../../services/auth';
 import { MediaCapture, CaptureImageOptions, MediaFile, CaptureError, CaptureVideoOptions } from '@ionic-native/media-capture';
+import { TourDetailPage } from '../../home/tour-detail/tour-detail';
+import { CurrentUser } from '../../../services/CurrentUser';
 /**
  * Generated class for the ItemsAddPage page.
  *
@@ -40,7 +42,7 @@ export class ItemsAddPage {
  
    
   constructor(private mediaCapture: MediaCapture , private authservice: AuthService, private alertCtrl :AlertController,private MuseumService :MuseumsService,public toastCtrl :ToastController ,public camera: Camera  ,public navCtrl: NavController, public navParams: NavParams , public avMon:availableMonuments ,public TourSer :
-    ToursService ,private transfer: FileTransfer, private file: File ,public modalCtrl :ModalController) {
+    ToursService ,private transfer: FileTransfer, private file: File ,public modalCtrl :ModalController , public currentUser:CurrentUser) {
   }
 finish() {
 this.finishBut=true ;
@@ -201,10 +203,18 @@ add() {
    
     if(this.finishBut){
       console.log('submit finish button') ;
+      let url = this.authservice.extra ;
+    let  data={
+     update_score :true ,
+     user_id :this.currentUser.getUser().uid
+      }
+      this.authservice.SendData( data , url).then(res=>{
+        alert("your score got updated");
+      })
     
       
-      this.TourSer.addTour(this.tour) ;
-      this.navCtrl.setRoot(TabsPage) ;
+      //this.TourSer.addTour(this.tour) ;
+      this.navCtrl.setRoot(TourDetailPage ,{TourDisplay : this.tour}) ;
     }
      
    
@@ -228,7 +238,7 @@ fileTransfer.upload(imageData, url, options1)
 
   
 
-   alert("success");
+   //alert("success");
    if(this.audio!='' && this.flag) {
     this.flag = false ;
    

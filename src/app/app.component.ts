@@ -40,19 +40,19 @@ export class MyApp {
       
     
      
-      this.storage .get('uid').then(res=>{
-        uid=res ;
-        console.log('uid came' +res) ;
-        this.storage .get('name').then(res=>{
-          name=res;
-          this.storage .get('profileImg').then(res=>{
-            ProfilePic=res ;
-            this.currentUser.setUser(new User(uid , name , ProfilePic)) ;
-            if(uid!==null) {
+      this.storage .get('data').then(res=>{
+        console.log(res) ;
+        console.log(JSON.stringify(res))
+        
+            if(res!==null) {
+              console.log('whyyyy')
       
-              this.currentUser.setUser(new User(uid
-              , name
-              , ProfilePic)) ;
+              this.currentUser.setUser(new User(res.uid
+              , res.name
+              , res.profilePic)) ;
+              uid= res.uid; 
+              name= res.name;
+              ProfilePic= res.profilePic;
               this.oneSignal.startInit('e2d3c118-911c-4403-851d-4ae46680b74f', '122286071455');
       this.oneSignal.sendTag("user_id",uid) ;
       this.oneSignal.endInit();
@@ -82,8 +82,6 @@ export class MyApp {
               splashScreen.hide();
             });
 
-
-            ////////////////////////
             platform.registerBackButtonAction(() => {
               // Catches the active view
               let nav = this.app.getActiveNavs()[0];
@@ -114,13 +112,17 @@ export class MyApp {
                   console.log("won't close") ;
                 
 
-               }})
+               } else{
+                // if(nav.canGoBack())
+                 nav.pop() ;
+               }
+              })
             ////////////////////////
             
            }
            )
-         })
-      })
+     
+ 
      
       
      

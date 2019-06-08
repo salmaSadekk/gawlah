@@ -284,6 +284,7 @@ onDone() {
     if(this.img!='' ) {
       this.fileTransfer(this.img) ;
     }
+    this.navCtrl.pop();
   }
   fileTransfer(imageData) {
     

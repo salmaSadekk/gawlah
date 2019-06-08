@@ -34,22 +34,25 @@ export class SearchPage implements OnInit {
       this.search(this.searchSer.item) ;
       this.searchSer.item ='' ;
     }
-    this.items =[] ;
-    let url =this.authService.search_by_theme ;
-    this.authService.SendData({getAllThemes:'all'} , url).then(
-         res=>{
-           console.log(res.data) ;
-           console.log(res.error) ;
-           console.log(res.headers) ;
-           console.log(res.status) ;
-           console.log(res.url) ;
-           let dataFromServer = JSON.parse(res.data) ;
-           for(var i=0 ;i<dataFromServer.length ; i++) {
-             this.items.push(dataFromServer[i]) ;
+    else{
+      this.items =[] ;
+      let url =this.authService.search_by_theme ;
+      this.authService.SendData({getAllThemes:'all'} , url).then(
+           res=>{
+             console.log(res.data) ;
+             console.log(res.error) ;
+             console.log(res.headers) ;
+             console.log(res.status) ;
+             console.log(res.url) ;
+             let dataFromServer = JSON.parse(res.data) ;
+             for(var i=0 ;i<dataFromServer.length ; i++) {
+               this.items.push(dataFromServer[i]) ;
+             }
+             this.ini = this.items.slice() ;
            }
-           this.ini = this.items.slice() ;
-         }
-       )
+         )
+    }
+   
    
   }
   ngOnInit(){

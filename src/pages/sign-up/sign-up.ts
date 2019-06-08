@@ -43,6 +43,7 @@ export class SignUpPage {
           text: 'Agree',
           handler: () => {
             this.fileTransfer(this.img)  ;
+            this.currentUser.updateImg(this.img)
             
             console.log('Agree clicked');
           }
@@ -81,11 +82,14 @@ export class SignUpPage {
      )
     .then(res => {
       let dataFromServer = JSON.parse(res.data) ;
-      this.currentUser.setUser( new User(dataFromServer.user_id , dataFromServer.username , dataFromServer.profileImg) ) ;
+     /* this.currentUser.setUser( new User(dataFromServer.user_id , dataFromServer.username , dataFromServer.profileImg) ) ;
       this.storage.set('uid' , dataFromServer.user_id ) ;
       this.storage.set('name' , dataFromServer.username) ;
-      this.storage.set('profileImg' , dataFromServer.profileImg) ; 
-      this.storage.set('followingOnly' , false) ; 
+      this.storage.set('profileImg' , dataFromServer.profileImg) ;  */
+      let userData =new User(dataFromServer.user_id , dataFromServer.username , dataFromServer.profileImg) ;
+      this.currentUser.setUser( userData) ;
+      this.storage.set('data' ,userData) ;
+      //this.storage.set('followingOnly' , false) ; 
       this.oneSignal.startInit('e2d3c118-911c-4403-851d-4ae46680b74f', '122286071455');
       this.oneSignal.sendTag("user_id", dataFromServer.user_id) ;
       this.oneSignal.handleNotificationReceived().subscribe(data =>

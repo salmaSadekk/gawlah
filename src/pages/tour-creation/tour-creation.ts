@@ -26,7 +26,7 @@ import { TabsPage } from '../tabs/tabs';
   templateUrl: 'tour-creation.html',
 })
 export class TourCreationPage {
-  tour :Tours = new Tours('','','','','','','','',[],[],0 ,'','',0,'') ;
+  tour :Tours = new Tours('','','','','','','','',[],[],0 ,'',this.currentUser.getUser().uid,0,'') ;
   img:string='' ;
   museums:Museum[] =[];
   constructor(public actionSheetCtrl: ActionSheetController ,private currentUser :CurrentUser,private loadingCtrl:LoadingController, private transfer :FileTransfer,private authservice :AuthService,public toastCtrl :ToastController 
@@ -140,7 +140,7 @@ fileTransfer.upload(imageData, url, options1)
 
   
 
-   alert("success");
+   //alert("success");
  }, (err) => {
    // error
   // alert("error"+JSON.stringify(err));

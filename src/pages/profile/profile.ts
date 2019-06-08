@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, PopoverController } from 'ionic-angular';
 import { CurrentUser } from '../../services/CurrentUser';
 import { Tours } from '../../Models/Tours';
 import { User } from '../../Models/user';
@@ -8,6 +8,7 @@ import { TourDetailPage } from '../home/tour-detail/tour-detail';
 import { EditTourPage } from '../edit-tour/edit-tour';
 import { FollowPage } from './follow/follow';
 import { EditGamePage } from '../edit-game/edit-game';
+import { Unfav } from '../home/popover2';
 
 
 /**
@@ -40,12 +41,15 @@ followed =false ;
 followed_id = '' ;
 
  
-  constructor( private currentUser:CurrentUser,private authService :AuthService,public navCtrl: NavController, public navParams: NavParams , private UserService :CurrentUser
+  constructor(private popoverCtrl :PopoverController, private currentUser:CurrentUser,private authService :AuthService,public navCtrl: NavController, public navParams: NavParams , private UserService :CurrentUser
     , private alertCtrl :AlertController) {
   
   }
-  gotoTour(tour){
+  gotoTour(tour , text){
+    if(text=='tour')
     this.navCtrl.push(TourDetailPage ,{item : tour}) ;
+    else
+    this.navCtrl.push(TourDetailPage ,{item : tour ,Game:true}) ;
   }
 
   ionViewDidLoad() {
@@ -253,7 +257,31 @@ followed_id = '' ;
       user_id :this.user
     })
   }
+  unFavPOP($event ,item , i){
+    const popover = this.popoverCtrl.create(Unfav);
+    popover.present({ev:event});
+    popover.onDidDismiss(
+      data=>{
+        if(data.action=='unfavorite')
+        {
+          let url = this.authService.fav_tours ;
+          
+          this.authService.SendData( {fav_id :this.favTours[i].isFav , unfavorite :true} ,url).then(
+            res=>
+            {
+              console.log(res.data) ;
+              console.log(res.error) ;
+              console.log(res.headers) ;
+              console.log(res.status) ;
+              console.log(res.url) ;
+             this.favTours.splice(i,1) ;
    
+            }
+          )
+        }
+      }
+    )
+  }
   }
 
 

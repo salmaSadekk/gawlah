@@ -20,6 +20,9 @@ export class CurrentUser {
      
 
     }
+    updateImg(pic) {
+        this.currentUser.profilePic =pic;
+    }
   
 
 }

@@ -4,6 +4,7 @@ import { HomePage } from '../home/home';
 import { Tours } from '../../Models/Tours';
 import { sponsorService } from '../../services/sponsored';
 import { CameraOptions, Camera } from '@ionic-native/camera';
+import { CaptureVideoOptions, MediaFile, CaptureError, MediaCapture } from '@ionic-native/media-capture';
 
 /**
  * Generated class for the SponsorPage page.
@@ -28,6 +29,8 @@ export class SponsorPage {
   lang='' ;
   country='' ;
   gender='' ;
+  type='Tours' ;
+  video='' ;
   slides = [
     {
       title: "Sponsor our Tours!",
@@ -39,13 +42,13 @@ export class SponsorPage {
     {text:'Brand awareness' , value:'Brand awareness'} ,{text:'Engagement', value:'Brand awareness'}
   ]
 
-  constructor( public toastCtrl :ToastController,public camera :Camera,public actionSheetCtrl :ActionSheetController ,public navCtrl: NavController ,private sponsorService :sponsorService) {
+  constructor(private mediaCapture: MediaCapture,public toastCtrl :ToastController,public camera :Camera,public actionSheetCtrl :ActionSheetController ,public navCtrl: NavController ,private sponsorService :sponsorService) {
     console.log(this.slides.length) ;
 
   }
   addTours(){
 
-    this.navCtrl.push(HomePage ,{flag:true}) ;
+    this.navCtrl.push(HomePage ,{flag:true , type: this.type}) ;
   }
   ionViewWillEnter() {
  
@@ -54,6 +57,23 @@ export class SponsorPage {
   }
   logoadd(){
 
+  }
+  pay(){
+    this.first =true ;
+    this.second =false
+    this.third =false;
+    this.navCtrl.pop() ;
+
+  }
+  videoCapture() {
+  
+    let options: CaptureVideoOptions = { limit: 1 };
+    this.mediaCapture.captureVideo(options)
+      .then(
+        (data: MediaFile[]) => {console.log(data[0].fullPath) ;
+        this.video= data[0].fullPath ; },
+        (err: CaptureError) => console.error(err)
+      );
   }
   presentActionSheet(type) {
     const actionSheet = this.actionSheetCtrl.create({

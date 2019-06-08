@@ -54,15 +54,17 @@ export class SignInPage {
       console.log("data error:" +res.data) ;
       let dataFromServer = JSON.parse(res.data) ;
       console.log('from signIn :'+ dataFromServer ) ;
-      this.currentUser.setUser( new User(dataFromServer.user_id , dataFromServer.username , dataFromServer.profileImg) ) ;
-      this.storage.set('uid' , dataFromServer.user_id ).then().catch(
+      let userData =new User(dataFromServer.user_id , dataFromServer.username , dataFromServer.profileImg) ;
+      this.currentUser.setUser( userData) ;
+      this.storage.set('data' ,userData) ;
+       /*  this.storage.set('uid' , dataFromServer.user_id ).then().catch(
         error=>{
           console.log( "an error occured while storing uid" + error) ;
         }
       ) ;
       this.storage.set('name' , dataFromServer.username) ;
       this.storage.set('profileImg' , dataFromServer.profileImg) ;
-      this.storage.set('followingOnly', false) ;
+      this.storage.set('followingOnly', false) ; */
       
       this.oneSignal.startInit('e2d3c118-911c-4403-851d-4ae46680b74f', '122286071455');
       this.oneSignal.sendTag("user_id",dataFromServer.user_id) ;

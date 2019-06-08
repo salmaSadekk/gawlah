@@ -55,90 +55,104 @@ export class TourDetailPage implements OnInit {
   }
   ngOnInit(){
     console.log("salmaaaaaaaaaaaaa") ;
+  
     var  data  ;
     if( this.navParams.data.Game!== undefined && this.navParams.data.Game ==true ){
       this.Game = true ;
-      this.tour = this.navParams.data.item ;
-     console.log(this.Game) ;
-     console.log(JSON.stringify(this.tour))
-         data = {
-         game_id:this.tour.uid
-       }
-       let url = this.authService.get_game_questions ;
-       this.authService.SendData(data ,url).then(
-         res=>{
-           console.log('data :'+ res.data) ;
-        let dataFromServer = JSON.parse(res.data) ; 
-       var questions : game_Items []=[] ;
-         for(var i =0 ;i<dataFromServer.length ;i++) {
-       questions.push(new game_Items(dataFromServer[i].name,dataFromServer[i].image,'' ,dataFromServer[i].question , dataFromServer[i].choices ,
-            dataFromServer[i].correct_answer , dataFromServer[i].did_you_know , dataFromServer[i].question_id )) ;
-         }
-         if(questions.length>0){
-              var item =questions.splice(0 ,1) ;
-         console.log('the length' + questions.length) ;
-         this.tour.items.push({name:item[0].name , arr :[item]}) ;
-         console.log("www" +JSON.stringify(this.tour.items[0]))
-        for(var i =0 ;i<questions.length;){
-          var itemval =questions.splice(i,1) ;
-          var val =this.tour.items.findIndex(
-            item=>{
-              
-              return item.name ==itemval[0].name
-            }
-          )
-          if(val ==-1){
-         
-            var x = this.tour.items.push({name:itemval[0].name , arr :[itemval]}) ;
-            console.log('val=-1 ::' + x) ;
-           }
-           else{
-            
-             this.tour.items[val].arr.push(itemval) ;
-            
-           }
-        }
-        
+      if(this.navParams.get('TourDisplay')==undefined ) {
        
-      
+        this.tour = this.navParams.data.item ;
+       console.log(this.Game) ;
+      } else{
+        this.tour =this.navParams.get('TourDisplay') ;
+        console.log(JSON.stringify("testFromGames" +this.tour)) ;
+      }
+       console.log(JSON.stringify(this.tour))
+           data = {
+           game_id:this.tour.uid
+         }
+         let url = this.authService.get_game_questions ;
+         this.authService.SendData(data ,url).then(
+           res=>{
+             console.log('data :'+ res.data) ;
+          let dataFromServer = JSON.parse(res.data) ; 
+         var questions : game_Items []=[] ;
+           for(var i =0 ;i<dataFromServer.length ;i++) {
+         questions.push(new game_Items(dataFromServer[i].name,dataFromServer[i].image,'' ,dataFromServer[i].question , dataFromServer[i].choices ,
+              dataFromServer[i].correct_answer , dataFromServer[i].did_you_know , dataFromServer[i].question_id )) ;
+           }
+           if(questions.length>0){
+                var item =questions.splice(0 ,1) ;
+           console.log('the length' + questions.length) ;
+           this.tour.items.push({name:item[0].name , arr :[item]}) ;
+           console.log("www" +JSON.stringify(this.tour.items[0]))
+          for(var i =0 ;i<questions.length;){
+            var itemval =questions.splice(i,1) ;
+            var val =this.tour.items.findIndex(
+              item=>{
+                
+                return item.name ==itemval[0].name
+              }
+            )
+            if(val ==-1){
            
-         } 
-        });
-      
+              var x = this.tour.items.push({name:itemval[0].name , arr :[itemval]}) ;
+              console.log('val=-1 ::' + x) ;
+             }
+             else{
+              
+               this.tour.items[val].arr.push(itemval) ;
+              
+             }
+          }
+          
+         
+        
+             
+           } 
+          });
+        
+   
+     
       
 
     }
     else{
       console.log(this.Game) ;
       console.log(JSON.stringify(this.tour))
-      
-    this.tour = this.navParams.data.item ;
+      if(this.navParams.get('TourDisplay')==undefined ) {
+        this.tour = this.navParams.data.item ;
+        data = {
+          tour_id:this.tour.uid
+        }
+        let url = this.authService.get_tour_items ;
+        this.authService.SendData(data ,url).then(
+          res=>{
+            console.log('data :'+ res.data) ;
+         let dataFromServer = JSON.parse(res.data) ; 
+         
+          for(var i =0 ;i<dataFromServer.length ;i++) {
+           // var   base64Data= dataFromServer[i].image;
+           // var converted_image= "data:image/jpeg;base64,"+base64Data;
+           // console.log('the image :'+ converted_image) ;
+    
+            this.tour.items.push(new Items('' , dataFromServer[i].name , dataFromServer[i].image , dataFromServer[i].basic_info ,
+            dataFromServer[i].added_info ,dataFromServer[i].audio,dataFromServer[i].video , dataFromServer[i].sequence ,-1 , '')) ;
+            console.log(this.tour.items[i].name ) ;
+          }
+         // console.log(this.tour.items[0].name ) ;
+        
+    
+          }
+        )
+       } else{
+         this.tour = this.navParams.get('TourDisplay') ;
+       }
+    
     /* if (this.tour.CreatorImg!==''){
  this.flag=true ;
      } */
-     data = {
-       tour_id:this.tour.uid
-     }
-     let url = this.authService.get_tour_items ;
-     this.authService.SendData(data ,url).then(
-       res=>{
-         console.log('data :'+ res.data) ;
-      let dataFromServer = JSON.parse(res.data) ; 
-      
-       for(var i =0 ;i<dataFromServer.length ;i++) {
-        // var   base64Data= dataFromServer[i].image;
-        // var converted_image= "data:image/jpeg;base64,"+base64Data;
-        // console.log('the image :'+ converted_image) ;
- 
-         this.tour.items.push(new Items('' , dataFromServer[i].name , dataFromServer[i].image , dataFromServer[i].basic_info ,
-         dataFromServer[i].added_info ,dataFromServer[i].audio,dataFromServer[i].video , dataFromServer[i].sequence ,-1 , '')) ;
-         console.log(this.tour.items[i].name ) ;
-       }
-      // console.log(this.tour.items[0].name ) ;
-     
- 
-       }
-     )
+    
     }
     let url = this.authService.get_Reviews ;
     var data ;
@@ -164,10 +178,11 @@ export class TourDetailPage implements OnInit {
   onItemClick(){
     if(this.Game) {
       console.log("testFFF" +JSON.stringify(this.tour.items))
+      if(this.tour.items.length>0)
      this.navCtrl.push(GamePreviewItemsPage , {'items':this.tour.items}) ;
     }else{
       this.sort() ;
-   
+      if(this.tour.items.length>0)
       this.navCtrl.push(DetailItemsPage ,{'items':this.tour.items , 'index':0  }) ;
     }
     
@@ -234,16 +249,34 @@ export class TourDetailPage implements OnInit {
               let url = this.authService.set_Review ;
               this.authService.SendData( {user_id :this.currentUser.getUser().uid ,username :this.currentUser.getUser().name  , game_id: this.tour.uid, tourname: this.tour.TourName,creator_id:this.tour.creator_id , review :data.title ,rating : this.starRating} ,url) .then(
                 res=>{
-                  console.log(res.data) ;
-                  console.log(res.error) ;
-                  console.log(res.headers) ;
-                  console.log(res.status) ;
-                  console.log(res.url) ;
+                  let url = this.authService.extra ;
+                  this.authService.SendData( {
+                    get_Rate:true ,
+                    game_id: this.tour.uid
+                  },url) .then(
+                    res=>{
+                      let dataFromServer = JSON.parse(res.data) ;
+                      this.tour.Rating= dataFromServer.rating ;
+                    }
+                  );
                 }
               );
             }else{
               let url = this.authService.set_Review ;
-              this.authService.SendData( {user_id :this.currentUser.getUser().uid ,username :this.currentUser.getUser().name  , tour_id: this.tour.uid, tourname: this.tour.TourName,creator_id:this.tour.creator_id , review :data.title ,rating : this.starRating} ,url) ;
+              this.authService.SendData( {user_id :this.currentUser.getUser().uid ,username :this.currentUser.getUser().name  , tour_id: this.tour.uid, tourname: this.tour.TourName,creator_id:this.tour.creator_id , review :data.title ,rating : this.starRating} ,url) .then(
+                res=>{
+                  let url = this.authService.extra ;
+                  this.authService.SendData( {
+                    get_Rate:true ,
+                    tour_id: this.tour.uid
+                  },url) .then(
+                    res=>{
+                      let dataFromServer = JSON.parse(res.data) ;
+                      this.tour.Rating= dataFromServer.rating ;
+                    }
+                  );
+                }
+              );
             }
          
           } 

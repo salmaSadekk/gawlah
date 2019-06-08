@@ -132,7 +132,7 @@ this.museums.push(new Museum(dataFromServer[i].museum_name , dataFromServer[i].m
 
   
  
-   this.navCtrl.push(GameItemsaddPage , {'tour':this.tour ,'index':0}) ;
+   this.navCtrl.push(GameItemsaddPage , {'tour':this.tour ,'index':0 , 'museum':f.value.name}) ;
   }
   Camera(source){
     const options: CameraOptions = {
@@ -179,7 +179,7 @@ console.log(data.response) ;
 console.log(data.responseCode) ;
   
 
-   alert("success");
+   //alert("success");
  }, (err) => {
    // error
   // alert("error"+JSON.stringify(err));

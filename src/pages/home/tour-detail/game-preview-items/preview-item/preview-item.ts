@@ -63,6 +63,8 @@ console.log("the item" +JSON.stringify(this.ShowQuestions)) ;
   selectAnswer(i : number , choice :string){
     if( this.ShowQuestions[i].correct ==choice){
       this.ShowQuestions[i].flag = true ;
+    }else{
+      this.ShowQuestions[i].flag = false ; 
     }
     
       this.ShowQuestions[i].flipped= true;

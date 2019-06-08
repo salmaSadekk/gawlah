@@ -7,8 +7,8 @@ export class AuthService{
    private isAuth =false ;
    tabs = false ;
    //httpPart = 'http://ec2-3-209-80-128.compute-1.amazonaws.com' ;
-   httpPart ='http://192.168.1.8/Gawlah' ;
-
+   httpPart ='http://192.168.1.9/Gawlah' ;
+   extra = this.httpPart +'/backup/extra.php'
    tourCreationUrl =  this.httpPart +'/backup/Tour_creation.php' ;
    tour_items =this.httpPart +'/backup/tour_items.php' ;
    get_items =this.httpPart +'/backup/get_items.php'  ;

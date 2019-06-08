@@ -59,7 +59,7 @@
      </ion-item>
      
 <ion-item text-right no-lines >
-  <button ion-button clear type="submit" [disabled]="!f.valid " >Next</button>
+  <button ion-button clear type="submit" [disabled]="!f.valid || img == '' " >Next</button>
   <!-- the disabled will have a condition if the flag =(this.img!=''&& a certain flag set by true on image click==true) then
   -->
 </ion-item>
