@@ -15,6 +15,7 @@ import { game_Items } from '../../../Models/game_items';
 import { GamePreviewItemsPage } from './game-preview-items/game-preview-items';
 import { SearchPage } from '../../search/search';
 import { reviewdetail } from './popover';
+import { TabsPage } from '../../tabs/tabs';
 
 
 @IonicPage()
@@ -62,10 +63,10 @@ export class TourDetailPage implements OnInit {
       if(this.navParams.get('TourDisplay')==undefined ) {
        
         this.tour = this.navParams.data.item ;
-       console.log(this.Game) ;
+       console.log("a test to check it"+ JSON.stringify(this.tour)) ;
       } else{
         this.tour =this.navParams.get('TourDisplay') ;
-        console.log(JSON.stringify("testFromGames" +this.tour)) ;
+        console.log("testFromGames" +JSON.stringify(this.tour)) ;
       }
        console.log(JSON.stringify(this.tour))
            data = {
@@ -74,6 +75,10 @@ export class TourDetailPage implements OnInit {
          let url = this.authService.get_game_questions ;
          this.authService.SendData(data ,url).then(
            res=>{
+             console.log(res.error) ;
+             console.log(res.headers)
+             console.log(res.status)
+             console.log(res.url)
              console.log('data :'+ res.data) ;
           let dataFromServer = JSON.parse(res.data) ; 
          var questions : game_Items []=[] ;
@@ -285,6 +290,9 @@ export class TourDetailPage implements OnInit {
     });
     prompt.present();
    
+  }
+  Back(){
+    this.navCtrl.setRoot(TabsPage)
   }
   doInfinite(e): Promise<any> {
    var data ;

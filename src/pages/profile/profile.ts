@@ -68,6 +68,7 @@ followed_id = '' ;
     
     if(this.navParams.get('user_id')!= undefined) {
     this.user = this.navParams.get('user_id') ;
+    console.log('test profile'+ this.user) ;
     }
   this.authService.SendData({profile :'profile' , user_id :this.user , current_user : this.UserService.getUser().uid} ,url ).then(
     res=>{

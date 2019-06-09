@@ -2,7 +2,13 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>tour Details</ion-title>
+    <ion-buttons   end>
+      <button ion-button *ngIf="navParams.get('TourDisplay')!=undefined "  (click)="Back()">
+        Done
+      </button>
+    </ion-buttons>
   </ion-navbar>
+ 
 </ion-header>
 
 <ion-content padding>
